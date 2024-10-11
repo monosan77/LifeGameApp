@@ -13,6 +13,7 @@
   filter: drop-shadow(5px 5px 5px #00000071);
   z-index: 10;
 }
+/* チャットの開閉ボタン的なもの（仮） */
 /* .chat_container::after {
   content: 'チャット';
   font-size: 0.85rem;
