@@ -3,7 +3,7 @@ import Head from 'next/head';
 import styles from './toppage.module.css';
 import Video from '@/components/TopPage/video';
 import PageLinks from '@/components/TopPage/pageLink';
-import Title from '@/components/TopPage/title';
+import Title from '@/components/TopPage/Title';
 
 
 export default function Home() {
