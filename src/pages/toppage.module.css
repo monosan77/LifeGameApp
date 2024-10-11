@@ -1,13 +1,13 @@
 .topPage_contents {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden; 
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 .component {
-    position: absolute;
-    top: 20%;
-    left: 0;
-    right: 0;
-    z-index: 1; 
+  position: absolute;
+  top: 20%;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }

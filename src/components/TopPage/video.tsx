@@ -1,6 +1,5 @@
 import styles from './video.module.css';
 
-
 const Video = () => {
   return (
     <div className={styles.video}>

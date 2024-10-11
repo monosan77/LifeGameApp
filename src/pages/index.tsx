@@ -2,8 +2,9 @@
 import Head from 'next/head';
 import styles from './toppage.module.css';
 import Video from '@/components/TopPage/video';
-import Title from '@/components/TopPage/Title';
 import PageLinks from '@/components/TopPage/pageLink';
+import Title from '@/components/TopPage/title';
+
 
 export default function Home() {
   return (
