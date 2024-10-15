@@ -1,6 +1,6 @@
+import { RoomInfo } from '@/types/session';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Pusher from 'pusher';
-import { RoomInfo } from '../sample/game-page';
 
 const pusher = new Pusher({
   appId: process.env.NEXT_PUBLIC_PUSHER_APP_ID!,

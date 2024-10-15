@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { RoomInfo } from './game-page';
+// import { RoomInfo } from './game-page';
 import { useRouter } from 'next/router';
+import { RoomInfo } from '@/types/session';
 
 const SearchRoom = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ const SearchRoom = () => {
     try {
       setErrFlag(false);
       const res = await fetch(
-        `http://localhost:3000/api/session-room?roomId=${searchId}`
+        `http://localhost:3000/api/session/get-room-info?roomId=${searchId}`
       );
       if (!res.ok) {
         return;
@@ -30,7 +31,7 @@ const SearchRoom = () => {
 
   async function handleGameJoin() {
     // PATCHリクエストを送って部分的に更新する
-    const res = await fetch('http://localhost:3000/api/session-room', {
+    const res = await fetch('http://localhost:3000/api/session/join', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -41,7 +42,7 @@ const SearchRoom = () => {
       alert('すでに満室のルームです。');
       return;
     }
-    const playerId = await res.json();
+    const { playerId } = await res.json();
     const yourInfo = { id: playerId, name: playerName, host: false };
     sessionStorage.setItem('playerInfo', JSON.stringify(yourInfo));
     router.push(`http://localhost:3000/sample/game-page?roomId=${room?.id}`);

@@ -1,18 +1,10 @@
-import { sharePlayers } from '@/utils/sharePlayers';
+// import { Members, RoomInfo } from '@/types/session';
+import { Members, RoomInfo } from '@/types/session';
+import { sharePlayers } from '@/utils/fetch-functions';
 import { useRouter } from 'next/router';
 import Pusher from 'pusher-js';
 import { useEffect, useState } from 'react';
 
-export interface RoomInfo {
-  id: number;
-  limitPlayer: number;
-  member: Members[];
-}
-export interface Members {
-  id: string;
-  name: string;
-  host: boolean;
-}
 interface Props {
   roomInfo: RoomInfo;
 }
@@ -27,7 +19,7 @@ export async function getServerSideProps({ query }: { query: Query }) {
       throw new Error('ルームが存在しません。');
     }
     const res = await fetch(
-      `http://localhost:3000/api/session-room?roomId=${roomId}`
+      `http://localhost:3000/api/session/get-room-info?roomId=${roomId}`
     );
     if (!res.ok) {
       throw new Error('ルームが存在しません。');
@@ -42,8 +34,8 @@ export async function getServerSideProps({ query }: { query: Query }) {
     console.log(error);
     return {
       redirect: {
-        destination: '/sample/make-room', // リダイレクト先のパス
-        permanent: false, // permanent: true の場合、ステータスコード 308 でリダイレクト。false だと307。
+        destination: '/sample/make-room',
+        permanent: false,
       },
     };
   }
@@ -109,7 +101,7 @@ const GamePage = ({ roomInfo }: Props) => {
     const playerInfo = SessionStorage ? JSON.parse(SessionStorage) : null;
 
     const res = await fetch(
-      `http://localhost:3000/api/session-room?roomId=${roomInfo.id}`,
+      `http://localhost:3000/api/session/exit?roomId=${roomInfo.id}`,
       {
         method: 'DELETE',
         headers: {

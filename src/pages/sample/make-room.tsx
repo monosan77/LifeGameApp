@@ -11,7 +11,7 @@ const MakeRoom = () => {
       alert('名前を入力して');
       return;
     }
-    const res = await fetch('/api/session-room', {
+    const res = await fetch('http://localhost:3000/api/session/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
