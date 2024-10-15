@@ -15,7 +15,7 @@ const SearchRoom = () => {
     try {
       setErrFlag(false);
       const res = await fetch(
-        `http://localhost:3000/api/session/get-room-info?roomId=${searchId}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${searchId}`
       );
       if (!res.ok) {
         return;
@@ -31,13 +31,16 @@ const SearchRoom = () => {
 
   async function handleGameJoin() {
     // PATCHリクエストを送って部分的に更新する
-    const res = await fetch('http://localhost:3000/api/session/join', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ playerName, roomInfo: room }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/join`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ playerName, roomInfo: room }),
+      }
+    );
     if (!res.ok) {
       alert('すでに満室のルームです。');
       return;
@@ -45,7 +48,9 @@ const SearchRoom = () => {
     const { playerId } = await res.json();
     const yourInfo = { id: playerId, name: playerName, host: false };
     sessionStorage.setItem('playerInfo', JSON.stringify(yourInfo));
-    router.push(`http://localhost:3000/sample/game-page?roomId=${room?.id}`);
+    router.push(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/sample/game-page?roomId=${room?.id}`
+    );
   }
   return (
     <div>
