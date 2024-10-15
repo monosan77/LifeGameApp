@@ -1,5 +1,5 @@
 import React from 'react';
-import GameBoard from '../components/gameBoard'; // コンポーネントのパスを修正
+import GameBoard from '../components/gameBoard/gameBoard'; // コンポーネントのパスを修正
 
 const GameBoardPage = () => {
   return (
