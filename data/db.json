@@ -1,24 +1,25 @@
 {
   "room": [
     {
-      "id": "24ef",
-      "roomId": "610207",
-      "player": 2
-    },
-    {
-      "id": "b95f",
-      "roomId": "284853",
-      "player": 2
-    },
-    {
-      "id": "9c99",
-      "roomId": "623461",
-      "player": 2
-    },
-    {
-      "id": "b599",
-      "roomId": "687371",
-      "player": 2
+      "id": "242844",
+      "limitPlayer": 3,
+      "member": [
+        {
+          "id": "23faa203-b996-4baf-80ae-52f80a87a9b1",
+          "name": "よしき",
+          "host": true
+        },
+        {
+          "id": "8ce03803-93da-4b81-8e43-c5beb98efa7b",
+          "name": "はは",
+          "host": false
+        },
+        {
+          "id": "0edb6caa-ba30-4086-ab47-d2c9e22d025a",
+          "name": "ちち",
+          "host": false
+        }
+      ]
     }
   ]
 }
