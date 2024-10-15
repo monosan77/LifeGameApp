@@ -30,21 +30,26 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     if (playerInfo.host) {
-      const response = await fetch(`http://localhost:8000/room/${roomId}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `${process.env.API_BACK_URL}/room/${roomId}`,
+        {
+          method: 'DELETE',
+        }
+      );
       if (!response.ok) {
         throw new Error(`HTTP Error! status:${response.status}`);
       }
       return res.status(200).json({ message: 'ルームを削除しました。' });
     }
 
-    const roomInfo = await fetchJSON(`http://localhost:8000/room/${roomId}`);
+    const roomInfo = await fetchJSON(
+      `${process.env.API_BACK_URL}/room/${roomId}`
+    );
     const newMember = roomInfo.member.filter(
       (player: Members) => player.id !== playerInfo.id
     );
     const deletMember = await fetch(
-      `http://localhost:8000/room/${roomInfo.id}`,
+      `${process.env.API_BACK_URL}/room/${roomInfo.id}`,
       {
         method: 'PATCH',
         headers: {

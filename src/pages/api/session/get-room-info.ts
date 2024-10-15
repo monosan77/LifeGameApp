@@ -24,7 +24,7 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   }
   try {
     const roomInfo: RoomInfo = await fetchJSON(
-      `http://localhost:8000/room/${roomId}`
+      `${process.env.API_BACK_URL}/room/${roomId}`
     );
     if (!roomInfo) {
       return res.status(404).json({ message: 'ルームが存在ありません' });

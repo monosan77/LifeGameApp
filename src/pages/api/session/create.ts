@@ -33,7 +33,9 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   const roomId = generateRandomNumber().toString();
 
   try {
-    const getRoomId = await fetch(`http://localhost:8000/room?id=${roomId}`);
+    const getRoomId = await fetch(
+      `${process.env.API_BACK_URL}/room?id=${roomId}`
+    );
     const data: RoomInfo[] = await getRoomId.json();
     if (data.length > 0) {
       throw new Error(`HTTP Error! status:${getRoomId.status}`);
@@ -42,7 +44,7 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
     // ルームを作成したプレイヤーがルームホストになる
     const members = [{ id: yourId, name: playerName, host: true }];
 
-    const postRoomId = await fetch('http://localhost:8000/room', {
+    const postRoomId = await fetch(`${process.env.API_BACK_URL}/room`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

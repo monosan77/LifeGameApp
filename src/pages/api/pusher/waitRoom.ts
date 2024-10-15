@@ -17,7 +17,9 @@ export default async function handler(
     const { roomId } = req.query;
 
     try {
-      const response = await fetch(`http://localhost:8000/room/${roomId}`);
+      const response = await fetch(
+        `${process.env.API_BACK_URL}/room/${roomId}`
+      );
       if (response.status === 404) {
         const roomInfo = null;
         await pusher.trigger(`${roomId}`, 'joinRoom', roomInfo);

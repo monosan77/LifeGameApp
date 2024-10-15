@@ -30,7 +30,7 @@ async function handlePatchRequest(req: NextApiRequest, res: NextApiResponse) {
     }
 
     const CheckPlayer: RoomInfo = await fetchJSON(
-      `http://localhost:8000/room/${roomInfo.id}`
+      `${process.env.API_BACK_URL}/room/${roomInfo.id}`
     );
     if (CheckPlayer.limitPlayer <= CheckPlayer.member.length) {
       return res.status(400).json({ message: 'すでに満室です' });
@@ -40,13 +40,16 @@ async function handlePatchRequest(req: NextApiRequest, res: NextApiResponse) {
       ...CheckPlayer.member,
       { id: playerId, name: playerName, host: false },
     ];
-    const response = await fetch(`http://localhost:8000/room/${roomInfo.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ member: newMember }), // 部分的に更新
-    });
+    const response = await fetch(
+      `${process.env.API_BACK_URL}/room/${roomInfo.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ member: newMember }), // 部分的に更新
+      }
+    );
     if (!response.ok) {
       return res.status(500).json({ message: 'server Error' });
     }
