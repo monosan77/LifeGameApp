@@ -1,0 +1,292 @@
+.all{
+  background-image: url('../../public/background_casino.jpg');
+  width: 100vw;
+  height: 100vh;
+}
+
+.term{
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* 幅を全体に揃える */
+  max-width: 1300px; /* 最大幅を設定 */
+  margin: 0 auto; /* 中央寄せ */
+  background-color: rgba(249, 221, 187, 90%);
+  position: relative;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+/* ボード自体のCSS */
+.board {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1300px;
+  height: 70%;
+  max-height: 1200px;
+  margin: 0 auto;
+  padding: 50px;
+  position: relative;
+  border-radius: 5px;
+  z-index: 1; /* 背景画像の上に他のコンテンツを配置するための設定 */
+}
+
+/* ボードの背景画像の設定 */
+.board::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(249, 221, 187, 70%);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.8; /* 透明度60%に設定 */
+  z-index: -1; /* 背景として表示するため、後ろに配置 */
+  border-radius: 5px; /* 親要素と同じ角丸を適用 */
+}
+
+
+.road1 {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 100px); /* 幅を全体に揃える */
+  max-width: 1200px; /* 最大幅を設定 */
+  margin: 0 auto; /* 中央寄せ */
+  background-color: rgb(190, 190, 190);
+  height:20px;
+  position:absolute;
+  top: 70px;
+}
+
+.road2 {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 100px); /* 幅を全体に揃える */
+  max-width: 1200px; /* 最大幅を設定 */
+  margin: 0 auto; /* 中央寄せ */
+  background-color: rgb(190, 190, 190);
+  height:20px;
+  position:absolute;
+  top: 150px;
+}
+
+.road3 {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 100px); /* 幅を全体に揃える */
+  max-width: 1200px; /* 最大幅を設定 */
+  margin: 0 auto; /* 中央寄せ */
+  background-color: rgb(190, 190, 190);
+  height:20px;
+  position:absolute;
+  top: 230px;
+}
+
+.road4 {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 100px); /* 幅を全体に揃える */
+  max-width: 1200px; /* 最大幅を設定 */
+  margin: 0 auto; /* 中央寄せ */
+  background-color: rgb(190, 190, 190);
+  height:20px;
+  position:absolute;
+  top: 310px;
+}
+
+.road5 {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 100px); /* 幅を全体に揃える */
+  max-width: 1200px; /* 最大幅を設定 */
+  margin: 0 auto; /* 中央寄せ */
+  background-color: rgb(190, 190, 190);
+  height:20px;
+  position:absolute;
+  top: 390px;
+}
+
+.road6 {
+  display: flex;
+  flex-direction: column;
+  width: calc(40% ); /* 幅を全体に揃える */
+  max-width: 1200px; /* 最大幅を設定 */
+  left: 50%;
+  background-color: rgb(190, 190, 190);
+  height:20px;
+  position:absolute;
+  top: 470px;
+}
+
+.row1 {
+  display: flex;
+  justify-content: space-between; /* マスを等間隔で配置 */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.row2 {
+  display: flex;
+  justify-content: space-between; /* マスを等間隔で配置 */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.row3 {
+  display: flex;
+  justify-content: space-between; /* マスを等間隔で配置 */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.row4 {
+  display: flex;
+  justify-content: space-between; /* マスを等間隔で配置 */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.row5 {
+  display: flex;
+  justify-content: space-between; /* マスを等間隔で配置 */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.row6 {
+  display: flex;
+  justify-content: space-between; /* マスを等間隔で配置 */
+  width: 50%;
+  margin-left: auto;
+}
+
+.space {
+  width: 60px; /* 固定幅に揃える */
+  height: 60px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: white;
+  position: relative;
+  border-radius: 5px;
+}
+
+.verticalBox1 {
+  width: 20px;           
+  height: 20px;         
+  background-color: rgb(190, 190, 190);
+  position: absolute;    
+  top: 101%;             
+  left: 50%;             
+  transform: translateX(-50%);
+  /* z-index: -1;           */
+}
+
+.verticalBox2 {
+  width: 20px;           
+  height: 20px;         
+  background-color: rgb(190, 190, 190);
+  position: absolute;    
+  bottom: 101%;             
+  left: 50%;             
+  transform: translateX(-50%);
+  /* z-index: -1;           */
+}
+
+.space:last-child {
+  margin-right: 0;
+}
+
+
+.start {
+  background-color: yellow;
+  width: 160px;
+  color:black;
+}
+
+.goal {
+  background-color: yellow;
+  width: 160px;
+  color:black
+}
+
+.plus {
+  background-color: blue;
+}
+
+.minus {
+  background-color: red;
+}
+
+.secret {
+  background-color: black;
+  width: 160px;
+}
+
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%; /* 幅を全体に揃える */
+  max-width: 1300px; /* 最大幅を設定 */
+  position: relative;
+  top: 20px;
+}
+
+.chat, .dice {
+  width: 30vh;
+  height: 20vh;
+  font-size: 50px;
+  background-color: rgba(249, 221, 187, 90%);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.chat:hover, .dice:hover {
+  background-color: rgba(249, 221, 187, 100%); /* ホバー時に背景色を変更 */
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.7); /* ホバー時に影を強調 */
+  transform: scale(1.05); /* 要素を少し大きくする */
+}
+
+.usersTable {
+  display: flex; /* 横並びに配置 */
+  width: 90vh;
+  height: 20vh;
+  background-color: rgba(249, 221, 187, 80%);
+  border: none;
+  margin: 0 10px;
+  padding: 0 10px; /* 左右に10pxの余白を追加 */
+  align-items: center;
+  justify-content: space-between; /* ボックスを等間隔で配置 */
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.userBox {
+  width: 15vh; /* サイズを調整 */
+  height: 17vh;
+  background-color: rgba(249, 221, 187, 90%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
