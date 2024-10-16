@@ -1,7 +1,8 @@
 ## コード規約
 [コード規約のリンク](./.github/coding-guidelines.md)
 
-
+## 共有スプレットシート
+[Nuntendoスプレットシート](https://docs.google.com/spreadsheets/d/1MaG4AyrLpPu41ok96DngPPbsPsS5Sxtgt5TeRKKLPOg/edit?gid=0#gid=0)
 
 
 
