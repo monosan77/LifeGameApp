@@ -2,7 +2,7 @@
 import Head from 'next/head';
 import styles from './toppage.module.css';
 import Video from '@/components/TopPage/video';
-import PageLinks from '@/components/TopPage/pageLink';
+import RoomButton from '@/components/TopPage/roomButton';
 import Title from '@/components/TopPage/title';
 
 
@@ -17,7 +17,7 @@ export default function Home() {
         <Video />
         <div className={styles.component}>
           <Title />
-          <PageLinks />
+          <RoomButton />
         </div>
       </div>
     </>
