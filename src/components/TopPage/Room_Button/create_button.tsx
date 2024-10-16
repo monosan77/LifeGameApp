@@ -1,8 +1,7 @@
-// src/components/TopPage/PageLinks.tsx
 import Link from 'next/link';
 import { Yuji_Syuku } from 'next/font/google';
 import { useState} from 'react';
-import styles from './createButton.module.css';
+import styles from './create_button.module.css';
 
 const yuji_Syuku = Yuji_Syuku({
   subsets: ['latin'],

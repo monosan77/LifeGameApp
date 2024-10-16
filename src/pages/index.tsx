@@ -2,9 +2,8 @@
 import Head from 'next/head';
 import styles from './toppage.module.css';
 import Video from '@/components/TopPage/video';
-import RoomButton from '@/components/TopPage/roomButton';
+import RoomButton from '@/components/TopPage/Room_Button/room_button';
 import Title from '@/components/TopPage/title';
-
 
 export default function Home() {
   return (

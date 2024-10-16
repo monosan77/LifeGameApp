@@ -1,9 +1,9 @@
 // src/components/TopPage/PageLinks.tsx
 
 import { useState, useEffect } from 'react';
-import styles from './roomButton.module.css';
-import CreateButton from './createButton';
-import SearchButton from './searchbutton';
+import styles from './room_button.module.css';
+import CreateButton from './create_button';
+import SearchButton from './search_button';
 
 export default function RoomButton() {
   const [showLinks, setShowLinks] = useState(false);
