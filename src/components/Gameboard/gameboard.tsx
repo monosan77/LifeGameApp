@@ -1,7 +1,7 @@
-import styles from '../../styles/gameBoard.module.css';
+import styles from './gameboard.module.css';
 import React, { useState } from 'react';
 
-export default function GameBoard() {
+export default function Gameboard() {
   const [playerPositions, setPlayerPositions] = useState([0, 0, 0]); // 3人のプレイヤーの位置を管理（初期値は全員0）
   const [currentPlayer, setCurrentPlayer] = useState(0); // 現在のプレイヤーを追跡
   const [diceResult, setDiceResult] = useState(null); // ダイスの結果を管理

@@ -1,5 +1,5 @@
 .all{
-  background-image: url('../../public/background_casino.jpg');
+  background-image: url('../../../public/background_casino.jpg');
   width: 100vw;
   height: 100vh;
 }
@@ -356,4 +356,3 @@
     align-items: center;
   }
 }
-
