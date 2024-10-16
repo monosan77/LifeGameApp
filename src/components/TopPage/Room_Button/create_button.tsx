@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import { Yuji_Syuku } from 'next/font/google';
 import { useState} from 'react';
 import styles from './create_button.module.css';
+import CreatePopup from './Create_Popup_Button/create_popup';
 
 const yuji_Syuku = Yuji_Syuku({
   subsets: ['latin'],
@@ -32,23 +32,9 @@ export default function CreateButton() {
 
   return (
     <>
-      <div className={createPop ? styles.visibl : styles.hidde}>
-        <div className={createPop ? styles.createPop : styles.createNoPop}>
-          <div className={styles.friendPop}>
-            <div className={styles.close}>
-              <button onClick={closeChanger}>X</button>
-            </div>
-            <p>何人と遊ぶ？</p>
-            <div className={styles.number}>
-              <button>2人</button>
-              <button>3人</button>
-              <button>4人</button>
-              <button>5人</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Link href="#" onClick={createChanger}>
+    <CreatePopup closeChanger={closeChanger} createPop={createPop} />
+      <div className={styles.createRoom}>
+      <button onClick={createChanger}>
         <div className={styles.linkContent}>
           <p className={yuji_Syuku.className}>
             ルームを
@@ -56,7 +42,9 @@ export default function CreateButton() {
             つくる
           </p>
         </div>
-      </Link>
+      </button>
+      </div>
+      
     </>
     
   );
