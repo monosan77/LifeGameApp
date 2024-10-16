@@ -1,7 +1,7 @@
 // src/components/TopPage/PageLinks.tsx
 import Link from 'next/link';
 import { useState } from 'react';
-import styles from'./searchButton.module.css';
+import styles from'./search_button.module.css';
 import { Yuji_Syuku } from 'next/font/google';
 
 const yuji_Syuku1 = Yuji_Syuku({
