@@ -9,13 +9,16 @@
     "lint": "next lint",
     "test": "jest",
     "lint:fix": "next lint --fix",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{ts,tsx,json}'"
+    "format": "prettier --write --ignore-path .gitignore './**/*.{ts,tsx,json}'",
+    "json": "json-server --watch data/db.json --port 8000"
   },
   "dependencies": {
     "next": "14.2.14",
+    "pusher": "^5.2.0",
     "pusher-js": "^8.4.0-rc2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -24,11 +27,13 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^10.0.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.14",
     "eslint-config-prettier": "^9.1.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "json-server": "^1.0.0-beta.3",
     "prettier": "3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5"
