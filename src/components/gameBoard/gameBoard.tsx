@@ -52,15 +52,13 @@ const moveToNextPlayer = () => {
   }
 
   // 次のプレイヤーにターンを移す
-  setCurrentPlayer((prevPlayer) => (prevPlayer + 1) % playerPositions.length);
+  setCurrentPlayer(nextPlayer);
   };
 
   return (
     <main className={styles.all}>
       <section className={styles.term}>
-      {playersFinished.includes(currentPlayer)
-          ? `プレイヤー${currentPlayer + 1}はゴールしました！`
-          : `プレイヤー${currentPlayer + 1}のターン`}
+           {`プレイヤー${currentPlayer + 1}のターン`}
       </section>
       
       <section className={styles.board}>
@@ -443,7 +441,7 @@ const moveToNextPlayer = () => {
         {diceResult && <div className={styles.diceResult}>Dice: {diceResult}</div>}
       </section>
 
-      {/* 一旦保留：ゴールしたプレイヤーを表示
+      {/* 一旦保留：ゴールしたプレイヤーを表示 */}
       {playersFinished.length > 0 && (
         <section className={styles.results}>
           <h2>ゴールしたプレイヤー</h2>
@@ -453,7 +451,7 @@ const moveToNextPlayer = () => {
             ))}
           </ul>
         </section>
-      )} */}
+      )}
     </main>
   );
 }
