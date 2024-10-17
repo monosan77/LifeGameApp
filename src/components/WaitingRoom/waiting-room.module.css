@@ -89,7 +89,6 @@
 
 /* ゲーム開始ボタン */
 .startButton {
-  justify-content: center;
   font-size: 30px;
   padding: 10px 20px;
   background-color: #d8185f;
