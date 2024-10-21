@@ -5,7 +5,6 @@ import RoomButton from '@/components/TopPage/Room_Button/room-button';
 import Title from '@/components/TopPage/title';
 import { useState, useEffect } from 'react';
 
-
 export default function Home() {
   const [createName, setCreateName] = useState(false);
   const [conformName, setConformName] = useState(false);
@@ -37,8 +36,8 @@ export default function Home() {
     }
   }
 
-  function returnHandler(){
-    if(conformName){
+  function returnHandler() {
+    if (conformName) {
       const timer1 = setTimeout(() => {
         setConformName(false);
         const timer2 = setTimeout(() => {
@@ -87,7 +86,9 @@ export default function Home() {
           <div className={styles.userNames}>
             <p>&quot; {name} &quot;さんでいいですね？</p>
             <div className={styles.decideBtn}>
-              <button className={styles.returnBtn} onClick={returnHandler}>戻る</button>
+              <button className={styles.returnBtn} onClick={returnHandler}>
+                戻る
+              </button>
               <button className={styles.OkBtn} onClick={closeHandler}>
                 確定
               </button>

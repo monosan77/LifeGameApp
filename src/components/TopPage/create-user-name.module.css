@@ -1,4 +1,4 @@
-.userName{
+.userName {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -10,7 +10,7 @@
   text-align: center;
 }
 
-.userName p{
+.userName p {
   font-size: 2rem;
   margin-bottom: 100px;
   color: rgb(255, 255, 255);
@@ -19,73 +19,70 @@
   padding-top: 40px;
 }
 
-.userInput{
+.userInput {
   text-align: center;
 }
 
-
-.userName input{
+.userName input {
   width: 400px;
   height: 50px;
   margin-right: 50px;
   font-size: 1.3rem;
 }
 
-.userInput input::before{
-  content: "  ";
+.userInput input::before {
+  content: '  ';
 }
-.userName button{
+.userName button {
   background-color: none;
   background-color: rgb(12, 163, 12);
   width: 100px;
   height: 50px;
-  font-size:1.3rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: white;
   border-color: white;
 }
 
-
 /* ポップアップ */
 
-.userNamePage{
+.userNamePage {
   visibility: visible;
   opacity: 1;
   transition: opacity 1s ease;
   position: fixed;
-  top:0;
-  bottom:0;
+  top: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); 
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-.notUserNamePage{
+.notUserNamePage {
   visibility: hidden;
 }
 
 /* ポップアップ */
 
-.conformName{
-  visibility:visible;
+.conformName {
+  visibility: visible;
   opacity: 1;
   transform: opacity 1s ease;
   position: fixed;
-  top:0;
+  top: 0;
   bottom: 0;
-  width:100%;
+  width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.notConformName{
+.notConformName {
   visibility: hidden;
 }
 
-
 /* ポップアップの表示するCSS */
 
-.userNames{
+.userNames {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -97,7 +94,7 @@
   text-align: center;
 }
 
-.userNames p{
+.userNames p {
   font-size: 2rem;
   margin-bottom: 80px;
   color: rgb(255, 255, 255);
@@ -106,12 +103,12 @@
   padding-top: 60px;
 }
 
-.userNames button{
+.userNames button {
   background-color: none;
   background-color: rgb(12, 163, 12);
   width: 150px;
   height: 70px;
-  font-size:1.5rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: white;
   border-color: white;

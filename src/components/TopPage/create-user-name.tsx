@@ -3,8 +3,8 @@ import styles from './create-user-name.module.css';
 
 export default function CreateUserName() {
   const [createName, setCreateName] = useState(true);
-  const [conformName, setConformName ] = useState(false);
-  const [name, setName ] = useState('');
+  const [conformName, setConformName] = useState(false);
+  const [name, setName] = useState('');
 
   function nameClickHandler() {
     if (createName) {
@@ -13,27 +13,31 @@ export default function CreateUserName() {
         const timer2 = setTimeout(() => {
           setConformName(true);
         }, 600);
-        return () => clearTimeout(timer2); 
+        return () => clearTimeout(timer2);
       }, 600);
-      return () => clearTimeout(timer1); 
+      return () => clearTimeout(timer1);
     }
   }
 
-  function closeHandler(){
-    if(conformName){
+  function closeHandler() {
+    if (conformName) {
       setConformName(false);
     }
   }
   return (
     <>
-    <div className={conformName ? styles.conformName : styles.notConformName}>
-    <div className={styles.userNames}>
-      <p>{name}さんでいいですね？</p>
-      <button id='button' onClick={closeHandler}>確定</button>
-    </div>
-    </div>
+      <div className={conformName ? styles.conformName : styles.notConformName}>
+        <div className={styles.userNames}>
+          <p>{name}さんでいいですね？</p>
+          <button id="button" onClick={closeHandler}>
+            確定
+          </button>
+        </div>
+      </div>
 
-      <div className={createName ? styles.userNamePage : styles.notUserNamePage}>
+      <div
+        className={createName ? styles.userNamePage : styles.notUserNamePage}
+      >
         <div className={styles.userName}>
           <p>名前を決めよう！</p>
           <div className={styles.userInput}>

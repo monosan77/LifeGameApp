@@ -32,11 +32,11 @@ export default function SearchButton() {
 
       <div className={styles.searchRoom}>
         <button onClick={findChanger} className={styles.linkContent}>
-            <p className={yuji_Syuku1.className}>
-              ルームを
-              <br />
-              さがす
-            </p>
+          <p className={yuji_Syuku1.className}>
+            ルームを
+            <br />
+            さがす
+          </p>
         </button>
       </div>
     </>
