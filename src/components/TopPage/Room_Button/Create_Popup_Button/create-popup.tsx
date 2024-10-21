@@ -1,4 +1,4 @@
-import styles from './create_popup.module.css';
+import styles from './create-popup.module.css';
 
 interface Props {
   closeChanger: () => void;
@@ -7,7 +7,6 @@ interface Props {
 
 export default function CreatePopup({ closeChanger, createPop }: Props) {
   return (
-    <>
       <div className={createPop ? styles.visibl : styles.hidde}>
         <div className={createPop ? styles.createPop : styles.createNoPop}>
           <div className={styles.friendPop}>
@@ -24,6 +23,5 @@ export default function CreatePopup({ closeChanger, createPop }: Props) {
           </div>
         </div>
       </div>
-    </>
   );
 }

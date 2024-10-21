@@ -1,5 +1,5 @@
 // src/components/TopPage/PageLinks.tsx
-import styles from './search_popup.module.css';
+import styles from './search-popup.module.css';
 
 interface Props {
   closeChanger: () => void;
@@ -9,7 +9,6 @@ interface Props {
 export default function SearchPopup({ closeChanger, findPop }: Props) {
 
   return (
-    <>
       <div className={findPop ? styles.visibles : styles.hiddens}>
         <div className={findPop ? styles.findPop : styles.findNoPop}>
           <div className={styles.searchPop}>
@@ -27,6 +26,5 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
           </div>
         </div>
       </div>
-    </>
   );
 }

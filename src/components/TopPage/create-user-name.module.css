@@ -1,21 +1,3 @@
-.topPage_contents {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-.component {
-  position: absolute;
-  top: 20%;
-  left: 0;
-  right: 0;
-  z-index: 1;
-}
-
-
-
-/* -------------------------------------------------- */
-
 .userName{
   position: absolute;
   top: 50%;
@@ -65,43 +47,39 @@
 
 
 /* ポップアップ */
-.userNamePage {
+
+.userNamePage{
   visibility: visible;
   opacity: 1;
   transition: opacity 1s ease;
   position: fixed;
-  top: 0;
-  bottom: 0;
+  top:0;
+  bottom:0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.7); 
 }
 
-.notUserNamePage {
+.notUserNamePage{
   visibility: hidden;
-  opacity: 0; 
-  transition: opacity 1s ease;
 }
 
 /* ポップアップ */
-.conformName {
-  visibility: visible;
+
+.conformName{
+  visibility:visible;
   opacity: 1;
-  transition: opacity 1s ease;
+  transform: opacity 1s ease;
   position: fixed;
-  top: 0;
+  top:0;
   bottom: 0;
-  width: 100%;
+  width:100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 2;
 }
 
-.notConformName {
+.notConformName{
   visibility: hidden;
-  opacity: 0; 
-  transition: opacity 1s ease;
 }
 
 
@@ -130,24 +108,11 @@
 
 .userNames button{
   background-color: none;
+  background-color: rgb(12, 163, 12);
   width: 150px;
   height: 70px;
   font-size:1.5rem;
   font-weight: 700;
   color: white;
   border-color: white;
-  cursor: pointer;
-}
-
-.returnBtn{
-  background-color: rgb(12, 163, 12);
-}
-.OkBtn{
-  background-color: red;
-}
-
-.decideBtn{
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
 }
