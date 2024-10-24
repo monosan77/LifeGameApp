@@ -4,15 +4,12 @@ import styles from './waiting-room.module.css';
 export default function WaitingRoom() {
   // 動的なプレイヤーリストの管理
   const [players, setPlayers] = useState([
-    { id: 1, name: 'ルフィ', status: '　　　（船長）', },
+    { id: 1, name: 'ルフィ', status: '（船長）', },
     { id: 2, name: 'ウソップ', status: '' },
     { id: 3, name: 'サンジ', status: '' },
     { id: 4, name: 'バギー', status: '' },
     { id: 5, name: 'ロビン', status: '' }
   ]);
-
-  // 参加人数の表示
-  const playerCount = players.length;
 
   return (
     <div className={styles.all}>
@@ -25,7 +22,7 @@ export default function WaitingRoom() {
       </div>
 
       {/* 参加人数の表示 */}
-      <div className={styles.playerCount}>現在の参加人数: {playerCount}人</div>
+      <div className={styles.playerCount}>現在の参加人数: {players.length}人</div>
 
       {/* プレイヤーのリスト */}
       <ul className={styles.playerList}>
