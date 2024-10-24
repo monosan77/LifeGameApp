@@ -25,6 +25,7 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
     const roomInfo: RoomInfo = await fetchJSON(
       `${process.env.API_BACK_URL}/room/${roomId}`
+
       // `http://localhost:8000/room/${roomId}`
     );
     if (!roomInfo) {

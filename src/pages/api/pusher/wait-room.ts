@@ -28,7 +28,7 @@ export default async function handler(
 
       const send = await pusher.trigger(`${roomId}`, 'joinRoom', roomInfo);
       if (!send.ok) {
-        res.status(502).json({ message: '同期できませんでした' });
+        res.status(500).json({ message: '同期できませんでした' });
       }
       res.status(200).json({ message: 'ok' });
     } catch (error) {
