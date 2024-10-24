@@ -1,10 +1,47 @@
 import React from 'react';
-import WaitingRoom from '../components/WaitingRoom/waiting-room'; // コンポーネントのパスを修正
+import WaitingRoom from '../components/WaitingRoom/waiting-room';
+import { Members, RoomInfo } from '@/types/session';
 
-const WaitingRoomPage = () => {
+interface WaitingRoomPageProps{
+  players:Members[];
+  roomId:number;
+}
+
+export async function getServerSideProps() {
+  try {
+    const response = await fetch(
+      'http://localhost:3000/api/session/get-room-info?roomId=100001'
+    );
+
+    if (!response.ok) {
+      throw new Error('ネットワークエラーが発生しました。');
+    }
+
+    const data:RoomInfo = await response.json();
+
+    console.log('APIから取得したデータ:', data);
+
+    return {
+      props: {
+        players: data.member,
+        roomId: data.id,
+      },
+    };
+  } catch (error) {
+    console.error('データ取得エラー:', error);
+    return {
+      props: {
+        players: [],
+        roomId: '',
+      },
+    };
+  }
+}
+
+const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({players, roomId}) => {
   return (
     <div>
-      <WaitingRoom />
+      <WaitingRoom players={players} roomId={roomId}/>
     </div>
   );
 };

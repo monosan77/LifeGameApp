@@ -66,7 +66,7 @@
 
 /* プレイヤー名のテキストボックス風スタイル */
 .playerName {
-  width: 50%; /* .containerの半分の幅 */
+  width: 75%;
   max-width: 500px; 
   height: 50px; /* 文字が入るくらいの高さ */
   padding: 5px 10px;

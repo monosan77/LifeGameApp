@@ -1,3 +1,34 @@
 {
-  "room": []
+  "room": [
+    {
+      "id": 100001,
+      "limitPlayer": 5,
+      "member":[
+      {
+       "id":"001",
+       "name":"チョッパー",
+       "host":true
+      },
+      {
+        "id":"002",
+        "name":"サンジ",
+        "host":false
+       },
+       {
+        "id":"003",
+        "name":"バギー",
+        "host":false
+       },
+       {
+        "id":"004",
+        "name":"ウソップ",
+        "host":false
+       },
+       {
+        "id":"005",
+        "name":"箱入り息子",
+        "host":false
+       }
+  ]}
+  ]
 }
