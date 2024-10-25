@@ -9,140 +9,53 @@
   top: 20%;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 0;
 }
 
-/* -------------------------------------------------- */
-
-.userName {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1000px;
-  background-color: rgba(254, 213, 117, 0.862);
-  padding: 10px 20px 100px;
-  border-radius: 3%;
-  text-align: center;
-}
-
-.userName p {
-  font-size: 2rem;
-  margin-bottom: 100px;
-  color: rgb(255, 255, 255);
-  font-weight: 1000;
-  text-align: center;
-  padding-top: 40px;
-}
-
-.userInput {
-  text-align: center;
-}
-
-.userName input {
-  width: 400px;
-  height: 50px;
-  margin-right: 50px;
-  font-size: 1.3rem;
-}
-
-.userInput input::before {
-  content: '  ';
-}
-.userName button {
-  background-color: none;
-  background-color: rgb(12, 163, 12);
-  width: 100px;
-  height: 50px;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: white;
-  border-color: white;
-}
-
-/* ポップアップ */
-.userNamePage {
+.button {
   visibility: visible;
-  opacity: 1;
-  transition: opacity 1s ease;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 2;
 }
 
-.notUserNamePage {
+.notButton {
   visibility: hidden;
+}
+
+.pageLink {
   opacity: 0;
-  transition: opacity 1s ease;
-}
-
-/* ポップアップ */
-.conformName {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 1s ease;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 2;
-}
-
-.notConformName {
   visibility: hidden;
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-/* ポップアップの表示するCSS */
-
-.userNames {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1000px;
-  background-color: rgba(254, 213, 117, 0.862);
-  padding: 10px 20px 100px;
-  border-radius: 3%;
-  text-align: center;
-}
-
-.userNames p {
-  font-size: 2rem;
-  margin-bottom: 80px;
-  color: rgb(255, 255, 255);
-  font-weight: 1000;
-  text-align: center;
-  padding-top: 60px;
-}
-
-.userNames button {
-  background-color: none;
-  width: 150px;
-  height: 70px;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: white;
-  border-color: white;
-  cursor: pointer;
-}
-
-.returnBtn {
-  background-color: rgb(12, 163, 12);
-}
-.OkBtn {
-  background-color: red;
-}
-
-.decideBtn {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-around;
+  transition:
+    opacity 1s ease,
+    visibility 0s 1s;
+}
+
+.pageLink.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s ease;
+  display: flex;
+}
+
+.pageLink .hidden {
+  visibility: hidden;
+}
+
+.displayName {
+  visibility: visible;
+  animation-name: animation;
+  animation-duration: 3s;
+}
+
+.notDisplayName {
+  visibility: hidden;
+}
+
+@keyframes animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

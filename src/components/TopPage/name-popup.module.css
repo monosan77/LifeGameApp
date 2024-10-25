@@ -1,0 +1,113 @@
+.userNamePage {
+  visibility: visible;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+  animation: fadeIn 1s ease 2s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  1% {
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.notUserNamePage {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.userNames p {
+  font-size: 2rem;
+  margin-bottom: 100px;
+  color: rgb(255, 255, 255);
+  font-weight: 1000;
+  text-align: center;
+  padding-top: 40px;
+}
+
+.userNames input {
+  width: 500px;
+  height: 50px;
+  margin-right: 50px;
+  font-size: 1.3rem;
+  padding-left: 10px;
+}
+
+.userInput button {
+  background-color: none;
+  width: 100px;
+  height: 50px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  border-color: white;
+  background-color: rgb(12, 163, 12);
+  border-radius: 10px;
+}
+
+.userInput {
+  text-align: center;
+}
+
+.userInput input::before {
+  content: '  ';
+}
+
+.userNames {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  background-color: rgba(254, 213, 117, 0.862);
+  padding: 10px 20px 100px;
+  border-radius: 3%;
+  text-align: center;
+}
+
+.userNames p {
+  font-size: 2rem;
+  margin-bottom: 80px;
+  color: rgb(255, 255, 255);
+  font-weight: 1000;
+  text-align: center;
+  padding-top: 60px;
+}
+
+.userNames button {
+  width: 150px;
+  height: 70px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  border-color: white;
+  cursor: pointer;
+}
+
+.decideBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.returnBtn {
+  background-color: rgb(12, 163, 12);
+  border-radius: 10px;
+}
+.OkBtn {
+  background-color: red;
+  border-radius: 10px;
+}
