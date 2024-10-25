@@ -8,7 +8,7 @@
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  /* margin: 0 150px; */
+  animation: fadeIn 1s ease 2s forwards;
 }
 
 .linkContent:hover {
@@ -18,4 +18,17 @@
 .searchRoom button {
   border: none;
   margin: 0 150px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  1% {
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+  }
 }

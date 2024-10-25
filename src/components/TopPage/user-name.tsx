@@ -1,9 +1,9 @@
 import styles from './user-name.module.css';
 
 interface UserNameProps {
-  name: string;
+  playerName: string;
 }
 
-export default function UserName({ name }: UserNameProps) {
-  return <p className={styles.userName}>{`${name}さん、ようこそ！`}</p>;
+export default function UserName({ playerName}: UserNameProps) {
+  return <p className={styles.userName}>{`${playerName}さん、ようこそ！`}</p>;
 }

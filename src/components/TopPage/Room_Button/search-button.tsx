@@ -14,10 +14,7 @@ export default function SearchButton() {
 
   function findChanger() {
     if (findPop === false) {
-      const timer = setTimeout(() => {
         setFindPop(true);
-      }, 600);
-      return () => clearTimeout(timer);
     }
   }
   function closeChanger() {

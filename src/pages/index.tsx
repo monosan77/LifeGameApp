@@ -3,19 +3,14 @@ import styles from './toppage.module.css';
 import Video from '@/components/TopPage/video';
 import RoomButton from '@/components/TopPage/Room_Button/room-button';
 import Title from '@/components/TopPage/title';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import NamePopup from '@/components/TopPage/name-popup';
 import UserName from '@/components/TopPage/user-name';
 
 export default function Home() {
-  const [createName, setCreateName] = useState(false);
-  const [name, setName] = useState('');
+  const [playerName, setPlayerName] = useState('');
   const [showLinks, setShowLinks] = useState(false);
   const [userName, setUsername] = useState(false);
-
-  useEffect(() => {
-    setCreateName(true);
-  }, []);
 
   return (
     <>
@@ -28,9 +23,9 @@ export default function Home() {
         <div className={styles.component}>
           <Title />
           <div
-            className={userName ? styles.displayName : styles.notDisplayName}
+            className={playerName .length > 0 ? styles.displayName : styles.notDisplayName}
           >
-            <UserName name={name} />
+            <UserName playerName={playerName} />
           </div>
           <div
             className={`${styles.pageLink} ${showLinks ? styles.visible : styles.hidden}`}
@@ -39,10 +34,8 @@ export default function Home() {
           </div>
         </div>
         <NamePopup
-          createName={createName}
-          name={name}
-          setName={setName}
-          setCreateName={setCreateName}
+          playerName={playerName}
+          setPlayerName={setPlayerName}
           showLinks={showLinks}
           setShowLinks={setShowLinks}
           userName={userName}

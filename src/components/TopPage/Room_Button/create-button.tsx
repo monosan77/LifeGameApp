@@ -20,10 +20,7 @@ export default function CreateButton() {
 
   function createChanger() {
     if (createPop === false) {
-      const timer = setTimeout(() => {
         setCreatePop(true);
-      }, 600);
-      return () => clearTimeout(timer);
     }
   }
 

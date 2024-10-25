@@ -1,6 +1,6 @@
 .visibl {
   visibility: visible;
-  opacity: 1;
+  opacity: 0;
   transition: opacity 1s ease;
   position: fixed;
   top: 0;
@@ -12,6 +12,20 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 1s ease 2s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  1% {
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .hidde {
