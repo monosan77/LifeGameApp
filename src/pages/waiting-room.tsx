@@ -10,7 +10,7 @@ interface WaitingRoomPageProps{
 export async function getServerSideProps() {
   try {
     const response = await fetch(
-      'http://localhost:3000/api/session/get-room-info?roomId=100001'
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=100001`
     );
 
     if (!response.ok) {
@@ -18,8 +18,6 @@ export async function getServerSideProps() {
     }
 
     const data:RoomInfo = await response.json();
-
-    console.log('APIから取得したデータ:', data);
 
     return {
       props: {
