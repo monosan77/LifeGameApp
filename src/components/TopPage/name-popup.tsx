@@ -3,23 +3,18 @@ import styles from './name-popup.module.css';
 
 interface NamePopups {
   playerName: string;
-  showLinks: boolean;
-  userName: boolean;
-  setUserName: (boolean: boolean) => void;
   setPlayerName: (value: string) => void;
   setShowLinks: (boolean: boolean) => void;
+  setConformName: (boolean: boolean) => void;
 }
 
 export default function NamePopup({
   playerName,
-  userName,
-  setUserName,
   setPlayerName,
   setShowLinks,
-  showLinks,
+  setConformName,
 }: NamePopups) {
   const [rename, setRename] = useState(true);
-  const [conformName, setConformName] = useState(false);
   const [createName, setCreateName] = useState(true);
 
   const clickHandler = () => {
@@ -30,26 +25,12 @@ export default function NamePopup({
     } else {
       setRename(true);
     }
-
-    if (conformName) {
-      setConformName(true);
-    } else {
-      setConformName(true);
-    }
   };
 
   const reloadHandler = () => {
-    if (createName) {
-      setCreateName(false);
-    }
-
-    if (showLinks === false) {
-      setShowLinks(true);
-    }
-
-    if (!userName) {
-      setUserName(true);
-    }
+    setCreateName(false);
+    setShowLinks(true);
+    setConformName(true);
   };
 
   return (

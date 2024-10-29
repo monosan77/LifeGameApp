@@ -12,21 +12,13 @@ export default function CreateButton() {
   //ポップアップのstate状態管理
   const [createPop, setCreatePop] = useState(false);
 
-  function closeChanger() {
-    if (createPop) {
-      setCreatePop(false);
-    }
-  }
-
   function createChanger() {
-    if (createPop === false) {
-        setCreatePop(true);
-    }
+    setCreatePop(!createPop);
   }
 
   return (
     <>
-      <CreatePopup closeChanger={closeChanger} createPop={createPop} />
+      <CreatePopup closeChanger={createChanger} createPop={createPop} />
       <div className={styles.createRoom}>
         <button onClick={createChanger} className={styles.linkContent}>
           <p className={yuji_Syuku.className}>

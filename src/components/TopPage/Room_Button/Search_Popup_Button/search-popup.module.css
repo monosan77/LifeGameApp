@@ -1,6 +1,5 @@
 .visibles {
   visibility: visible;
-  opacity: 1;
   transition: opacity 1s ease;
   position: fixed;
   top: 0;
@@ -11,11 +10,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 5;
 }
 
 .hiddens {
   visibility: hidden;
+  transition: opacity 1s ease;
+  opacity: 0;
 }
 
 .findNoPop {

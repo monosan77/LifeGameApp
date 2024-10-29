@@ -13,19 +13,12 @@ export default function SearchButton() {
   const [findPop, setFindPop] = useState(false);
 
   function findChanger() {
-    if (findPop === false) {
-        setFindPop(true);
-    }
-  }
-  function closeChanger() {
-    if (findPop === true) {
-      setFindPop(false);
-    }
+    setFindPop(!findPop);
   }
 
   return (
     <>
-      <SearchPopup closeChanger={closeChanger} findPop={findPop} />
+      <SearchPopup closeChanger={findChanger} findPop={findPop} />
 
       <div className={styles.searchRoom}>
         <button onClick={findChanger} className={styles.linkContent}>
