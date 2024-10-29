@@ -9,5 +9,53 @@
   top: 20%;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 0;
+}
+
+.button {
+  visibility: visible;
+}
+
+.notButton {
+  visibility: hidden;
+}
+
+.pageLink {
+  opacity: 0;
+  visibility: hidden;
+  justify-content: center;
+  align-items: center;
+  transition:
+    opacity 1s ease,
+    visibility 0s 1s;
+}
+
+.pageLink.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s ease;
+  display: flex;
+}
+
+.pageLink .hidden {
+  visibility: hidden;
+}
+
+.displayName {
+  visibility: visible;
+  animation-name: animation;
+  animation-duration: 3s;
+}
+
+.notDisplayName {
+  visibility: hidden;
+}
+
+@keyframes animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
