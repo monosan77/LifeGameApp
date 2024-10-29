@@ -4,6 +4,8 @@ import { sharePlayers } from '@/utils/fetch-functions';
 import { useRouter } from 'next/router';
 import Pusher from 'pusher-js';
 import { useEffect, useState } from 'react';
+import WaitingRoom from './waiting-room';
+import Gameboard from '@/components/Gameboard/gameboard';
 
 interface Props {
   roomInfo: RoomInfo;
@@ -81,6 +83,8 @@ const GamePage = ({ roomInfo }: Props) => {
       cluster: CLUSTER,
     });
     const channel = pusher.subscribe(`${roomInfo.id}`);
+
+    // 入室時の同期を受信
     channel.bind('joinRoom', async function (roominfo: RoomInfo | null) {
       if (!roominfo) {
         alert('ルームが存在しません');
@@ -89,62 +93,74 @@ const GamePage = ({ roomInfo }: Props) => {
       setMember(roominfo.member);
       console.log('受信完了', roominfo);
     });
+    channel.bind('start-game', async function (isStart: boolean | null) {
+      if (isStart) {
+        console.log(isStart, 'ududu');
+        console.log('受信完了');
+        setIsStartGame(true);
+      }
+    });
+
+    // ゲーム開始を受信
 
     return () => {
       pusher.unsubscribe(`${roomInfo.id}`);
     };
   }, [CLUSTER, KEY, roomInfo.id, router]);
 
-  // 退室処理
-  async function handleLeaveRoom() {
-    const SessionStorage = sessionStorage.getItem('playerInfo');
-    const playerInfo = SessionStorage ? JSON.parse(SessionStorage) : null;
-
+  // ゲーム開始処理
+  const [isStartGame, setIsStartGame] = useState(false);
+  async function handleGamePlay() {
     const res = await fetch(
-      `http://localhost:3000/api/session/exit?roomId=${roomInfo.id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ playerInfo }),
-      }
+      `http://localhost:3000/api/game/start-game?roomId=${roomInfo.id}`
     );
     if (res.ok) {
-      alert('roomを退室しました。');
-      // 参加プレイヤーをほかユーザに共有
-
-      sharePlayers(roomInfo.id);
-
-      return router.push('/sample/search-room');
+      // setIsStartGame(true);
     }
-    alert('退室できませんでした。再度お試しください。');
+    const data = await res.json();
+
+    console.log(data);
   }
 
   return (
-    <div>
-      <h1>ルームID：{roomInfo.id}</h1>
-      <h4>
-        あなたは {yourInfo?.name} さんです
-        {yourInfo?.host ? '(あなたがホストです)' : ''}
-      </h4>
-      <h2>参加プレイヤー</h2>
-      <ul>
-        {!member
-          ? ''
-          : member.map((member, index) => (
-              <li key={index}>
-                {member.name}
-                {member.host ? '(ホスト)' : ''}
-              </li>
-            ))}
-      </ul>
-      <div>
-        <button type="button" onClick={handleLeaveRoom}>
-          退室する
-        </button>
-      </div>
-    </div>
+    <>
+      {isStartGame ? (
+        <Gameboard roomId={roomInfo.id} />
+      ) : (
+        <WaitingRoom
+          roomInfo={roomInfo}
+          yourInfo={yourInfo}
+          member={member}
+          handleGamePlay={handleGamePlay}
+        />
+      )}
+      {/* <div>
+        <h1>ルームID：{roomInfo.id}</h1>
+        <h4>
+          あなたは {yourInfo?.name} さんです
+          {yourInfo?.host ? '(あなたがホストです)' : ''}
+        </h4>
+        <h2>参加プレイヤー</h2>
+        <ul>
+          {!member
+            ? ''
+            : member.map((member, index) => (
+                <li key={index}>
+                  {member.name}
+                  {member.host ? '(ホスト)' : ''}
+                </li>
+              ))}
+        </ul>
+        <div>
+          <button type="button" onClick={handleLeaveRoom}>
+            退室する
+          </button>
+          <button type="button" onClick={handleGamePlay}>
+            ゲームを始める
+          </button>
+        </div>
+      </div> */}
+    </>
   );
 };
 
