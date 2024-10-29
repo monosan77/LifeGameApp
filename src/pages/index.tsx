@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import styles from './toppage.module.css';
-import Video from '@/components/TopPage/video';
+import Video from '@/components/TopPage/Video/video';
 import RoomButton from '@/components/TopPage/Room_Button/room-button';
-import Title from '@/components/TopPage/title';
+import Title from '@/components/TopPage/Title/title';
 import { useState } from 'react';
-import NamePopup from '@/components/TopPage/name-popup';
-import UserName from '@/components/TopPage/user-name';
+import NamePopup from '@/components/TopPage/NamePopup/name-popup';
+import UserName from '@/components/TopPage/UserName/user-name';
 
 export default function Home() {
   const [playerName, setPlayerName] = useState('');
