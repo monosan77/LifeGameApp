@@ -4,10 +4,11 @@ import { Members } from '@/types/session';
 
 interface WaitingRoomPageProps{
   players:Members[];
-  roomId:number;
+  roomId:string;
 }
 
 export default function WaitingRoom({ players, roomId }:WaitingRoomPageProps) {
+  console.log(players);
   return (
     <div className={styles.all}>
       <div className={styles.container}>
