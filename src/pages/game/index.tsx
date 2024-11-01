@@ -2,9 +2,9 @@ import React from 'react';
 import WaitingRoom from '../../components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
 
-interface WaitingRoomPageProps{
-  players:Members[];
-  roomId:number;
+interface WaitingRoomPageProps {
+  players: Members[];
+  roomId: number;
 }
 
 export async function getServerSideProps() {
@@ -17,7 +17,7 @@ export async function getServerSideProps() {
       throw new Error('ネットワークエラーが発生しました。');
     }
 
-    const data:RoomInfo = await response.json();
+    const data: RoomInfo = await response.json();
 
     return {
       props: {
@@ -36,10 +36,13 @@ export async function getServerSideProps() {
   }
 }
 
-const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({players, roomId}) => {
+const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
+  players,
+  roomId,
+}) => {
   return (
     <div>
-      <WaitingRoom players={players} roomId={roomId}/>
+      <WaitingRoom players={players} roomId={roomId} />
     </div>
   );
 };

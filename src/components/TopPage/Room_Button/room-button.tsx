@@ -4,13 +4,13 @@ import CreateButton from './create-button';
 import SearchButton from './search-button';
 
 interface Prop {
-  playerName:string;
+  playerName: string;
 }
 
-export default function RoomButton({playerName}:Prop) {
+export default function RoomButton({ playerName }: Prop) {
   return (
     <>
-      <CreateButton playerName={playerName}/>
+      <CreateButton playerName={playerName} />
       <SearchButton />
     </>
   );
