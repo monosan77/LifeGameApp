@@ -36,6 +36,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 1000px;
+  height: 350px;
   text-align: center;
   padding: 10px 20px 100px;
   background-color: rgba(254, 213, 117, 0.862);
@@ -44,7 +45,7 @@
 
 .searchPop p {
   font-size: 2rem;
-  margin-bottom: 100px;
+  margin-bottom: 70px;
   color: white;
   font-weight: 1000;
 }
@@ -95,4 +96,46 @@
   font-weight: 700;
   color: white;
   border-color: white;
+}
+
+
+.searchCandidates p{
+  color: black;
+  font-size: 1.3rem;
+  margin-bottom: 0px;
+}
+
+
+.searchCandidates{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.searchCandidates button{
+  background-color:red;
+  margin-right: 11px;
+  color: white;
+  border-color: white;
+  width: 100px;
+  height: 50px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.searching{
+  display: block;
+}
+
+
+.notSearching{
+  display: none;
+}
+
+
+.notFound p{
+  font-size: 1.3rem;
+  margin-top: 40px;
+  
 }
