@@ -6,11 +6,14 @@ import Title from '@/components/TopPage/title';
 import { useState } from 'react';
 import NamePopup from '@/components/TopPage/name-popup';
 import UserName from '@/components/TopPage/user-name';
+import CreateButton from '@/components/TopPage/Room_Button/create-button';
 
 export default function Home() {
   const [playerName, setPlayerName] = useState('');
   const [showLinks, setShowLinks] = useState(false);
   const [conformName, setConformName] = useState(false);
+
+  console.log('index.tsx - playerName (initial render):', playerName);
 
   return (
     <>
@@ -30,7 +33,7 @@ export default function Home() {
           <div
             className={`${styles.pageLink} ${showLinks ? styles.visible : styles.hidden}`}
           >
-            <RoomButton />
+            <RoomButton playerName={playerName}/>
           </div>
         </div>
         <NamePopup

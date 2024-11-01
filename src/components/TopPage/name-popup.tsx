@@ -31,6 +31,7 @@ export default function NamePopup({
     setCreateName(false);
     setShowLinks(true);
     setConformName(true);
+    console.log('name-popup.tsx - 確定したプレイヤー名:', playerName);
   };
 
   return (

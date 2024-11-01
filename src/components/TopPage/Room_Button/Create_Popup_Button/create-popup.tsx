@@ -3,9 +3,17 @@ import styles from './create-popup.module.css';
 interface Props {
   closeChanger: () => void;
   createPop: boolean;
+  onSelectPlayers:(playerCount:number, playerName:string) => void;
+  playerName:string;
 }
 
-export default function CreatePopup({ closeChanger, createPop }: Props) {
+export default function CreatePopup({ closeChanger, createPop, onSelectPlayers, playerName }: Props) {
+  const handlePlayerSelect = (count:number) => {
+    console.log('create-popup.tsx - 選択された人数:', count); // 追加
+    console.log('create-popup.tsx - playerName:', playerName); // 追加
+    onSelectPlayers(count, playerName);
+  };
+
   return (
     <div className={createPop ? styles.visibl : styles.hidde}>
       <div className={createPop ? styles.createPop : styles.createNoPop}>
@@ -15,10 +23,11 @@ export default function CreatePopup({ closeChanger, createPop }: Props) {
           </div>
           <p>何人と遊ぶ？</p>
           <div className={styles.number}>
-            <button>2人</button>
-            <button>3人</button>
-            <button>4人</button>
-            <button>5人</button>
+            {[2, 3, 4, 5].map((count) => (
+              <button key={count} onClick={() => handlePlayerSelect(count)}>
+                {count}人
+              </button>
+            ))}
           </div>
         </div>
       </div>
