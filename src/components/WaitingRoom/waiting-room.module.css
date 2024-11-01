@@ -1,5 +1,5 @@
 /* 外側のスタイル */
-.all{
+.all {
   position: fixed;
   top: 0;
   left: 0;
@@ -43,7 +43,7 @@
   font-weight: bold;
 }
 
-.playerCount{
+.playerCount {
   font-size: 20px;
   margin-bottom: 20px;
 }
@@ -63,7 +63,7 @@
 /* プレイヤーボックスのスタイル */
 .playerBox {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   margin-bottom: 10px;
   width: 100%;
 }
@@ -71,13 +71,13 @@
 /* プレイヤー名のテキストボックス風スタイル */
 .playerName {
   width: 80%;
-  width: 500px; 
+  width: 500px;
   height: 50px; /* 文字が入るくらいの高さ */
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 5px 10px;
-  border: 2px solid #333; 
-  border-radius: 5px;     
+  border: 2px solid #333;
+  border-radius: 5px;
   background-color: white;
   font-weight: bold;
   margin-right: 10px;
@@ -101,7 +101,7 @@
   color: white;
   border: none;
   border-radius: 5px;
-  cursor: pointer;  
+  cursor: pointer;
   margin: 0 auto; /* 完全に中央に配置する */
   display: block; /* 幅いっぱいに対応 */
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
