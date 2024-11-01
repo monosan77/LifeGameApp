@@ -1,26 +1,21 @@
 import { useState } from 'react';
 import styles from './search-popup.module.css';
-import WaitingRoom from '@/components/WaitingRoom/waiting-room';
+import { Members } from '@/types/session';
+import Link from 'next/link';
 
 interface Props {
   closeChanger: () => void;
   findPop: boolean;
 }
 
-interface Players {
-  id: string;
-  name: string;
-  host: boolean;
-}
-
 interface RoomData {
   id: string;
-  players: Players[];
+  players: Members[];
 }
 
 interface ApiResponse {
   id: string;
-  member: Players[];
+  member: Members[];
 }
 
 export default function SearchPopup({ closeChanger, findPop }: Props) {
@@ -40,7 +35,7 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/session/get-room-info?roomId=${nameId}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${nameId}`
       );
 
       if (!res.ok) {
@@ -48,12 +43,14 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
       }
 
       const data: ApiResponse = await res.json();
-      const formattedData: RoomData = {
-        id: data.id,
-        players: data.member,
-      };
+
+    
 
       if (data && typeof data.id === 'string') {
+        const formattedData: RoomData = {
+          id: data.id,
+          players: data.member,
+        };
         setRoomData(formattedData);
         setIsSearchingResult(true);
       } else {
@@ -69,63 +66,59 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
 
       setIsSearchingResult(true);
     }
-    console.log(roomData?.players);
+    // console.log(roomData?.players);
   }
 
   function determinationHandler() {
     setIsWaitingScreen(!isWaitingScreen);
   }
 
-  console.log(roomData?.players);
+  // console.log(roomData?.players);
 
   return (
     <>
-      {isWaitingScreen ? (
-        <div className={findPop ? styles.visibles : styles.hiddens}>
-          <div className={findPop ? styles.findPop : styles.findNoPop}>
-            <div className={styles.searchPop}>
-              <div className={styles.close}>
-                <button onClick={closeChanger}>X</button>
-              </div>
-              <p>ルームを検索してね！</p>
-              <div className={styles.search}>
-                <input
-                  type="text"
-                  placeholder="入力してください..."
-                  value={nameId}
-                  onChange={(e) => {
-                    setNameId(e.target.value);
-                    setIsSearchingResult(false);
-                  }}
-                />
-                <button onClick={searchingHandler}>検索</button>
-              </div>
-              <div
-                className={
-                  isSearchingResult ? styles.searching : styles.notSearching
-                }
-              >
-                {roomData ? (
-                  <div className={styles.searchCandidates}>
-                    <p>{roomData.id}</p>
-                    <button onClick={determinationHandler}>確定</button>
+      <div className={findPop ? styles.visibles : styles.hiddens}>
+        <div className={findPop ? styles.findPop : styles.findNoPop}>
+          <div className={styles.searchPop}>
+            <div className={styles.close}>
+              <button onClick={closeChanger}>X</button>
+            </div>
+            <p>ルームを検索してね！</p>
+            <div className={styles.search}>
+              <input
+                type="text"
+                placeholder="入力してください..."
+                value={nameId}
+                onChange={(e) => {
+                  setNameId(e.target.value);
+                  setIsSearchingResult(false);
+                }}
+              />
+              <button onClick={searchingHandler}>検索</button>
+            </div>
+            <div
+              className={
+                isSearchingResult ? styles.searching : styles.notSearching
+              }
+            >
+              {roomData ? (
+                <div className={styles.searchCandidates}>
+                  <p>ボン・クレーさんのルームでよろしいですか？</p>
+                  <Link href="/waiting-room" onClick={determinationHandler}>
+                    確定
+                  </Link>
+                </div>
+              ) : (
+                isSearchingResult && (
+                  <div className={styles.notFound}>
+                    <p>検索候補が見つかりませんでした。</p>
                   </div>
-                ) : (
-                  isSearchingResult && (
-                    <div className={styles.notFound}>
-                      <p>検索候補が見つかりませんでした。</p>
-                    </div>
-                  )
-                )}
-              </div>
+                )
+              )}
             </div>
           </div>
         </div>
-      ) : (
-        roomData && (
-          <WaitingRoom roomId={roomData.id} players={roomData.players} />
-        )
-      )}
+      </div>
       ;
     </>
   );
