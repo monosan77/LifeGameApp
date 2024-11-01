@@ -110,7 +110,8 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-top: 30px;
+  width: 600px;
+  margin: 30px auto 0px;
 }
 
 .searchCandidates button{
@@ -122,10 +123,11 @@
   height: 50px;
   font-size: 1.3rem;
   font-weight: 700;
+  
 }
 
 .searching{
-  display: block;
+  visibility: visible;
 }
 
 

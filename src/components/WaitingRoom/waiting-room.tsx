@@ -8,7 +8,6 @@ interface WaitingRoomPageProps{
 }
 
 export default function WaitingRoom({ players, roomId }:WaitingRoomPageProps) {
-  console.log(players);
   return (
     <div className={styles.all}>
       <div className={styles.container}>

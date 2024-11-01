@@ -71,8 +71,10 @@
 /* プレイヤー名のテキストボックス風スタイル */
 .playerName {
   width: 80%;
-  max-width: 500px; 
+  width: 500px; 
   height: 50px; /* 文字が入るくらいの高さ */
+  overflow: hidden;
+  text-overflow: ellipsis;
   padding: 5px 10px;
   border: 2px solid #333; 
   border-radius: 5px;     
