@@ -1,106 +1,83 @@
-.visibl{
+.visibl {
   visibility: visible;
-  opacity: 1;
   transition: opacity 1s ease;
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); 
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; 
+  z-index: 5;
 }
 
-.hidde{
+.hidde {
   visibility: hidden;
+  transition: opacity 1s ease;
+  opacity: 0;
 }
 
-.createPop{
+.createPop {
   visibility: visible;
   opacity: 1;
   transition: opacity 1s ease;
-  display: flex; 
+  display: flex;
 }
 
-.createNoPop{
+.createNoPop {
   visibility: hidden;
   opacity: 0;
 }
 
-.friendPop{
+.friendPop {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width:1000px;
+  width: 1000px;
   text-align: center;
   padding: 10px 20px 100px;
   background-color: rgba(254, 213, 117, 0.862);
   border-radius: 3%;
 }
 
-.friendPop p{
+.friendPop p {
   font-size: 2rem;
   margin-bottom: 100px;
   color: white;
   font-weight: 1000;
 }
 
-.close button{
-  background-color:transparent;
+.close button {
+  background-color: transparent;
   color: white;
-  border:none;
+  border: none;
   font-size: 1.5rem;
   padding: 3px 6px;
   border: 1px solid white;
   cursor: pointer;
 }
 
-.close button:hover{
+.close button:hover {
   color: rgb(163, 163, 163);
-  border-color: rgb(163, 163, 163);;
+  border-color: rgb(163, 163, 163);
 }
 
-.close{
+.close {
   text-align: end;
   font-size: 1.6rem;
 }
-.visible {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 1s ease;
-  display: flex;
-}
 
-.linkContent {
-  font-size: 2.5rem;
-  font-weight: bold;
-  padding: 20px 80px;
-  background-color: rgba(105, 105, 105, 0.9);
-  border-radius: 10px;
-  text-align: center;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 0 150px;
-}
-
-.linkContent:hover {
-  background-color: #e6b422;
-}
-
-
-.number{
+.number {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.number button{
-  background-color: rgba(255, 255, 255,0.5);
+.number button {
+  background-color: rgba(255, 255, 255, 0.5);
   color: rgb(134, 134, 134);
   border: none;
   padding: 50px 80px;
@@ -110,12 +87,11 @@
   border-radius: 5%;
 }
 
-.number button:hover{
+.number button:hover {
   background-color: white;
 }
 
-.number button:active{
+.number button:active {
   background-color: rgb(220, 220, 220);
   color: rgb(109, 109, 109);
 }
-

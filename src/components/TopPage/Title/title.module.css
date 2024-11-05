@@ -1,34 +1,30 @@
-/* タイトルのスタイル */
 .title {
   text-align: center;
   font-size: 10rem;
   font-weight: bold;
-  color: #e6b422; /* 黄金色 */
+  color: #e6b422;
   z-index: 1;
-  margin-bottom: 150px;
+  margin-bottom: 50px;
   letter-spacing: 2rem;
 }
 
-/* 文字が浮き上がるアニメーション */
 @keyframes float-in {
   0% {
     opacity: 0;
-    transform: translateY(50px); /* 下から浮き上がる */
+    transform: translateY(50px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0); /* 元の位置に戻る */
+    transform: translateY(0);
   }
 }
 
-/* 各文字のアニメーション設定 */
 .title span {
   display: inline-block;
-  opacity: 0; /* 初期状態で非表示 */
+  opacity: 0;
   animation: float-in 1s forwards;
 }
 
-/* 各文字に遅延を加える */
 .title span:nth-child(1) {
   animation-delay: 0.2s;
 }

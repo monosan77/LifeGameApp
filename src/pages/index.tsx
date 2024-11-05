@@ -1,11 +1,17 @@
-// src/pages/index.tsx
 import Head from 'next/head';
 import styles from './toppage.module.css';
-import Video from '@/components/TopPage/video';
-import RoomButton from '@/components/TopPage/Room_Button/room_button';
-import Title from '@/components/TopPage/title';
+import Video from '@/components/TopPage/Video/video';
+import RoomButton from '@/components/TopPage/Room_Button/room-button';
+import Title from '@/components/TopPage/Title/title';
+import { useState } from 'react';
+import NamePopup from '@/components/TopPage/NamePopup/name-popup';
+import UserName from '@/components/TopPage/UserName/user-name';
 
 export default function Home() {
+  const [playerName, setPlayerName] = useState('');
+  const [showLinks, setShowLinks] = useState(false);
+  const [conformName, setConformName] = useState(false);
+
   return (
     <>
       <Head>
@@ -16,8 +22,23 @@ export default function Home() {
         <Video />
         <div className={styles.component}>
           <Title />
-          <RoomButton />
+          <div
+            className={conformName ? styles.displayName : styles.notDisplayName}
+          >
+            <UserName playerName={playerName} />
+          </div>
+          <div
+            className={`${styles.pageLink} ${showLinks ? styles.visible : styles.hidden}`}
+          >
+            <RoomButton />
+          </div>
         </div>
+        <NamePopup
+          playerName={playerName}
+          setPlayerName={setPlayerName}
+          setShowLinks={setShowLinks}
+          setConformName={setConformName}
+        />
       </div>
     </>
   );

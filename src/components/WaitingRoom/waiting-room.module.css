@@ -1,11 +1,15 @@
 /* 外側のスタイル */
 .all{
-  /* background-image: url('../../../public/background.jpg'); */
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 3;
 }
 
 /* 内側のスタイル */
@@ -66,7 +70,7 @@
 
 /* プレイヤー名のテキストボックス風スタイル */
 .playerName {
-  width: 50%; /* .containerの半分の幅 */
+  width: 80%;
   max-width: 500px; 
   height: 50px; /* 文字が入るくらいの高さ */
   padding: 5px 10px;
@@ -111,7 +115,7 @@
   right: 5px; /* コンテナの左に配置 */
   font-size: 30px;
   padding: 10px 20px;
-  background-color: grey; /* グレー色 */
+  background-color: rgb(99, 160, 1); /* グレー色 */
   color: white;
   border: none;
   border-radius: 5px;
@@ -120,5 +124,5 @@
 }
 
 .exitButton:hover {
-  background-color: darkgrey; /* ホバー時に色を少し暗くする */
+  background-color: rgb(9, 104, 3); /* ホバー時に色を少し暗くする */
 }
