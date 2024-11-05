@@ -1,4 +1,3 @@
-// import { Members, RoomInfo } from '@/types/session';
 import { Members, RoomInfo } from '@/types/session';
 import { sharePlayers } from '@/utils/fetch-functions';
 import { useRouter } from 'next/router';
@@ -45,7 +44,11 @@ export async function getServerSideProps({ query }: { query: Query }) {
 
 const GamePage = ({ roomInfo }: Props) => {
   const router = useRouter();
-  const [yourInfo, setYourInfo] = useState<Members | null>();
+  const [yourInfo, setYourInfo] = useState<Members>({
+    id: '',
+    name: '',
+    host: false,
+  });
   const [member, setMember] = useState<Members[]>(roomInfo.member);
   const KEY = process.env.NEXT_PUBLIC_PUSHER_KEY as string;
   const CLUSTER = process.env.NEXT_PUBLIC_PUSHER_CLUSTER as string;
@@ -91,12 +94,9 @@ const GamePage = ({ roomInfo }: Props) => {
         return router.push('/sample/make-room');
       }
       setMember(roominfo.member);
-      console.log('受信完了', roominfo);
     });
     channel.bind('start-game', async function (isStart: boolean | null) {
       if (isStart) {
-        console.log(isStart, 'ududu');
-        console.log('受信完了');
         setIsStartGame(true);
       }
     });
@@ -105,6 +105,7 @@ const GamePage = ({ roomInfo }: Props) => {
 
     return () => {
       pusher.unsubscribe(`${roomInfo.id}`);
+      pusher.disconnect();
     };
   }, [CLUSTER, KEY, roomInfo.id, router]);
 
@@ -125,7 +126,7 @@ const GamePage = ({ roomInfo }: Props) => {
   return (
     <>
       {isStartGame ? (
-        <Gameboard roomId={roomInfo.id} />
+        <Gameboard roomId={roomInfo.id} yourInfo={yourInfo} member={member} />
       ) : (
         <WaitingRoom
           roomInfo={roomInfo}
@@ -134,32 +135,6 @@ const GamePage = ({ roomInfo }: Props) => {
           handleGamePlay={handleGamePlay}
         />
       )}
-      {/* <div>
-        <h1>ルームID：{roomInfo.id}</h1>
-        <h4>
-          あなたは {yourInfo?.name} さんです
-          {yourInfo?.host ? '(あなたがホストです)' : ''}
-        </h4>
-        <h2>参加プレイヤー</h2>
-        <ul>
-          {!member
-            ? ''
-            : member.map((member, index) => (
-                <li key={index}>
-                  {member.name}
-                  {member.host ? '(ホスト)' : ''}
-                </li>
-              ))}
-        </ul>
-        <div>
-          <button type="button" onClick={handleLeaveRoom}>
-            退室する
-          </button>
-          <button type="button" onClick={handleGamePlay}>
-            ゲームを始める
-          </button>
-        </div>
-      </div> */}
     </>
   );
 };

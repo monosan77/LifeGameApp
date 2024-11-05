@@ -1,4 +1,3 @@
-// // import { RoomInfo } from '@/types/session';
 // import { NextApiRequest, NextApiResponse } from 'next';
 // import Pusher from 'pusher';
 
@@ -13,13 +12,17 @@
 //   req: NextApiRequest,
 //   res: NextApiResponse
 // ) {
-//   if (req.method === 'GET') {
+//   if (req.method === 'POST') {
 //     const { roomId } = req.query;
+//     const nextPlayer = req.body;
 
 //     try {
-//       const isStartGame = true;
+//       const send = await pusher.trigger(
+//         `${roomId}`,
+//         'result-next-player',
+//         nextPlayer
+//       );
 
-//       const send = await pusher.trigger(`${roomId}`, 'start-game', isStartGame);
 //       if (!send.ok) {
 //         res.status(500).json({ message: '同期できませんでした' });
 //       }
@@ -45,33 +48,31 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // GETメソッド以外のリクエストを拒否
-  if (req.method !== 'GET') {
-    return res
-      .status(405)
-      .json({
-        error:
-          '不正なリクエストメソッドです。GETメソッドのみ許可されています。',
-      });
+  // POSTリクエスト以外を拒否
+  if (req.method !== 'POST') {
+    return res.status(405).json({
+      error: '不正なリクエストメソッドです。POSTメソッドのみ許可されています。',
+    });
   }
 
   const { roomId } = req.query;
+  const nextPlayer = req.body;
 
-  // roomIdの存在チェック
-  if (!roomId) {
-    return res.status(400).json({ error: 'roomIdが指定されていません。' });
+  // roomIdとnextPlayerのバリデーション
+  if (!roomId || nextPlayer === null) {
+    return res
+      .status(400)
+      .json({ error: 'roomIdまたはnextPlayerデータがありません。' });
   }
 
   try {
-    const isStartGame = true;
-
     const response = await pusher.trigger(
       `${roomId}`,
-      'start-game',
-      isStartGame
+      'result-next-player',
+      nextPlayer
     );
 
-    // Pusherからのレスポンスチェック
+    // Pusherからのエラーチェック
     if (response.status !== 200) {
       console.error('Pusherエラー:', response);
       return res
@@ -79,7 +80,7 @@ export default async function handler(
         .json({ error: 'Pusher APIで同期できませんでした。' });
     }
 
-    res.status(200).json({ message: 'ゲームが正常に開始されました。' });
+    res.status(200).json({ message: 'プレイヤーが正常に同期されました。' });
   } catch (error) {
     console.error('サーバーエラー:', error);
     res.status(500).json({ error: 'サーバーエラーが発生しました。' });

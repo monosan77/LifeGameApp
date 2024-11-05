@@ -297,6 +297,7 @@
   top: 50%; /* マスの中央に表示 */
   left: 50%;
   transform: translate(-50%, -50%); /* 中央に配置 */
+  z-index: 10;
 }
 
 .diceResult {

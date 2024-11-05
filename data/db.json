@@ -1,3 +1,36 @@
 {
-  "room": []
+  "room": [
+    {
+      "id": "636446",
+      "limitPlayer": 2,
+      "member": [
+        {
+          "id": "e2392944-6f82-4159-9114-ae54ea5bdc5e",
+          "name": "hhhhh",
+          "host": true
+        }
+      ]
+    },
+    {
+      "id": "630866",
+      "limitPlayer": 4,
+      "member": [
+        {
+          "id": "faed4445-7d79-49b5-a1e4-2d809a1f3fdb",
+          "name": "yoshiki",
+          "host": true
+        },
+        {
+          "id": "4ff9d7f6-6e18-463b-a0cb-52da84115c12",
+          "name": "さつき",
+          "host": false
+        },
+        {
+          "id": "d96ba7b5-82ce-4faf-a30d-f1efa808fcc1",
+          "name": "よしき",
+          "host": false
+        }
+      ]
+    }
+  ]
 }
