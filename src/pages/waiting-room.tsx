@@ -3,14 +3,12 @@ import WaitingRoom from '../components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
 import { GetServerSidePropsContext } from 'next';
 
-
 interface WaitingRoomPageProps {
   players: Members[];
   roomId: number;
 }
 
-
-export async function getServerSideProps(context:GetServerSidePropsContext) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   console.log(context);
   const { id } = context.query;
 
@@ -31,7 +29,6 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
         roomId: data.id,
       },
     };
-    
   } catch (error) {
     console.error('データ取得エラー:', error);
     return {

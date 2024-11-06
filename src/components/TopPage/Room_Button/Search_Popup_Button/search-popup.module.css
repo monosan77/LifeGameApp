@@ -135,3 +135,9 @@
   font-size: 1.3rem;
   margin-top: 40px;
 }
+
+.searchPop .alert {
+  color: red;
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+}

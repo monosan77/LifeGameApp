@@ -23,11 +23,12 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
   const [isSearchingResult, setIsSearchingResult] = useState(false);
   const [roomData, setRoomData] = useState<RoomData | null>(null);
   const [isWaitingScreen, setIsWaitingScreen] = useState(true);
+  const [alertMessage, setAlertMessage] = useState('');
   const router = useRouter();
 
   async function searchingHandler() {
     if (nameId === '') {
-      alert('ルームIDを入れてください');
+      setAlertMessage('※ルームIDを入力してください。');
       return;
     }
 
@@ -70,13 +71,27 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
 
   // console.log(roomData);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setIsSearchingResult(false);
+    if (alertMessage) {
+      setAlertMessage('');
+    }
+    if (/^\d*$/.test(value)) {
+      setNameId(value);
+      setAlertMessage(''); // エラーをクリア
+    } else {
+      setAlertMessage('数字のみを入力してください');
+    }
+  };
+
   async function determinationHandler() {
     setIsWaitingScreen(!isWaitingScreen);
     if (roomData) {
-      if (nameId !== roomData.id) {
-        alert('ルームIDが違います。');
-        return;
-      }
+      // if (nameId !== roomData.id) {
+      //   setAlertMessage('※ルームIDが違います。');
+      //   return;
+      // }
       // console.log(roomData);
 
       try {
@@ -98,7 +113,7 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
         if (!res.ok) {
           const errorData = await res.json();
           if (errorData.message === 'すでに満室です') {
-            alert(errorData.message);
+            setAlertMessage(`※${errorData.message}`);
           }
           throw new Error('リクエストが失敗しました。');
         }
@@ -110,7 +125,7 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
         // console.log(data);
 
         sessionStorage.setItem(
-          'userId',
+          'userInfo',
           JSON.stringify({ id: data.playerId, name: playerName, host: false })
         );
 
@@ -134,15 +149,21 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
               <button onClick={closeChanger}>X</button>
             </div>
             <p>ルームを検索してね！</p>
+            {alertMessage && <p className={styles.alert}>{alertMessage}</p>}
             <div className={styles.search}>
               <input
                 type="text"
                 placeholder="入力してください..."
                 value={nameId}
-                onChange={(e) => {
-                  setNameId(e.target.value);
-                  setIsSearchingResult(false);
-                }}
+                onChange={handleInputChange}
+                maxLength={6}
+                // onChange={(e) => {
+                //   setNameId(e.target.value);
+                //   setIsSearchingResult(false);
+                //   if(alertMessage){
+                //     setAlertMessage('');
+                //   }
+                // }}
               />
               <button onClick={searchingHandler}>検索</button>
             </div>
