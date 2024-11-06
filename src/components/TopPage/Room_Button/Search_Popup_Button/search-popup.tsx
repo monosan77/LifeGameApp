@@ -49,7 +49,7 @@ export default function SearchPopup({
     if (nameId === '') {
       setAlertMessage('※ルームIDを入力してください。');
       return;
-    } else if(nameId.length < 6){
+    } else if (nameId.length < 6) {
       setAlertMessage('※6桁の数字を入力してください。');
     }
 
