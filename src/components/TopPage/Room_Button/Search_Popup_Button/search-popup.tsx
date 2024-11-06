@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 interface Props {
   closeChanger: () => void;
   findPop: boolean;
+  playerName: string;
 }
 
 interface RoomData {
@@ -18,58 +19,17 @@ interface ApiResponse {
   member: Members[];
 }
 
-export default function SearchPopup({ closeChanger, findPop }: Props) {
+export default function SearchPopup({
+  closeChanger,
+  findPop,
+  playerName,
+}: Props) {
   const [nameId, setNameId] = useState('');
   const [isSearchingResult, setIsSearchingResult] = useState(false);
   const [roomData, setRoomData] = useState<RoomData | null>(null);
   const [isWaitingScreen, setIsWaitingScreen] = useState(true);
   const [alertMessage, setAlertMessage] = useState('');
   const router = useRouter();
-
-  async function searchingHandler() {
-    if (nameId === '') {
-      setAlertMessage('※ルームIDを入力してください。');
-      return;
-    }
-
-    setRoomData(null);
-    setIsSearchingResult(false);
-
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${nameId}`
-      );
-
-      if (!res.ok) {
-        throw new Error('検索できませんでした。');
-      }
-
-      const data: ApiResponse = await res.json();
-
-      if (data && typeof data.id === 'string') {
-        const formattedData: RoomData = {
-          id: data.id,
-          players: data.member,
-        };
-        setRoomData(formattedData);
-        setIsSearchingResult(true);
-      } else {
-        setRoomData(null);
-        setIsSearchingResult(true);
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error(`エラーが発生しました: ${error.message}`);
-      } else {
-        console.error(`不明なエラーが発生しました: ${String(error)}`);
-      }
-
-      setIsSearchingResult(true);
-    }
-    // console.log(roomData?.players);
-  }
-
-  // console.log(roomData);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -85,6 +45,53 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
     }
   };
 
+  async function searchingHandler() {
+    if (nameId === '') {
+      setAlertMessage('※ルームIDを入力してください。');
+      return;
+    } else if(nameId.length < 6){
+      setAlertMessage('※6桁の数字を入力してください。');
+    }
+
+    setRoomData(null);
+    setIsSearchingResult(false);
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${nameId}`
+      );
+      console.log(nameId);
+
+      if (!res.ok) {
+        throw new Error('検索できませんでした。');
+      }
+
+      const data: ApiResponse = await res.json();
+
+      if (data && typeof data.id === 'string') {
+        const formattedData: RoomData = {
+          id: data.id,
+          players: data.member,
+        };
+        setRoomData(formattedData);
+        setIsSearchingResult(false);
+      } else {
+        setRoomData(null);
+        setIsSearchingResult(true);
+      }
+      setIsSearchingResult(true);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(`エラーが発生しました: ${error.message}`);
+      } else {
+        console.error(`不明なエラーが発生しました: ${String(error)}`);
+      }
+    }
+    // console.log(roomData?.players);
+  }
+
+  // console.log(roomData);
+
   async function determinationHandler() {
     setIsWaitingScreen(!isWaitingScreen);
     if (roomData) {
@@ -96,7 +103,7 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
 
       try {
         const roomInfo = { id: roomData.id, member: roomData.players };
-        const playerName = roomData.players[0].name;
+        const player = playerName;
 
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/join?=${roomData.id}
@@ -106,14 +113,14 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ roomInfo, playerName }),
+            body: JSON.stringify({ roomInfo, player }),
           }
         );
 
         if (!res.ok) {
           const errorData = await res.json();
           if (errorData.message === 'すでに満室です') {
-            setAlertMessage(`※${errorData.message}`);
+            setAlertMessage(`※${errorData.message}。`);
           }
           throw new Error('リクエストが失敗しました。');
         }
@@ -126,7 +133,7 @@ export default function SearchPopup({ closeChanger, findPop }: Props) {
 
         sessionStorage.setItem(
           'userInfo',
-          JSON.stringify({ id: data.playerId, name: playerName, host: false })
+          JSON.stringify({ id: data.playerId, name: player, host: false })
         );
 
         router.push({

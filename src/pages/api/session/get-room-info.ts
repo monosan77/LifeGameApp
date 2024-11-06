@@ -23,6 +23,7 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
     return res.status(400).json({ message: '不正なリクエストです' });
   }
   try {
+    console.log(req);
     const roomInfo: RoomInfo = await fetchJSON(
       `${process.env.API_BACK_URL}/room/${roomId}`
     );
