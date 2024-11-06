@@ -116,7 +116,6 @@ export default function SearchPopup({
             body: JSON.stringify({ roomInfo, player }),
           }
         );
-
         if (!res.ok) {
           const errorData = await res.json();
           if (errorData.message === 'すでに満室です') {
@@ -124,10 +123,13 @@ export default function SearchPopup({
           }
           throw new Error('リクエストが失敗しました。');
         }
-
         // console.log(res);
-
         const data = await res.json();
+
+        if(!data){
+          setAlertMessage(`※${data.message}。`);
+          throw new Error('リクエストが失敗しました。');
+        }
 
         // console.log(data);
 
@@ -140,6 +142,7 @@ export default function SearchPopup({
           pathname: '/waiting-room',
           query: { id: roomData.id },
         });
+
       } catch (error) {
         console.error(error);
       }
