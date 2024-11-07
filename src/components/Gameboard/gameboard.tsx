@@ -127,7 +127,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
   async function rollDice() {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/game/dice1?roomId=${roomId}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/game/dice?roomId=${roomId}`
       );
       if (!res.ok) {
         throw new Error(`Failed to roll dice: ${res.statusText}`);
