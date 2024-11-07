@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 interface Props {
   closeChanger: () => void;
   findPop: boolean;
-  playerName: string;
+  player: string;
 }
 
 interface RoomData {
@@ -19,11 +19,7 @@ interface ApiResponse {
   member: Members[];
 }
 
-export default function SearchPopup({
-  closeChanger,
-  findPop,
-  playerName,
-}: Props) {
+export default function SearchPopup({ closeChanger, findPop, player }: Props) {
   const [nameId, setNameId] = useState('');
   const [isSearchingResult, setIsSearchingResult] = useState(false);
   const [roomData, setRoomData] = useState<RoomData | null>(null);
@@ -34,12 +30,9 @@ export default function SearchPopup({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setIsSearchingResult(false);
-    if (alertMessage) {
-      setAlertMessage('');
-    }
     if (/^\d*$/.test(value)) {
       setNameId(value);
-      setAlertMessage(''); // エラーをクリア
+      setAlertMessage('');
     } else {
       setAlertMessage('数字のみを入力してください');
     }
@@ -51,6 +44,7 @@ export default function SearchPopup({
       return;
     } else if (nameId.length < 6) {
       setAlertMessage('※6桁の数字を入力してください。');
+      return;
     }
 
     setRoomData(null);
@@ -60,7 +54,6 @@ export default function SearchPopup({
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${nameId}`
       );
-      console.log(nameId);
 
       if (!res.ok) {
         throw new Error('検索できませんでした。');
@@ -83,27 +76,20 @@ export default function SearchPopup({
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(`エラーが発生しました: ${error.message}`);
+        setAlertMessage('IDが見つかりません。');
       } else {
         console.error(`不明なエラーが発生しました: ${String(error)}`);
+        setAlertMessage('IDが見つかりません。');
       }
     }
-    // console.log(roomData?.players);
   }
-
-  // console.log(roomData);
 
   async function determinationHandler() {
     setIsWaitingScreen(!isWaitingScreen);
     if (roomData) {
-      // if (nameId !== roomData.id) {
-      //   setAlertMessage('※ルームIDが違います。');
-      //   return;
-      // }
-      // console.log(roomData);
-
       try {
         const roomInfo = { id: roomData.id, member: roomData.players };
-        const player = playerName;
+        const playerName = player;
 
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/join?=${roomData.id}
@@ -113,25 +99,17 @@ export default function SearchPopup({
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ roomInfo, player }),
+            body: JSON.stringify({ roomInfo, playerName }),
           }
         );
         if (!res.ok) {
-          const errorData = await res.json();
-          if (errorData.message === 'すでに満室です') {
-            setAlertMessage(`※${errorData.message}。`);
-          }
-          throw new Error('リクエストが失敗しました。');
+          throw new Error('※すでに満室です。');
         }
-        // console.log(res);
         const data = await res.json();
 
-        if(!data){
-          setAlertMessage(`※${data.message}。`);
+        if (!data) {
           throw new Error('リクエストが失敗しました。');
         }
-
-        // console.log(data);
 
         sessionStorage.setItem(
           'userInfo',
@@ -142,13 +120,12 @@ export default function SearchPopup({
           pathname: '/waiting-room',
           query: { id: roomData.id },
         });
-
       } catch (error) {
         console.error(error);
+        setAlertMessage('※すでに満室です。');
       }
     }
   }
-  // console.log(roomData?.players);
 
   return (
     <>
@@ -159,7 +136,6 @@ export default function SearchPopup({
               <button onClick={closeChanger}>X</button>
             </div>
             <p>ルームを検索してね！</p>
-            {alertMessage && <p className={styles.alert}>{alertMessage}</p>}
             <div className={styles.search}>
               <input
                 type="text"
@@ -167,16 +143,10 @@ export default function SearchPopup({
                 value={nameId}
                 onChange={handleInputChange}
                 maxLength={6}
-                // onChange={(e) => {
-                //   setNameId(e.target.value);
-                //   setIsSearchingResult(false);
-                //   if(alertMessage){
-                //     setAlertMessage('');
-                //   }
-                // }}
               />
               <button onClick={searchingHandler}>検索</button>
             </div>
+            {alertMessage && <p className={styles.alert}>{alertMessage}</p>}
             <div
               className={
                 isSearchingResult ? styles.searching : styles.notSearching

@@ -30,7 +30,7 @@ export default function Home() {
           <div
             className={`${styles.pageLink} ${showLinks ? styles.visible : styles.hidden}`}
           >
-            <RoomButton playerName={playerName}/>
+            <RoomButton playerName={playerName} />
           </div>
         </div>
         <NamePopup

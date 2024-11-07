@@ -9,7 +9,6 @@ interface WaitingRoomPageProps {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  console.log(context);
   const { id } = context.query;
 
   try {

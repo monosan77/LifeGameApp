@@ -22,8 +22,8 @@ export default async function handler(
 
 async function handlePatchRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { player, roomInfo } = req.body;
-    if (!player || !roomInfo) {
+    const { playerName, roomInfo } = req.body;
+    if (!playerName || !roomInfo) {
       return res
         .status(400)
         .json({ message: '不正なリクエストです。不正なbody' });
@@ -38,7 +38,7 @@ async function handlePatchRequest(req: NextApiRequest, res: NextApiResponse) {
     const playerId = uuidv4();
     const newMember = [
       ...CheckPlayer.member,
-      { id: playerId, name: player, host: false },
+      { id: playerId, name: playerName, host: false },
     ];
     const response = await fetch(
       `${process.env.API_BACK_URL}/room/${roomInfo.id}`,

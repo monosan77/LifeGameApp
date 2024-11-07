@@ -9,11 +9,11 @@ const yuji_Syuku1 = Yuji_Syuku({
   weight: ['400'],
 });
 
-interface PlayedNameProps{
-  playerName:string;
+interface PlayedNameProps {
+  playerName: string;
 }
 
-export default function SearchButton({playerName}:PlayedNameProps) {
+export default function SearchButton({ playerName }: PlayedNameProps) {
   const [findPop, setFindPop] = useState(false);
 
   function findChanger() {
@@ -22,7 +22,11 @@ export default function SearchButton({playerName}:PlayedNameProps) {
 
   return (
     <>
-      <SearchPopup closeChanger={findChanger} findPop={findPop}  playerName={playerName}/>
+      <SearchPopup
+        closeChanger={findChanger}
+        findPop={findPop}
+        player={playerName}
+      />
 
       <div className={styles.searchRoom}>
         <button onClick={findChanger} className={styles.linkContent}>
