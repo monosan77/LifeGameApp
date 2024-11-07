@@ -16,12 +16,13 @@ export default function NamePopup({
 }: NamePopups) {
   const [rename, setRename] = useState(true);
   const [createName, setCreateName] = useState(true);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const clickHandler = () => {
     if (rename && playerName) {
       setRename(false);
     } else if (!playerName) {
-      alert('ユーザー名が入力されていません。');
+      setAlertMessage('ユーザー名が入力されていません。');
     } else {
       setRename(true);
     }
@@ -50,7 +51,11 @@ export default function NamePopup({
                   onChange={(e) => setPlayerName(e.target.value)}
                   maxLength={5}
                 />
+
                 <button onClick={clickHandler}>OK</button>
+                <p className={styles.alert}>
+                {alertMessage ? `${alertMessage}`:''}
+                </p>
               </div>
             </div>
           </div>

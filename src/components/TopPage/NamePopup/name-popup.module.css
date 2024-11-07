@@ -111,3 +111,10 @@
   background-color: red;
   border-radius: 10px;
 }
+
+.userName .alert {
+  color: red;
+  font-size: 0.8rem;
+  margin: 20px 0;
+  padding: 0;
+}

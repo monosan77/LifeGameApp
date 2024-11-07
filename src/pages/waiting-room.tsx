@@ -1,16 +1,19 @@
 import React from 'react';
 import WaitingRoom from '../components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
+import { GetServerSidePropsContext } from 'next';
 
 interface WaitingRoomPageProps {
   players: Members[];
   roomId: number;
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { id } = context.query;
+
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=100001`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${id}`
     );
 
     if (!response.ok) {
