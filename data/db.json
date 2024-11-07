@@ -30,38 +30,6 @@
           "host": false
         }
       ]
-    },
-    {
-      "id": "456330",
-      "limitPlayer": 2,
-      "member": [
-        {
-          "id": "7559cd73-f5fb-4ad8-afc6-05102f8fd1b1",
-          "name": "hahaha",
-          "host": true
-        },
-        {
-          "id": "7af65c96-636e-43dd-a571-3598ff042d55",
-          "name": "sasa",
-          "host": false
-        }
-      ]
-    },
-    {
-      "id": "494739",
-      "limitPlayer": 3,
-      "member": [
-        {
-          "id": "2d8610d2-12b4-49d0-af39-969488e9a603",
-          "name": "yoshiki",
-          "host": true
-        },
-        {
-          "id": "fa0f6be2-4d04-40b3-8f3c-e147840681ea",
-          "name": "ｄｄ",
-          "host": false
-        }
-      ]
     }
   ]
 }
