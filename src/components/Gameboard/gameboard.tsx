@@ -15,7 +15,7 @@ const PLAYER_ICON = [
 ];
 
 interface Prop {
-  roomId: number;
+  roomId: string;
   yourInfo: Members;
   member: Members[];
 }
@@ -28,6 +28,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
   const [diceResult, setDiceResult] = useState<number>(0); // ダイスの結果を管理
   const [isRouletteAnimation, setIsRouletteAnimation] = useState(false);
   const [rouletteStyle, setRouletteStyle] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   // const [playersFinished, setPlayersFinished] = useState([]);
 
   //ルーレットのアニメーションを開始する関数
@@ -38,7 +39,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
   // pusher受信
   useEffect(() => {
     async function getNextPlayer(newPosition: number[]) {
-      fetch(
+      await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/game/taun-change?roomId=${roomId}`,
         {
           method: 'POST',
@@ -120,11 +121,28 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
     };
   }, [currentPlayer, roomId]);
 
-  // ダイスを振る関数
+  // ダイスを振る
+  const [isErrorAnimation, setIsErrorAnimation] = useState(false);
   async function rollDice() {
-    await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/game/dice?roomId=${roomId}`
-    );
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/game/dice1?roomId=${roomId}`
+      );
+      if (!res.ok) {
+        throw new Error(`Failed to roll dice: ${res.statusText}`);
+      }
+      setIsErrorAnimation(false);
+    } catch {
+      if (isErrorAnimation) return;
+
+      setIsErrorAnimation(true);
+      setErrorMessage(
+        'エラーが発生しました。再度ダイスボタンを押してください。'
+      );
+      setTimeout(() => {
+        setIsErrorAnimation(false);
+      }, 5000);
+    }
   }
 
   return (
@@ -1003,6 +1021,16 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
                 )
             )}
           </div>
+        </div>
+
+        <div
+          className={
+            isErrorAnimation
+              ? styles.onErrorContainer
+              : styles.offErrorContainer
+          }
+        >
+          <h3 className={styles.message}>{errorMessage}</h3>
         </div>
       </section>
 

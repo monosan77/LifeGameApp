@@ -1,5 +1,4 @@
 import { Members, RoomInfo } from '@/types/session';
-import { sharePlayers } from '@/utils/fetch-functions';
 import { useRouter } from 'next/router';
 import Pusher from 'pusher-js';
 import { useEffect, useState } from 'react';
@@ -77,6 +76,9 @@ const GamePage = ({ roomInfo }: Props) => {
       setYourInfo(getYourInfo);
     }
     // 参加プレイヤーをほかユーザに共有
+    async function sharePlayers(roomId: string) {
+      await fetch(`/api/pusher/wait-room-pusher?roomId=${roomId}`);
+    }
     sharePlayers(roomInfo.id);
   }, [roomInfo.id, roomInfo.member, router]);
 

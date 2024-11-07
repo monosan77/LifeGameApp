@@ -26,6 +26,7 @@
 //   return Math.floor(Math.random() * 6) + 1;
 // }
 
+import { fetchJSON } from '@/utils/fetch-functions';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
@@ -46,8 +47,8 @@ export default async function handler(
       const diceResult = getDiceNumber();
 
       // 外部API（Pusher）へのリクエスト
-      const pusherResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pusher/result-dice?roomId=${roomId}`,
+      const pusherResponse = await fetchJSON(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pusher/dice-pusher?roomId=${roomId}`,
         {
           method: 'POST',
           headers: {
@@ -58,12 +59,9 @@ export default async function handler(
       );
 
       // 外部APIがエラーを返した場合の処理
-      if (!pusherResponse.ok) {
-        const errorData = await pusherResponse.json();
-        console.error('Pusher APIエラー:', errorData);
+      if (!pusherResponse) {
         return res.status(pusherResponse.status).json({
-          error: 'Pusher APIへのリクエストに失敗しました。',
-          details: errorData,
+          message: 'Pusher APIへのリクエストに失敗しました。',
         });
       }
 

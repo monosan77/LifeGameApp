@@ -61,7 +61,7 @@ async function handleStartGame(req: NextApiRequest, res: NextApiResponse) {
 
     // Pusher APIへのリクエスト
     const pusherResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pusher/start-game?roomId=${roomId}`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pusher/start-game-pusher?roomId=${roomId}`
     );
 
     // Pusher APIがエラーを返した場合
