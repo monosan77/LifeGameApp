@@ -1,5 +1,5 @@
 import React from 'react';
-import WaitingRoom from '../components/WaitingRoom/waiting-room';
+import WaitingRoom from '../../components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
 
 interface WaitingRoomPageProps {

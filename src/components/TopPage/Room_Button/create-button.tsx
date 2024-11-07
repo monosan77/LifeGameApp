@@ -1,24 +1,31 @@
-import { Yuji_Syuku } from 'next/font/google';
 import { useState } from 'react';
-import styles from './create-button.module.css';
 import CreatePopup from './Create_Popup_Button/create-popup';
+import styles from './create-button.module.css';
+import { Yuji_Syuku } from 'next/font/google';
 
 const yuji_Syuku = Yuji_Syuku({
   subsets: ['latin'],
   weight: ['400'],
 });
 
-export default function CreateButton() {
-  //ポップアップのstate状態管理
+interface CreateButtonProps {
+  playerName: string;
+}
+
+export default function CreateButton({ playerName }: CreateButtonProps) {
   const [createPop, setCreatePop] = useState(false);
 
-  function createChanger() {
+  const createChanger = () => {
     setCreatePop(!createPop);
-  }
+  };
 
   return (
     <>
-      <CreatePopup closeChanger={createChanger} createPop={createPop} />
+      <CreatePopup
+        closeChanger={createChanger}
+        createPop={createPop}
+        playerName={playerName}
+      />
       <div className={styles.createRoom}>
         <button onClick={createChanger} className={styles.linkContent}>
           <p className={yuji_Syuku.className}>

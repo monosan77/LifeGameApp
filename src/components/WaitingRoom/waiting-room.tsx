@@ -2,13 +2,12 @@ import React from 'react';
 import styles from './waiting-room.module.css';
 import { Members } from '@/types/session';
 
-interface WaitingRoomPageProps{
-  players:Members[];
-  roomId:number;
+interface WaitingRoomPageProps {
+  players: Members[];
+  roomId: number;
 }
 
-export default function WaitingRoom({ players, roomId }:WaitingRoomPageProps) {
-  console.log(players);
+export default function WaitingRoom({ players, roomId }: WaitingRoomPageProps) {
   return (
     <div className={styles.all}>
       <div className={styles.container}>
@@ -20,13 +19,17 @@ export default function WaitingRoom({ players, roomId }:WaitingRoomPageProps) {
         </div>
 
         {/* 参加人数の表示 */}
-        <div className={styles.playerCount}>現在の参加人数: {players.length}人</div>
+        <div className={styles.playerCount}>
+          現在の参加人数: {players.length}人
+        </div>
 
         {/* プレイヤーのリスト */}
         <ul className={styles.playerList}>
-          {players.map(player => (
+          {players.map((player) => (
             <li key={player.id} className={styles.playerBox}>
-              <span className={styles.playerName}>{player.id}. {player.name} {player.host ? '（ホスト）' : ''}</span>
+              <span className={styles.playerName}>
+                {player.id}. {player.name} {player.host ? '（ホスト）' : ''}
+              </span>
             </li>
           ))}
         </ul>

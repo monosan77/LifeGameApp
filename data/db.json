@@ -1,32 +1,32 @@
 {
   "room": [
     {
-      "id": 100001,
+      "id": "100001",
       "limitPlayer": 5,
       "member":[
       {
        "id":"001",
-       "name":"ボン・クレー",
+       "name": "ボン・クレー",
        "host":true
       },
       {
         "id":"002",
-        "name":"サンジ",
+        "name": "サンジ",
         "host":false
        },
        {
         "id":"003",
-        "name":"バギー",
+        "name": "バギー",
         "host":false
        },
        {
         "id":"004",
-        "name":"ウソップ",
+        "name": "ウソップ",
         "host":false
        },
        {
         "id":"005",
-        "name":"チョッパー",
+        "name": "チョッパー",
         "host":false
        }
   ]}
