@@ -1,0 +1,49 @@
+.nextTaunPop,.offNextTaunPop{
+  width:100%;
+  height:300px;
+  position:absolute;
+  top:50%;
+  left:0%;
+  z-index:1000;
+  background-color:#ffffffc9;
+  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transform:translate(0%,-50%);
+  border-top: solid #2196F3 10px;
+  border-bottom: solid #2196F3 10px;
+}
+.nextTaunPop{
+  opacity:1;
+  visibility: visible;
+  transition:0.7s ease;
+}
+.offNextTaunPop{
+  opacity:0;
+  visibility: hidden;
+  transition:0.7s ease;
+}
+.taunText,.offTaunText{
+  width:100%;
+  font-size:4rem;
+  position:absolute;
+  right:-90%;
+}
+.taunText{
+  animation:moveText 3.5s ease 0s;
+}
+@keyframes moveText{
+  0%{
+    right:-90%;
+  }
+  30%{
+    right:0%;
+  }
+  80%{
+    right:0%;
+  }
+  100%{
+    right:80%;
+  }
+}

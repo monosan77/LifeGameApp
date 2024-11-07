@@ -1,0 +1,220 @@
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-color: #555555c9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s ease;
+}
+.offBackground {
+  opacity: 0;
+  visibility: hidden;
+}
+.container {
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  z-index: 100;
+  background-image: url('/game/roulette_bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.roulette {
+  width: 350px;
+  height: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: red;
+  border-radius: 50%;
+  border: black solid 5px;
+  overflow: hidden;
+  /* box-shadow:5px 5px 5px #fff; */
+}
+.cell1,
+.cell2,
+.cell3,
+.cell4,
+.cell5,
+.cell6 {
+  width: 100px;
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background:#fff; */
+  border-top: solid 200px transparent;
+  border-right: solid 116px transparent;
+  border-left: solid 116px transparent;
+}
+
+.cell1 {
+  transform: translate(-50%, -50%) rotate(0deg);
+  border-bottom: solid 200px #ff5733;
+}
+.cell1::after {
+  content: '1';
+  transform: rotate(180deg);
+  position: absolute;
+  top: 100px;
+  right: -18px;
+  font-size: 3rem;
+  color: #fff;
+}
+.cell2 {
+  transform: translate(-50%, -50%) rotate(60deg);
+  border-bottom: solid 200px #ffc300;
+}
+.cell2::after {
+  content: '2';
+  transform: rotate(180deg);
+  position: absolute;
+  top: 100px;
+  right: -18px;
+  font-size: 3rem;
+  color: #fff;
+}
+.cell3 {
+  transform: translate(-50%, -50%) rotate(120deg);
+  border-bottom: solid 200px #daf7a6;
+}
+.cell3::after {
+  content: '3';
+  transform: rotate(180deg);
+  position: absolute;
+  top: 100px;
+  right: -18px;
+  font-size: 3rem;
+  color: #fff;
+}
+.cell4 {
+  transform: translate(-50%, -50%) rotate(180deg);
+  border-bottom: solid 200px #33c1ff;
+}
+.cell4::after {
+  content: '4';
+  transform: rotate(180deg);
+  position: absolute;
+  top: 100px;
+  right: -18px;
+  font-size: 3rem;
+  color: #fff;
+}
+.cell5 {
+  transform: translate(-50%, -50%) rotate(-60deg);
+  border-bottom: solid 200px #ff33b5;
+}
+.cell5::after {
+  content: '6';
+  transform: rotate(180deg);
+  position: absolute;
+  top: 100px;
+  right: -18px;
+  font-size: 3rem;
+  color: #fff;
+}
+.cell6 {
+  transform: translate(-50%, -50%) rotate(-120deg);
+  border-bottom: solid 200px #a233ff;
+}
+.cell6::after {
+  content: '5';
+  transform: rotate(180deg);
+  position: absolute;
+  top: 100px;
+  right: -18px;
+  font-size: 3rem;
+  color: #fff;
+}
+.arrow {
+  width: 0;
+  height: 0;
+  border-top: 50px solid red;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 25px solid transparent;
+  position: absolute;
+  top: 40px;
+  left: 225px;
+  z-index: 600;
+}
+.roulette.number-1 {
+  animation: number-1 3s ease 0.5s forwards;
+}
+.roulette.number-2 {
+  animation: number-2 3s ease 0.5s forwards;
+}
+.roulette.number-3 {
+  animation: number-3 3s ease 0.5s forwards;
+}
+.roulette.number-4 {
+  animation: number-4 3s ease 0.5s forwards;
+}
+.roulette.number-5 {
+  animation: number-5 3s ease 0.5s forwards;
+}
+.roulette.number-6 {
+  animation: number-6 3s ease 0.5s forwards;
+}
+/* アニメーション設定 */
+@keyframes number-4 {
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(2160deg);
+  }
+}
+@keyframes number-5 {
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(2100deg);
+  }
+}
+@keyframes number-6 {
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(2040deg);
+  }
+}
+@keyframes number-1 {
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(1980deg);
+  }
+}
+@keyframes number-2 {
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(1920deg);
+  }
+}
+@keyframes number-3 {
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(1860deg);
+  }
+}

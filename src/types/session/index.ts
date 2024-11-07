@@ -1,5 +1,5 @@
 export interface RoomInfo {
-  id: number;
+  id: string;
   limitPlayer: number;
   member: Members[];
 }
