@@ -12,6 +12,8 @@ export default function Home() {
   const [showLinks, setShowLinks] = useState(false);
   const [conformName, setConformName] = useState(false);
 
+  // console.log('index.tsx - playerName (initial render):', playerName);
+
   return (
     <>
       <Head>
