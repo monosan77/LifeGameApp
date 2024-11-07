@@ -25,6 +25,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
     Array(member.length).fill(0)
   ); // 3人のプレイヤーの位置を管理（初期値は全員0）
   const [currentPlayer, setCurrentPlayer] = useState(0); // 現在のプレイヤーを追跡
+
   const [diceResult, setDiceResult] = useState<number>(0); // ダイスの結果を管理
   const [isRouletteAnimation, setIsRouletteAnimation] = useState(false);
   const [rouletteStyle, setRouletteStyle] = useState('');
@@ -1058,6 +1059,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
             <div className={styles.userName}>user5</div>
           </div>
         </div>
+
         <button
           className={styles.dice}
           onClick={

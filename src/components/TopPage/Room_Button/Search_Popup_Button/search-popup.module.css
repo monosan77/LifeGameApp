@@ -98,23 +98,22 @@
   border-color: white;
 }
 
-
-.searchCandidates p{
+.searchCandidates p {
   color: black;
   font-size: 1.3rem;
   margin-bottom: 0px;
 }
 
-
-.searchCandidates{
+.searchCandidates {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-top: 30px;
+  width: 600px;
+  margin: 30px auto 0px;
 }
 
-.searchCandidates button{
-  background-color:red;
+.searchCandidates button {
+  background-color: red;
   margin-right: 11px;
   color: white;
   border-color: white;
@@ -124,18 +123,21 @@
   font-weight: 700;
 }
 
-.searching{
-  display: block;
+.searching {
+  visibility: visible;
 }
 
-
-.notSearching{
+.notSearching {
   display: none;
 }
 
-
-.notFound p{
+.notFound p {
   font-size: 1.3rem;
   margin-top: 40px;
-  
+}
+
+.searchPop .alert {
+  color: red;
+  font-size: 0.8rem;
+  margin: 20px 0;
 }

@@ -3,11 +3,16 @@
 import CreateButton from './create-button';
 import SearchButton from './search-button';
 
-export default function RoomButton() {
+interface PlayedNameProps {
+  playerName: string;
+}
+
+export default function RoomButton({ playerName }: PlayedNameProps) {
   return (
     <>
-      <CreateButton />
-      <SearchButton />
+      <CreateButton  playerName={playerName}/>
+      <SearchButton playerName={playerName} />
+
     </>
   );
 }
