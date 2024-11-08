@@ -19,7 +19,7 @@ describe('Rouletteコンポーネントのテスト', () => {
     const element = document.querySelector('.number-1');
     expect(element).toBeInTheDocument();
   });
-  it('すべてのcellが表示されているか確認', () => {
+  it('すべてのcellのクラスが適応されているか確認', () => {
     render(<Roulette isRouletteAnimation={true} rouletteStyle={'number-1'} />);
     const cells = ['cell1', 'cell2', 'cell3', 'cell4', 'cell5', 'cell6'];
     cells.forEach((cell) => {
