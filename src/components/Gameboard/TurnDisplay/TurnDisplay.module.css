@@ -1,0 +1,16 @@
+
+.term {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* 幅を全体に揃える */
+  max-width: 1300px; /* 最大幅を設定 */
+  margin: 0 auto; /* 中央寄せ */
+  background-color: rgba(249, 221, 187, 90%);
+  position: relative;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
