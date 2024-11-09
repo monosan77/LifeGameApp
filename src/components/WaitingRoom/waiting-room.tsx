@@ -28,7 +28,7 @@ export default function WaitingRoom({ players, roomId }: WaitingRoomPageProps) {
           {players.map((player) => (
             <li key={player.id} className={styles.playerBox}>
               <span className={styles.playerName}>
-                {player.id}. {player.name} {player.host ? '（ホスト）' : ''}
+                {player.name} {player.host ? '（ホスト）' : ''}
               </span>
             </li>
           ))}

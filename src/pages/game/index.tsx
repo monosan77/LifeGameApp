@@ -7,10 +7,21 @@ interface WaitingRoomPageProps {
   roomId: number;
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: any) {
+  const { roomId } = context.query;
+
+  if (!roomId) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=100001`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${roomId}`
     );
 
     if (!response.ok) {
@@ -28,9 +39,9 @@ export async function getServerSideProps() {
   } catch (error) {
     console.error('データ取得エラー:', error);
     return {
-      props: {
-        players: [],
-        roomId: '',
+      redirect: {
+        destination: '/',
+        permanent: false,
       },
     };
   }
