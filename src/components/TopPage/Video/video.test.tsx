@@ -10,11 +10,7 @@ describe('ビデオコンポーネント', () => {
       expect(videoElement).toBeInTheDocument(); // videoタグがレンダリングされている場合のテスト
       expect(videoElement).toHaveAttribute('autoPlay'); //toHaveAttributeでvideoタグに属性があるかどうかをテスト
       expect(videoElement).toHaveAttribute('loop');
-      expect(videoElement.muted).toBe(true); //これはvideoElementの属性mutedがtrueであるかどうかを検証。
-    } else {
-      // videoタグが存在しない場合のテスト
-      const fallbackText = container.querySelector('p'); //「Your browser does not support the video tag」を取得
-      expect(fallbackText).toBeInTheDocument(); //それが描画されているかを検証
+      expect(videoElement.muted).toBe(true);
     }
   });
 
@@ -29,5 +25,12 @@ describe('ビデオコンポーネント', () => {
     const sourceElement = container.querySelector('source');
     expect(sourceElement).toHaveAttribute('src', '/life_of_game.mp4');
     expect(sourceElement).toHaveAttribute('type', 'video/mp4');
+  });
+
+  test('videoタグが存在しない場合', () => {
+    const { getByText } = render(<Video />); //getByTextでテキストを検索。
+    expect(
+      getByText('Your browser does not support the video tag.')
+    ).toBeInTheDocument();
   });
 });
