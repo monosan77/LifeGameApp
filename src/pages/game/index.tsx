@@ -11,9 +11,9 @@ interface WaitingRoomPageProps {
 export const getServerSideProps: GetServerSideProps<
   WaitingRoomPageProps
 > = async (context: GetServerSidePropsContext) => {
-  const { roomId } = context.query;
+  const { roomId, userId } = context.query;
 
-  if (!roomId || Array.isArray(roomId)) {
+  if (!roomId || Array.isArray(roomId) || !userId || Array.isArray(userId)) {
     return {
       redirect: {
         destination: '/',
@@ -23,24 +23,37 @@ export const getServerSideProps: GetServerSideProps<
   }
 
   try {
-    const response = await fetch(
+    // ルーム情報の取得
+    const roomResponse = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${roomId}`
     );
 
-    if (!response.ok) {
-      throw new Error('ネットワークエラーが発生しました。');
+    if (!roomResponse.ok) {
+      throw new Error('ルーム情報の取得に失敗しました。');
     }
 
-    const data: RoomInfo = await response.json();
+    const roomData: RoomInfo = await roomResponse.json();
+
+    // `member`配列の中に`userId`が存在するか確認
+    const isUserInRoom = roomData.member.some((member) => member.id === userId);
+
+    if (!isUserInRoom) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
+    }
 
     return {
       props: {
-        players: data.member,
-        roomId: data.id,
+        players: roomData.member,
+        roomId: roomData.id,
       },
     };
   } catch (error) {
-    console.error('データ取得エラー:', error);
+    console.error('認証エラー:', error);
     return {
       redirect: {
         destination: '/',
