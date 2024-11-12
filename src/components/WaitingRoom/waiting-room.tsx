@@ -4,7 +4,7 @@ import { Members } from '@/types/session';
 
 interface WaitingRoomPageProps {
   players: Members[];
-  roomId: number;
+  roomId: string;
 }
 
 export default function WaitingRoom({ players, roomId }: WaitingRoomPageProps) {
@@ -28,7 +28,7 @@ export default function WaitingRoom({ players, roomId }: WaitingRoomPageProps) {
           {players.map((player) => (
             <li key={player.id} className={styles.playerBox}>
               <span className={styles.playerName}>
-                {player.id}. {player.name} {player.host ? '（ホスト）' : ''}
+                {player.name} {player.host ? '（ホスト）' : ''}
               </span>
             </li>
           ))}
