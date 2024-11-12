@@ -1,4 +1,5 @@
 import React from 'react';
+import { GetServerSidePropsContext, GetServerSideProps } from 'next';
 import WaitingRoom from '../../components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
 
@@ -7,10 +8,12 @@ interface WaitingRoomPageProps {
   roomId: string;
 }
 
-export async function getServerSideProps({ query }: { query: string }) {
-  const roomId = query;
+export const getServerSideProps: GetServerSideProps<
+  WaitingRoomPageProps
+> = async (context: GetServerSidePropsContext) => {
+  const { roomId } = context.query;
 
-  if (!roomId) {
+  if (!roomId || Array.isArray(roomId)) {
     return {
       redirect: {
         destination: '/',
@@ -45,7 +48,7 @@ export async function getServerSideProps({ query }: { query: string }) {
       },
     };
   }
-}
+};
 
 const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   players,

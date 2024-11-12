@@ -36,11 +36,11 @@ export default function CreatePopup({
 
       console.log('APIレスポンス:', data);
 
-      const { roomId, userId } = data;
+      const { roomId, yourId } = data;
 
       // セッションストレージに保存
       const userInfo = {
-        userId: userId,
+        userId: yourId,
         name: playerName,
         host: 'true',
       };
