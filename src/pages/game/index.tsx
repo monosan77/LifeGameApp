@@ -4,11 +4,11 @@ import { Members, RoomInfo } from '@/types/session';
 
 interface WaitingRoomPageProps {
   players: Members[];
-  roomId: number;
+  roomId: string;
 }
 
-export async function getServerSideProps(context: any) {
-  const { roomId } = context.query;
+export async function getServerSideProps({ query }: { query: string }) {
+  const roomId = query;
 
   if (!roomId) {
     return {

@@ -4,7 +4,7 @@ import { Members } from '@/types/session';
 
 interface WaitingRoomPageProps {
   players: Members[];
-  roomId: number;
+  roomId: string;
 }
 
 export default function WaitingRoom({ players, roomId }: WaitingRoomPageProps) {
