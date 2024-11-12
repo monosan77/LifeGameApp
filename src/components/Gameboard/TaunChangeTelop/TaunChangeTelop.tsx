@@ -15,6 +15,14 @@ const TaunChangeTelop = ({
   member,
   currentPlayer,
 }: Prop) => {
+  // ターンの名前表記の三項演算子の処理
+  const isValidPlayer = currentPlayer >= 0 && currentPlayer < member.length;
+  const isYourTurn = isValidPlayer && yourInfo.id === member[currentPlayer].id;
+  const currentPlayerName = isValidPlayer
+    ? isYourTurn
+      ? 'あなたのターンです！！'
+      : member[currentPlayer].name + 'のターンです！！'
+    : '不明なターンです';
   return (
     <div
       className={
@@ -24,10 +32,7 @@ const TaunChangeTelop = ({
       <h2
         className={isTaunChangeAnimation ? styles.taunText : styles.offTaunText}
       >
-        {yourInfo.id === member[currentPlayer].id
-          ? 'あなた'
-          : member[currentPlayer].name}
-        のターンです！！
+        {currentPlayerName}
       </h2>
     </div>
   );
