@@ -48,7 +48,7 @@ export default function CreatePopup({
       sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
 
       // 画面遷移
-      router.push(`/game?roomId=${roomId}`);
+      router.push(`/game?roomId=${roomId}&userId=${yourId}`);
     } catch (error) {
       console.error('エラー:', error);
       setErrorMessage('ルーム作成に失敗しました。');
