@@ -10,9 +10,8 @@ interface PlayedNameProps {
 export default function RoomButton({ playerName }: PlayedNameProps) {
   return (
     <>
-      <CreateButton  playerName={playerName}/>
+      <CreateButton playerName={playerName} />
       <SearchButton playerName={playerName} />
-
     </>
   );
 }

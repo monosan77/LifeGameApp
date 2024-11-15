@@ -54,7 +54,7 @@ export default function NamePopup({
 
                 <button onClick={clickHandler}>OK</button>
                 <p className={styles.alert}>
-                {alertMessage ? `${alertMessage}`:''}
+                  {alertMessage ? `${alertMessage}` : ''}
                 </p>
               </div>
             </div>
