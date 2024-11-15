@@ -92,7 +92,7 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
         const playerName = player;
 
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/join?=${roomData.id}
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/join
           `,
           {
             method: 'PATCH',
@@ -116,10 +116,7 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
           JSON.stringify({ id: data.playerId, name: player, host: false })
         );
 
-        router.push({
-          pathname: '/waiting-room',
-          query: { id: roomData.id },
-        });
+        router.push(`/game?roomId=${roomData.id}&userId=${data.playerId}`);
       } catch (error) {
         console.error(error);
         setAlertMessage('※すでに満室です。');

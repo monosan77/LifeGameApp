@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetServerSidePropsContext, GetServerSideProps } from 'next';
 import WaitingRoom from '../../components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
+import Pusher from 'pusher-js';
 
 interface WaitingRoomPageProps {
   players: Members[];
@@ -67,9 +68,49 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   players,
   roomId,
 }) => {
+  const [currentPlayers, setCurrentPlayers] = useState(players);
+
+  useEffect(() => {
+    // roomIdをクエリパラメータに含めてfetchリクエストを送信
+    const syncRoomInfo = async () => {
+      try {
+        const response = await fetch(
+          `/api/pusher/wait-room-pusher?roomId=${roomId}`
+        );
+        if (!response.ok) {
+          throw new Error('ルーム同期に失敗しました。');
+        }
+        const data = await response.json();
+        console.log('ルーム情報が同期されました：', data.message);
+      } catch (error) {
+        console.error('同期エラー：', error);
+        alert('ルーム情報の同期に失敗しました。ページをリロードしてください。');
+      }
+    };
+
+    syncRoomInfo();
+
+    // Pusherを使用して、リアルタイムでルーム情報を受け取る
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+    });
+
+    const channel = pusher.subscribe(roomId);
+
+    // channel.bind('joinRoom', (data: { member: Members[] }) => {
+    channel.bind('joinRoom', (data: any) => {
+      console.log('Received data:', data);
+      setCurrentPlayers(data.member);
+    });
+
+    return () => {
+      pusher.unsubscribe(roomId);
+    };
+  }, [roomId]);
+
   return (
     <div>
-      <WaitingRoom players={players} roomId={roomId} />
+      <WaitingRoom players={currentPlayers} roomId={roomId} />
     </div>
   );
 };
