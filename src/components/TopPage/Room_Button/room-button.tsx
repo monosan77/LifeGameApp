@@ -12,7 +12,6 @@ export default function RoomButton({ playerName }: PlayedNameProps) {
     <>
       <CreateButton  playerName={playerName}/>
       <SearchButton playerName={playerName} />
-
     </>
   );
 }
