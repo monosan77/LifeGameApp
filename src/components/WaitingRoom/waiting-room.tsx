@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './waiting-room.module.css';
 import { Members } from '@/types/session';
+import { useRouter } from 'next/router';
 
 interface WaitingRoomPageProps {
   players: Members[];
@@ -8,6 +9,33 @@ interface WaitingRoomPageProps {
 }
 
 export default function WaitingRoom({ players, roomId }: WaitingRoomPageProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!players || players.length === 0) {
+      console.log('ルーム情報が取得できなかったため、トップページに戻ります。');
+      router.push('/');
+    }
+  }, [players, router]);
+
+  const isHost = players.some((player) => player.host);
+
+  const startGame = async () => {
+    try {
+      if (isHost) {
+        const response = await fetch(`/api/game/start-game?roomId=${roomId}`);
+        if (!response.ok) {
+          throw new Error('ゲーム開始に失敗しました');
+        }
+        console.log('ゲーム開始リクエストを送信しました');
+      } else {
+        console.log('ホストのみがゲームを開始できます');
+      }
+    } catch (error) {
+      console.error('ゲーム開始エラー:', error);
+    }
+  };
+
   return (
     <div className={styles.all}>
       <div className={styles.container}>
@@ -36,7 +64,7 @@ export default function WaitingRoom({ players, roomId }: WaitingRoomPageProps) {
 
         {/* ボタングループ */}
         <div className={styles.buttonGroup}>
-          <button className={styles.startButton}>
+          <button onClick={startGame} className={styles.startButton}>
             大富豪を目指していざ出陣！
           </button>
           <button className={styles.exitButton}>退出</button>

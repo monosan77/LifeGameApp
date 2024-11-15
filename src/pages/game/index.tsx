@@ -3,10 +3,12 @@ import { GetServerSidePropsContext, GetServerSideProps } from 'next';
 import WaitingRoom from '../../components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
 import Pusher from 'pusher-js';
+import Gameboard from '@/components/Gameboard/gameboard';
 
 interface WaitingRoomPageProps {
   players: Members[];
   roomId: string;
+  yourInfo: Members; // `yourInfo`プロパティも定義して渡す
 }
 
 export const getServerSideProps: GetServerSideProps<
@@ -51,6 +53,7 @@ export const getServerSideProps: GetServerSideProps<
       props: {
         players: roomData.member,
         roomId: roomData.id,
+        yourInfo: roomData.member.find((player) => player.id === userId)!, // `yourInfo`を設定
       },
     };
   } catch (error) {
@@ -67,8 +70,10 @@ export const getServerSideProps: GetServerSideProps<
 const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   players,
   roomId,
+  yourInfo,
 }) => {
   const [currentPlayers, setCurrentPlayers] = useState(players);
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     // roomIdをクエリパラメータに含めてfetchリクエストを送信
@@ -97,16 +102,24 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
 
     const channel = pusher.subscribe(roomId);
 
-    // channel.bind('joinRoom', (data: { member: Members[] }) => {
     channel.bind('joinRoom', (data: any) => {
       console.log('Received data:', data);
       setCurrentPlayers(data.member);
+    });
+
+    channel.bind('start-game', () => {
+      console.log('ゲームが開始されました');
+      setGameStarted(true); // ゲーム開始フラグを更新
     });
 
     return () => {
       pusher.unsubscribe(roomId);
     };
   }, [roomId]);
+
+  if (gameStarted) {
+    return <Gameboard roomId={roomId} yourInfo={yourInfo} member={players} />;
+  }
 
   return (
     <div>
