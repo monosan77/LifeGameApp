@@ -49,7 +49,7 @@ async function getNextPlayer(req: NextApiRequest, res: NextApiResponse) {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(nextPlayer),
+        body: JSON.stringify({ nextPlayer }),
       }
     );
 

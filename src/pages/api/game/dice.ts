@@ -54,7 +54,7 @@ export default async function handler(
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(diceResult),
+          body: JSON.stringify({ diceResult }),
         }
       );
 
