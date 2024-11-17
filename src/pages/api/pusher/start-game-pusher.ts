@@ -37,13 +37,14 @@ export default async function handler(
 
     // Pusherからのレスポンスチェック
     if (response.status !== 200) {
-      console.error('Pusherエラー:', response);
-      return res.status(500).json({ error: '同期できませんでした。' });
+      // console.error('Pusherエラー:', response);
+      throw new Error('pusher 同期ができませんでした。');
     }
 
     res.status(200).json({ message: 'ゲームが正常に開始されました。' });
-  } catch (error) {
-    console.error('サーバーエラー:', error);
-    res.status(500).json({ error: 'サーバーエラーが発生しました。' });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // console.error('サーバーエラー:', error);
+    res.status(500).json({ error: `server error : ${error.message}` });
   }
 }

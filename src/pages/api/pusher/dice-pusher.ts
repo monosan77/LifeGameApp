@@ -20,10 +20,10 @@ export default async function handler(
   }
 
   const { roomId } = req.query;
-  const diceResult = req.body;
+  const { diceResult } = req.body;
 
   // roomIdとdiceResultの存在チェック
-  if (!roomId || typeof diceResult === 'undefined') {
+  if (!roomId || typeof diceResult === 'undefined' || !diceResult) {
     return res
       .status(400)
       .json({ error: '不正なリクエストです。roomIdとdiceResultが必要です。' });
@@ -39,15 +39,13 @@ export default async function handler(
 
     // Pusherのレスポンスが失敗した場合のチェック
     if (response.status !== 200) {
-      console.error('Pusherエラー:', response);
-      return res
-        .status(500)
-        .json({ error: 'Pusher APIで同期に失敗しました。' });
+      throw new Error('Pusher APIで同期に失敗しました。');
     }
 
     res.status(200).json({ message: 'サイコロの結果が正常に送信されました。' });
-  } catch (error) {
-    console.error('サーバーエラー:', error);
-    res.status(500).json({ error: 'サーバーでエラーが発生しました。' });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // console.error('サーバーエラー:', error);
+    res.status(500).json({ error: `server error : ${error.message}` });
   }
 }
