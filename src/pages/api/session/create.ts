@@ -13,9 +13,8 @@ export default async function handler(
     return res
       .status(405)
       .json({ message: 'リクエストが不正です。メソッドが不正' });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'Server Error' });
+  } catch (error: any) {
+    res.status(500).json({ message: `Server Error : ${error.message}` });
   }
 }
 
@@ -32,35 +31,36 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   };
   const roomId = generateRandomNumber().toString();
 
-  try {
-    const getRoomId = await fetch(
-      `${process.env.API_BACK_URL}/room?id=${roomId}`
-    );
-    const data: RoomInfo[] = await getRoomId.json();
-    if (data.length > 0) {
-      throw new Error(`HTTP Error! status:${getRoomId.status}`);
-    }
-    const yourId = uuidv4();
-    // ルームを作成したプレイヤーがルームホストになる
-    const members = [{ id: yourId, name: playerName, host: true }];
-
-    const postRoomId = await fetch(`${process.env.API_BACK_URL}/room`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: roomId,
-        limitPlayer: limitPlayer,
-        member: members,
-      }),
-    });
-    if (!postRoomId.ok) {
-      throw new Error(`HTTP Error! status:${postRoomId.status}`);
-    }
-    return res.status(200).json({ roomId, yourId });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'server error' });
+  const getRoomId = await fetch(
+    `${process.env.API_BACK_URL}/room?id=${roomId}`
+  );
+  if (!getRoomId.ok) {
+    throw new Error(`HTTP Error! status:${getRoomId.status}`);
   }
+  const data: RoomInfo[] = await getRoomId.json();
+  // 作成したルームIDがすでに存在していた時
+  if (data.length > 0) {
+    return res
+      .status(404)
+      .json({ message: 'ルーム作成に失敗しました。存在するIDです。' });
+  }
+  const yourId = uuidv4();
+  // ルームを作成したプレイヤーがルームホストになる
+  const members = [{ id: yourId, name: playerName, host: true }];
+
+  const postRoomId = await fetch(`${process.env.API_BACK_URL}/room`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id: roomId,
+      limitPlayer: limitPlayer,
+      member: members,
+    }),
+  });
+  if (!postRoomId.ok) {
+    throw new Error(`HTTP Error! status:${postRoomId.status}`);
+  }
+  return res.status(200).json({ roomId, yourId, data });
 }

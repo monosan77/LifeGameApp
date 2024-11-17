@@ -11,9 +11,8 @@ export default async function handler(
       return await handleGetRequest(req, res);
     }
     return res.status(405).json({ message: 'リクエストが不正です。' });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'Server Error' });
+  } catch (error: any) {
+    res.status(500).json({ message: `Server Error : ${error.message}` });
   }
 }
 
@@ -22,16 +21,9 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   if (!roomId) {
     return res.status(400).json({ message: '不正なリクエストです' });
   }
-  try {
-    const roomInfo: RoomInfo = await fetchJSON(
-      `${process.env.API_BACK_URL}/room/${roomId}`
-    );
-    if (!roomInfo) {
-      return res.status(404).json({ message: 'ルームが存在ありません' });
-    }
-    res.status(200).json(roomInfo);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: 'server error' });
-  }
+  const roomInfo: RoomInfo = await fetchJSON(
+    `${process.env.API_BACK_URL}/room/${roomId}`
+  );
+
+  res.status(200).json(roomInfo);
 }
