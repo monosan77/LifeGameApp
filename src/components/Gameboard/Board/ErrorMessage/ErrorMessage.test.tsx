@@ -25,6 +25,7 @@ describe('ErrorMessageコンポーネントのテスト', () => {
     const element = screen.getByTestId('error-container');
 
     expect(element).toHaveClass('offErrorContainer');
+    expect(element).toBeInTheDocument();
   });
   it('errorMessageが空の時に表示が正しく処理されるか', () => {
     render(<ErrorMessage isErrorAnimation={true} errorMessage={''} />);
