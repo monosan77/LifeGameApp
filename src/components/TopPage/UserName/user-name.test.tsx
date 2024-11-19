@@ -11,7 +11,7 @@ describe('UserNameコンポーネントのテスト', () => {
 
   it('userNameクラスが適用されているか', () => {
     const { container } = render(<UserName playerName="テストプレイヤー" />);
-    
+
     // pタグが正しいCSSクラス(userName)を持っているか確認
     const pElement = container.querySelector('p');
     expect(pElement).toHaveClass('userName');
