@@ -58,7 +58,7 @@ export const getServerSideProps: GetServerSideProps<
       },
     };
   } catch (error) {
-    console.error('認証エラー:', error);
+    // console.error('認証エラー:', error);
     return {
       redirect: {
         destination: '/',
