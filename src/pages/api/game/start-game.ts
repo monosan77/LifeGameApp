@@ -12,8 +12,7 @@ export default async function handler(
     }
     return res.status(405).json({ error: '不正なリクエストメソッドです。' });
   } catch (error: any) {
-    console.error('ハンドラーレベルでのエラー:', error);
-    // res.status(500).json({ error: 'サーバーエラーが発生しました。' });
+    // console.error('ハンドラーレベルでのエラー:', error);
     res.status(500).json({ error: `server error : ${error.message}` });
   }
 }
