@@ -3,10 +3,13 @@ import { GetServerSidePropsContext, GetServerSideProps } from 'next';
 import WaitingRoom from '../../components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
 import Pusher from 'pusher-js';
+import Gameboard from '@/components/Gameboard/gameboard';
+import styles from './index.module.css';
 
 interface WaitingRoomPageProps {
   players: Members[];
   roomId: string;
+  yourInfo: Members; // `yourInfo`プロパティも定義して渡す
 }
 
 export const getServerSideProps: GetServerSideProps<
@@ -51,10 +54,11 @@ export const getServerSideProps: GetServerSideProps<
       props: {
         players: roomData.member,
         roomId: roomData.id,
+        yourInfo: roomData.member.find((player) => player.id === userId)!, // `yourInfo`を設定
       },
     };
   } catch (error) {
-    console.error('認証エラー:', error);
+    // console.error('認証エラー:', error);
     return {
       redirect: {
         destination: '/',
@@ -67,8 +71,12 @@ export const getServerSideProps: GetServerSideProps<
 const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   players,
   roomId,
+  yourInfo,
 }) => {
   const [currentPlayers, setCurrentPlayers] = useState(players);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     // roomIdをクエリパラメータに含めてfetchリクエストを送信
@@ -81,10 +89,10 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
           throw new Error('ルーム同期に失敗しました。');
         }
         const data = await response.json();
-        console.log('ルーム情報が同期されました：', data.message);
       } catch (error) {
-        console.error('同期エラー：', error);
-        alert('ルーム情報の同期に失敗しました。ページをリロードしてください。');
+        setErrorMessage(
+          'ルーム情報の同期に失敗しました。ページをリロードしてください。'
+        );
       }
     };
 
@@ -97,10 +105,16 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
 
     const channel = pusher.subscribe(roomId);
 
-    // channel.bind('joinRoom', (data: { member: Members[] }) => {
     channel.bind('joinRoom', (data: any) => {
-      console.log('Received data:', data);
       setCurrentPlayers(data.member);
+    });
+
+    channel.bind('start-game', () => {
+      setIsFadingOut(true);
+      setTimeout(() => {
+        setIsFadingOut(false);
+        setGameStarted(true);
+      }, 1000);
     });
 
     return () => {
@@ -108,9 +122,28 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
     };
   }, [roomId]);
 
+  if (gameStarted) {
+    return (
+      <div className={`${styles.container} ${styles.fadeIn}`}>
+        <Gameboard roomId={roomId} yourInfo={yourInfo} member={players} />;
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <WaitingRoom players={currentPlayers} roomId={roomId} />
+    <div
+      className={`${styles.container} ${
+        isFadingOut ? styles.fadeOut : styles.fadeIn
+      }`}
+    >
+      {errorMessage && (
+        <p style={{ color: 'red', fontWeight: 'bold' }}>{errorMessage}</p>
+      )}
+      <WaitingRoom
+        players={currentPlayers}
+        roomId={roomId}
+        yourInfo={yourInfo}
+      />
     </div>
   );
 };
