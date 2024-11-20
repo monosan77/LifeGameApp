@@ -4,6 +4,7 @@ import WaitingRoom from '../../components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
 import Pusher from 'pusher-js';
 import Gameboard from '@/components/Gameboard/gameboard';
+import styles from './index.module.css';
 
 interface WaitingRoomPageProps {
   players: Members[];
@@ -73,7 +74,9 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   yourInfo,
 }) => {
   const [currentPlayers, setCurrentPlayers] = useState(players);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     // roomIdをクエリパラメータに含めてfetchリクエストを送信
@@ -86,10 +89,10 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
           throw new Error('ルーム同期に失敗しました。');
         }
         const data = await response.json();
-        console.log('ルーム情報が同期されました：', data.message);
       } catch (error) {
-        console.error('同期エラー：', error);
-        alert('ルーム情報の同期に失敗しました。ページをリロードしてください。');
+        setErrorMessage(
+          'ルーム情報の同期に失敗しました。ページをリロードしてください。'
+        );
       }
     };
 
@@ -103,12 +106,15 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
     const channel = pusher.subscribe(roomId);
 
     channel.bind('joinRoom', (data: any) => {
-      console.log('Received data:', data);
       setCurrentPlayers(data.member);
     });
 
     channel.bind('start-game', () => {
-      setGameStarted(true); // ゲーム開始フラグを更新
+      setIsFadingOut(true);
+      setTimeout(() => {
+        setIsFadingOut(false);
+        setGameStarted(true);
+      }, 1000);
     });
 
     return () => {
@@ -117,11 +123,22 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   }, [roomId]);
 
   if (gameStarted) {
-    return <Gameboard roomId={roomId} yourInfo={yourInfo} member={players} />;
+    return (
+      <div className={`${styles.container} ${styles.fadeIn}`}>
+        <Gameboard roomId={roomId} yourInfo={yourInfo} member={players} />;
+      </div>
+    );
   }
 
   return (
-    <div>
+    <div
+      className={`${styles.container} ${
+        isFadingOut ? styles.fadeOut : styles.fadeIn
+      }`}
+    >
+      {errorMessage && (
+        <p style={{ color: 'red', fontWeight: 'bold' }}>{errorMessage}</p>
+      )}
       <WaitingRoom
         players={currentPlayers}
         roomId={roomId}
