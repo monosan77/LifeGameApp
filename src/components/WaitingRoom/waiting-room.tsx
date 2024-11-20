@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './waiting-room.module.css';
 import { Members } from '@/types/session';
 import { useRouter } from 'next/router';
@@ -6,33 +6,40 @@ import { useRouter } from 'next/router';
 interface WaitingRoomPageProps {
   players: Members[];
   roomId: string;
+  yourInfo: Members;
 }
 
-export default function WaitingRoom({ players, roomId }: WaitingRoomPageProps) {
+export default function WaitingRoom({
+  players,
+  roomId,
+  yourInfo,
+}: WaitingRoomPageProps) {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     if (!players || players.length === 0) {
-      console.log('ルーム情報が取得できなかったため、トップページに戻ります。');
-      router.push('/');
+      setErrorMessage(
+        'ルーム情報が取得できませんでした。トップページに戻ります。'
+      );
+      setTimeout(() => {
+        router.push('/');
+      }, 500);
     }
   }, [players, router]);
 
-  const isHost = players.some((player) => player.host);
-
   const startGame = async () => {
     try {
-      if (isHost) {
+      if (yourInfo.host) {
         const response = await fetch(`/api/game/start-game?roomId=${roomId}`);
         if (!response.ok) {
           throw new Error('ゲーム開始に失敗しました');
         }
-        console.log('ゲーム開始リクエストを送信しました');
       } else {
-        console.log('ホストのみがゲームを開始できます');
+        setErrorMessage('ホストのみがゲームを開始できます');
       }
     } catch (error) {
-      console.error('ゲーム開始エラー:', error);
+      setErrorMessage('ゲーム開始エラー:サーバーに問題が発生しました');
     }
   };
 
@@ -40,6 +47,13 @@ export default function WaitingRoom({ players, roomId }: WaitingRoomPageProps) {
     <div className={styles.all}>
       <div className={styles.container}>
         <h1 className={styles.title}>待機中....</h1>
+
+        {/* エラーメッセージの表示 */}
+        {errorMessage && (
+          <div className={styles.errorBox}>
+            <p>{errorMessage}</p>
+          </div>
+        )}
 
         {/* ルームIDの表示 */}
         <div className={styles.roomId}>

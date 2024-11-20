@@ -108,7 +108,6 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
     });
 
     channel.bind('start-game', () => {
-      console.log('ゲームが開始されました');
       setGameStarted(true); // ゲーム開始フラグを更新
     });
 
@@ -123,7 +122,11 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
 
   return (
     <div>
-      <WaitingRoom players={currentPlayers} roomId={roomId} />
+      <WaitingRoom
+        players={currentPlayers}
+        roomId={roomId}
+        yourInfo={yourInfo}
+      />
     </div>
   );
 };
