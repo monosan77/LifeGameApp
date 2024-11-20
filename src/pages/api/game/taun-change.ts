@@ -13,7 +13,7 @@ export default async function handler(
     // GETやその他のメソッドへの対応
     res.status(405).json({ error: 'リクエストエラー：メソッドが不正です。' });
   } catch (error: any) {
-    console.error('ハンドラーレベルでのエラー:', error);
+    // console.error('ハンドラーレベルでのエラー:', error);
     res.status(500).json({ error: `server error : ${error.message}` });
   }
 }

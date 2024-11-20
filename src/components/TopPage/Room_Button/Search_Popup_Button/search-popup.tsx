@@ -23,7 +23,6 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
   const [nameId, setNameId] = useState('');
   const [isSearchingResult, setIsSearchingResult] = useState(false);
   const [roomData, setRoomData] = useState<RoomData | null>(null);
-  const [isWaitingScreen, setIsWaitingScreen] = useState(true);
   const [alertMessage, setAlertMessage] = useState('');
   const router = useRouter();
 
@@ -39,6 +38,7 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
   };
 
   async function searchingHandler() {
+    console.log(nameId);
     if (nameId === '') {
       setAlertMessage('※ルームIDを入力してください。');
       return;
@@ -73,54 +73,45 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
         setIsSearchingResult(true);
       }
       setIsSearchingResult(true);
-    } catch (error: unknown) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       if (error instanceof Error) {
-        console.error(`エラーが発生しました: ${error.message}`);
-        setAlertMessage('IDが見つかりません。');
-      } else {
-        console.error(`不明なエラーが発生しました: ${String(error)}`);
+        // console.error(`エラーが発生しました: ${error.message}`);
         setAlertMessage('IDが見つかりません。');
       }
     }
   }
 
   async function determinationHandler() {
-    setIsWaitingScreen(!isWaitingScreen);
-    if (roomData) {
-      try {
-        const roomInfo = { id: roomData.id, member: roomData.players };
-        const playerName = player;
+    try {
+      const roomInfo = { id: roomData?.id, member: roomData?.players };
+      const playerName = player;
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/join
-          `,
-          {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ roomInfo, playerName }),
-          }
-        );
-        if (!res.ok) {
-          throw new Error('※すでに満室です。');
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/join
+            `,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ roomInfo, playerName }),
         }
-        const data = await res.json();
-
-        if (!data) {
-          throw new Error('リクエストが失敗しました。');
-        }
-
-        sessionStorage.setItem(
-          'userInfo',
-          JSON.stringify({ id: data.playerId, name: player, host: false })
-        );
-
-        router.push(`/game?roomId=${roomData.id}&userId=${data.playerId}`);
-      } catch (error) {
-        console.error(error);
-        setAlertMessage('※すでに満室です。');
+      );
+      if (!res.ok) {
+        throw new Error('※すでに満室です。');
       }
+      const data = await res.json();
+
+      sessionStorage.setItem(
+        'userInfo',
+        JSON.stringify({ id: data.playerId, name: player, host: false })
+      );
+
+      router.push(`/game?roomId=${roomData?.id}&userId=${data.playerId}`);
+    } catch (error) {
+      console.error(error);
+      setAlertMessage('※すでに満室です。');
     }
   }
 
@@ -143,7 +134,11 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
               />
               <button onClick={searchingHandler}>検索</button>
             </div>
-            {alertMessage && <p className={styles.alert}>{alertMessage}</p>}
+            {alertMessage && (
+              <p data-testid="message" className={styles.alert}>
+                {alertMessage}
+              </p>
+            )}
             <div
               className={
                 isSearchingResult ? styles.searching : styles.notSearching
