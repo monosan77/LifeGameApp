@@ -42,7 +42,6 @@ describe('TaunChangeTelopコンポーネントのテスト', () => {
         currentPlayer={5}
       />
     );
-    screen.debug();
     const text = screen.getByText('不明なターンです');
     expect(text).toBeInTheDocument();
   });
@@ -55,7 +54,6 @@ describe('TaunChangeTelopコンポーネントのテスト', () => {
         currentPlayer={-1}
       />
     );
-    screen.debug();
     const text = screen.getByText('不明なターンです');
     expect(text).toBeInTheDocument();
   });
@@ -71,7 +69,6 @@ describe('TaunChangeTelopコンポーネントのテスト', () => {
     );
     const className = screen.getByText('あなたのターンです！！');
     const element = document.querySelector('.offNextTaunPop');
-    screen.debug();
     expect(className).toHaveClass('offTaunText');
     expect(element).toBeInTheDocument();
   });
@@ -87,7 +84,6 @@ describe('TaunChangeTelopコンポーネントのテスト', () => {
     const className = screen.getByText('あなたのターンです！！');
     const element = document.querySelector('.nextTaunPop');
 
-    screen.debug();
     expect(className).toHaveClass('taunText');
     expect(element).toBeInTheDocument();
   });
