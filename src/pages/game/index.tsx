@@ -105,8 +105,8 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
 
     const channel = pusher.subscribe(roomId);
 
-    channel.bind('joinRoom', (data: any) => {
-      setCurrentPlayers(data.member);
+    channel.bind('joinRoom', (roomInfo: RoomInfo) => {
+      setCurrentPlayers(roomInfo.member);
     });
 
     channel.bind('start-game', () => {
@@ -119,13 +119,18 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
 
     return () => {
       pusher.unsubscribe(roomId);
+      pusher.disconnect();
     };
   }, [roomId]);
 
   if (gameStarted) {
     return (
       <div className={`${styles.container} ${styles.fadeIn}`}>
-        <Gameboard roomId={roomId} yourInfo={yourInfo} member={players} />;
+        <Gameboard
+          roomId={roomId}
+          yourInfo={yourInfo}
+          member={currentPlayers}
+        />
       </div>
     );
   }

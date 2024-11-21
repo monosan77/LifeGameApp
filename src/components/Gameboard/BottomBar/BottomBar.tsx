@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './BottomBar.module.css';
 import { Members } from '@/types/session';
+import { formatNumber } from '@/utils/utils-function';
+import CountUp from 'react-countup';
 
 interface Props {
   yourInfo: Members;
@@ -8,6 +10,8 @@ interface Props {
   currentPlayer: number;
   rollDice: () => void;
   diceResult: number;
+  moneys: number[];
+  eventDetails: Event_Mold | null;
 }
 
 const BottomBar = ({
@@ -15,17 +19,23 @@ const BottomBar = ({
   member,
   currentPlayer,
   rollDice,
-  diceResult,
+  moneys,
+  eventDetails,
 }: Props) => {
   return (
     <section className={styles.bottomBar}>
       <button className={styles.chat}>chat</button>
       <div className={styles.usersTable}>
-        <div className={styles.userBox}>
-          <div className={styles.money}>money</div>
-          <div className={styles.userName}>user1</div>
-        </div>
-        <div className={styles.userBox}>
+        {member.map((player, index) => (
+          <div key={player.id} className={styles.userBox}>
+            <div className={styles.userName}>{player.name}</div>
+            <div className={styles.money}>{moneys[index]} 万円</div>
+            {/* <div className={styles.money}>
+              {formatNumber(moneys[index])}万円
+            </div> */}
+          </div>
+        ))}
+        {/* <div className={styles.userBox}>
           <div className={styles.money}>money</div>
           <div className={styles.userName}>user2</div>
         </div>
@@ -40,7 +50,7 @@ const BottomBar = ({
         <div className={styles.userBox}>
           <div className={styles.money}>money</div>
           <div className={styles.userName}>user5</div>
-        </div>
+        </div> */}
       </div>
 
       <button
@@ -51,9 +61,9 @@ const BottomBar = ({
       >
         dice
       </button>
-      {diceResult && (
+      {/* {diceResult && (
         <div className={styles.diceResult}>Dice: {diceResult}</div>
-      )}
+      )} */}
     </section>
   );
 };

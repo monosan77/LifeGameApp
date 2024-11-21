@@ -30,6 +30,178 @@
           "host": false
         }
       ]
+    },
+    {
+      "id": "732167",
+      "limitPlayer": 2,
+      "member": [
+        {
+          "id": "2fe92573-8f07-4701-aca5-ce638161797a",
+          "name": "ｄｄｄ",
+          "host": true
+        }
+      ]
+    },
+    {
+      "id": "477231",
+      "limitPlayer": 2,
+      "member": [
+        {
+          "id": "2cda982f-1e71-45bb-916a-136116532e92",
+          "name": "さつき",
+          "host": true
+        },
+        {
+          "id": "e030b37a-7921-4e4d-b784-eb1dcb9448a2",
+          "name": "47723",
+          "host": false
+        }
+      ]
+    }
+  ],
+  "event_table": [
+    {
+      "id": "0",
+      "event": {
+        "id": "001",
+        "event_type": "plus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "1",
+      "event": {
+        "id": "001",
+        "event_type": "plus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "2",
+      "event": {
+        "id": "001",
+        "event_type": "minus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "3",
+      "event": {
+        "id": "001",
+        "event_type": "plus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "4",
+      "event": {
+        "id": "001",
+        "event_type": "minus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "5",
+      "event": {
+        "id": "001",
+        "event_type": "plus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "6",
+      "event": {
+        "id": "001",
+        "event_type": "minus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "7",
+      "event": {
+        "id": "001",
+        "event_type": "plus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "8",
+      "event": {
+        "id": "001",
+        "event_type": "minus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "9",
+      "event": {
+        "id": "001",
+        "event_type": "plus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "10",
+      "event": {
+        "id": "001",
+        "event_type": "minus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "11",
+      "event": {
+        "id": "001",
+        "event_type": "plus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "12",
+      "event": {
+        "id": "001",
+        "event_type": "minus",
+        "title": "新たな未来へ",
+        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "value": 300,
+        "special_event": null
+      }
     }
   ]
 }
