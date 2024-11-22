@@ -9,6 +9,7 @@ import Board from './Board/Board';
 import BottomBar from './BottomBar/BottomBar';
 import Image from 'next/image';
 import CountUp from 'react-countup';
+import { fetchJSON } from '@/utils/fetch-functions';
 
 interface Prop {
   roomId: string;
@@ -32,6 +33,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
   const [isEventPop, setIsEventPop] = useState(false);
   const [isCountUpPop, setIsCountUpPop] = useState(false);
   const [isCountUpAnimation, setIsCountUpAnimation] = useState(false);
+  const [isActiveTurn, setIsActiveTurn] = useState(false);
   const [rouletteStyle, setRouletteStyle] = useState('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   // const [playersFinished, setPlayersFinished] = useState([]);
@@ -50,52 +52,116 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
 
     // ダイスの結果を受信
     channel.bind('result-dice', async function (resultDice: number | null) {
+      console.log(resultDice, '受け取ったダイス結果');
       if (resultDice) {
+        if (isEventPop) {
+          setIsEventPop(false);
+        }
         setIsRouletteAnimation(true);
         setDiceResult(resultDice);
         // ルーレットのアニメーション開始
         handleRouletteAnimation(resultDice);
 
         // ルーレットアニメション終了後の処理
-        setTimeout(() => {
+        setTimeout(async () => {
           setIsRouletteAnimation(false);
           setRouletteStyle('');
+          if (isActiveTurn) {
+            console.log('特殊イベント');
+            const newMoney: number[] = await getSpecialEvent(resultDice);
+            console.log(newMoney, '新しい金額');
+            setMoneys(newMoney);
+            if (yourInfo.id === member[currentPlayer].id) {
+              console.log(playerPositions, 'postion');
 
-          // プレイヤーの位置を更新
-          const newPosition = [...playerPositions];
-          for (let i = 1; i <= resultDice; i++) {
-            setTimeout(() => {
-              newPosition[currentPlayer] = newPosition[currentPlayer] + 1;
-              setPlayerPositions([...newPosition]);
+              return getNextPlayer(playerPositions);
+            }
+          } else {
+            console.log('駒動かすよ');
+            setIsActiveTurn(true);
+            // プレイヤーの位置を更新
+            const newPosition = [...playerPositions];
+            for (let i = 1; i <= resultDice; i++) {
+              setTimeout(() => {
+                newPosition[currentPlayer] = newPosition[currentPlayer] + 1;
+                setPlayerPositions([...newPosition]);
 
-              // 現在のプレイヤーと操作プレイヤーを比較し同じであればターンを回すAPIにリクエストを送る
-              if (
-                i === resultDice &&
-                yourInfo.id === member[currentPlayer].id
-              ) {
-                setTimeout(() => {
-                  handleEvent(
-                    newPosition[currentPlayer],
-                    currentPlayer,
-                    moneys
-                  );
-                }, 500);
-              }
-            }, i * 500);
+                // 現在のプレイヤーと操作プレイヤーを比較し同じであればターンを回すAPIにリクエストを送る
+                if (
+                  i === resultDice &&
+                  yourInfo.id === member[currentPlayer].id
+                ) {
+                  setTimeout(() => {
+                    handleGETEvent(
+                      newPosition[currentPlayer],
+                      currentPlayer,
+                      moneys
+                    );
+                  }, 500);
+                }
+              }, i * 500);
+            }
           }
         }, 4000);
       }
     });
 
-    // イベント情報を受信
+    // 通常イベント情報を受信
     channel.bind('get-event-info', (event: EventGetPusher) => {
       setEventDetails(event.eventInfo);
-      setMoneys(event.moneys);
+      if (moneys !== event.moneys) {
+        setMoneys(event.moneys);
+      }
       setIsEventPop(true);
     });
 
+    // // 次のプレイヤー情報を受信
+    // channel.bind('result-next-player', (nextPlayer: number) => {
+    //   console.log('次プレや呼ばれたよ');
+    //   setIsEventPop(false);
+    //   setIsCountUpPop(true);
+
+    //   setTimeout(() => {
+    //     setIsCountUpAnimation(true);
+
+    //     setTimeout(() => {
+    //       // ターンチェンジアニメーションの開始
+    //       setIsCountUpPop(false);
+    //       setTimeout(() => {
+    //         setCurrentPlayer(nextPlayer);
+    //         setIsTaunChangeAnimation(true);
+
+    //         setTimeout(() => {
+    //           setIsTaunChangeAnimation(false);
+    //           setIsCountUpAnimation(false);
+    //           setIsActiveTurn(false);
+    //         }, 3000);
+    //       }, 350);
+    //     }, 2500);
+    //   }, 800);
+    // });
+
+    return () => {
+      // pusher.unsubscribe(`${roomId}`);
+      pusher.disconnect();
+    };
+  }, [
+    roomId,
+    diceResult,
+    currentPlayer,
+    playerPositions,
+    moneys,
+    isEventPop,
+    isActiveTurn,
+  ]);
+
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY as string, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER as string,
+    });
+    const channel = pusher.subscribe(`${roomId}`);
     // 次のプレイヤー情報を受信
-    channel.bind('result-next-player', async function (nextPlayer: number) {
+    channel.bind('result-next-player', (nextPlayer: number) => {
       setIsEventPop(false);
       setIsCountUpPop(true);
 
@@ -112,19 +178,50 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
             setTimeout(() => {
               setIsTaunChangeAnimation(false);
               setIsCountUpAnimation(false);
+              setIsActiveTurn(false);
             }, 3000);
           }, 350);
         }, 2500);
       }, 800);
     });
-
     return () => {
-      pusher.unsubscribe(`${roomId}`);
+      // pusher.unsubscribe(`${roomId}`);
       pusher.disconnect();
     };
-  }, [moneys, currentPlayer, diceResult, eventDetails]);
+  }, [
+    roomId,
+    // currentPlayer,
+    // playerPositions,
+    // moneys,
+    // isEventPop,
+    // isActiveTurn,
+  ]);
 
-  async function handleEvent(
+  async function getSpecialEvent(diceResult: number) {
+    try {
+      const res = await fetch(
+        `/api/game/special-event?diceResult=${diceResult}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            eventDetails,
+            moneys,
+            currentPlayer,
+          }),
+        }
+      );
+      const data = await res.json();
+      console.log(data, 'つうしん');
+      return data;
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  }
+
+  async function handleGETEvent(
     eventId: number,
     currentPlayer: number,
     moneys: number[]
@@ -139,19 +236,41 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
     const data = await res.json();
   }
   const [isTaunChangeAnimation, setIsTaunChangeAnimation] = useState(false);
-  async function getNextPlayer(newPosition: number[]) {
-    await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/game/taun-change?roomId=${roomId}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ currentPlayer, newPosition }),
+
+  function eventIgnition() {
+    if (eventDetails) {
+      if (eventDetails.event.event_type === 'special') {
+        rollDice();
+        // setIsEventPop(false);
+      } else {
+        getNextPlayer(playerPositions);
       }
-    );
+    }
   }
 
+  async function getNextPlayer(newPosition: number[]) {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/game/taun-change?roomId=${roomId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ currentPlayer, newPosition }),
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function pushDiceBtn() {
+    setIsActiveTurn(false);
+    rollDice();
+  }
   // ダイスを振る
   const [isErrorAnimation, setIsErrorAnimation] = useState(false);
   async function rollDice() {
@@ -195,9 +314,9 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
         member={member}
         moneys={moneys}
         currentPlayer={currentPlayer}
-        rollDice={rollDice}
+        pushDiceBtn={pushDiceBtn}
         diceResult={diceResult}
-        eventDetails={eventDetails}
+        // eventDetails={eventDetails}
       />
 
       <TaunChangeTelop
@@ -228,10 +347,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
             {eventDetails?.event.value}万円
             {eventDetails?.event.event_type === 'plus' ? 'もらう' : '払う'}
           </p>
-          <button
-            className={styles.button}
-            onClick={() => getNextPlayer(playerPositions)}
-          >
+          <button className={styles.button} onClick={() => eventIgnition()}>
             OK
           </button>
         </div>
@@ -259,7 +375,6 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
               万円
             </h1>
           )}
-          {/* <h1>1000万円</h1> */}
         </div>
       </div>
 

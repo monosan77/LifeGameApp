@@ -15,6 +15,6 @@ interface Event_Special {
   id: string;
   conditions: string[]; //['1-3','4-6']
   effect_type: '+-' | '*/';
-  effect_value: number;
+  effect_value: number[];
   base_amount: number[];
 }

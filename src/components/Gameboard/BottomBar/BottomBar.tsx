@@ -8,19 +8,19 @@ interface Props {
   yourInfo: Members;
   member: Members[];
   currentPlayer: number;
-  rollDice: () => void;
+  pushDiceBtn: () => void;
   diceResult: number;
   moneys: number[];
-  eventDetails: Event_Mold | null;
+  // eventDetails: Event_Mold | null;
 }
 
 const BottomBar = ({
   yourInfo,
   member,
   currentPlayer,
-  rollDice,
+  pushDiceBtn,
   moneys,
-  eventDetails,
+  // eventDetails,
 }: Props) => {
   return (
     <section className={styles.bottomBar}>
@@ -35,28 +35,12 @@ const BottomBar = ({
             </div> */}
           </div>
         ))}
-        {/* <div className={styles.userBox}>
-          <div className={styles.money}>money</div>
-          <div className={styles.userName}>user2</div>
-        </div>
-        <div className={styles.userBox}>
-          <div className={styles.money}>money</div>
-          <div className={styles.userName}>user3</div>
-        </div>
-        <div className={styles.userBox}>
-          <div className={styles.money}>money</div>
-          <div className={styles.userName}>user4</div>
-        </div>
-        <div className={styles.userBox}>
-          <div className={styles.money}>money</div>
-          <div className={styles.userName}>user5</div>
-        </div> */}
       </div>
 
       <button
         className={styles.dice}
         onClick={
-          yourInfo.id === member[currentPlayer].id ? rollDice : undefined
+          yourInfo.id === member[currentPlayer].id ? pushDiceBtn : undefined
         }
       >
         dice

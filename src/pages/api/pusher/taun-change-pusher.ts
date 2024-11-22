@@ -12,6 +12,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log('ターンチェンジpusher呼ばれた');
   // POSTリクエスト以外を拒否
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -21,6 +22,8 @@ export default async function handler(
 
   const { roomId } = req.query;
   const { nextPlayer } = req.body;
+
+  console.log(nextPlayer, 'nextPlayer');
 
   // roomIdとnextPlayerのバリデーション
   if (!roomId || nextPlayer === null || nextPlayer === undefined) {
@@ -38,14 +41,14 @@ export default async function handler(
 
     // Pusherからのエラーチェック
     if (response.status !== 200) {
-      // console.error('Pusherエラー:', response);
+      console.error('Pusherエラー:', response);
       throw new Error('pusher APIで同期できませんでした。');
     }
 
     res.status(200).json({ message: 'プレイヤーが正常に同期されました。' });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    // console.error('サーバーエラー:', error);
+    console.error('サーバーエラー:', error);
     res.status(500).json({ error: `server error : ${error.message}` });
   }
 }

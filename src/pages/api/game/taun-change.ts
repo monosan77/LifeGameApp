@@ -7,6 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
+    console.log('ターンチェンジ呼ばれた');
     if (req.method === 'POST') {
       return await getNextPlayer(req, res);
     }
