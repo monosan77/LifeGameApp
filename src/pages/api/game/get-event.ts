@@ -24,10 +24,12 @@ export default async function handler(
       const eventInfo: Event_Mold = await fetchJSON(
         `${process.env.API_BACK_URL}/event_table/${eventId}`
       );
+      let beforeMoney = [...moneys];
+      let newMoney = [...moneys];
       if (eventInfo.event.event_type === 'plus') {
-        moneys[currentPlayer] += eventInfo.event.value;
+        newMoney[currentPlayer] += eventInfo.event.value;
       } else if (eventInfo.event.event_type === 'minus') {
-        moneys[currentPlayer] -= eventInfo.event.value;
+        newMoney[currentPlayer] -= eventInfo.event.value;
       }
 
       const response = await fetchJSON(
@@ -37,7 +39,7 @@ export default async function handler(
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ eventInfo, moneys }),
+          body: JSON.stringify({ eventInfo, beforeMoney, newMoney }),
         }
       );
       return res.status(200).json({ message: '正常に同期できました。' });

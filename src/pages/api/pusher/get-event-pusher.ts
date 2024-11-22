@@ -10,7 +10,8 @@ const pusher = new Pusher({
 
 interface PusherBody {
   eventInfo: Event_Mold;
-  moneys: number[];
+  beforeMoney: number[];
+  newMoney: number[];
 }
 
 export default async function handler(
@@ -25,10 +26,10 @@ export default async function handler(
   }
 
   const { roomId } = req.query;
-  const { eventInfo, moneys }: PusherBody = req.body;
+  const { eventInfo, beforeMoney, newMoney }: PusherBody = req.body;
 
   // roomIdとdiceResultの存在チェック
-  if (!roomId || !eventInfo || !moneys) {
+  if (!roomId || !eventInfo || !newMoney || !beforeMoney) {
     return res
       .status(400)
       .json({ error: '不正なリクエストです。roomIdとdiceResultが必要です。' });
@@ -37,7 +38,8 @@ export default async function handler(
   try {
     const response = await pusher.trigger(`${roomId}`, 'get-event-info', {
       eventInfo,
-      moneys,
+      beforeMoney,
+      newMoney,
     });
     if (response.status !== 200) {
       throw new Error('Pusher APIで同期に失敗しました。');

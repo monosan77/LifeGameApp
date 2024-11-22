@@ -18,7 +18,8 @@ interface Prop {
 }
 interface EventGetPusher {
   eventInfo: Event_Mold;
-  moneys: number[];
+  beforeMoney: number[];
+  newMoney: number[];
 }
 
 export default function Gameboard({ roomId, yourInfo, member }: Prop) {
@@ -36,6 +37,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
   const [isActiveTurn, setIsActiveTurn] = useState(false);
   const [rouletteStyle, setRouletteStyle] = useState('');
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [beforeMoney, setBeforeMoney] = useState(Array(member.length).fill(0));
   // const [playersFinished, setPlayersFinished] = useState([]);
 
   //ルーレットのアニメーションを開始する関数
@@ -68,9 +70,12 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
           setRouletteStyle('');
           if (isActiveTurn) {
             console.log('特殊イベント');
-            const newMoney: number[] = await getSpecialEvent(resultDice);
-            console.log(newMoney, '新しい金額');
-            setMoneys(newMoney);
+            // const newMoney: number[] = await getSpecialEvent(resultDice);
+            const data = await getSpecialEvent(resultDice);
+            console.log(data, '新しい金額');
+            setBeforeMoney(data.beforeMoney);
+            setMoneys(data.newMoney);
+            // setMoneys(newMoney);
             if (yourInfo.id === member[currentPlayer].id) {
               console.log(playerPositions, 'postion');
 
@@ -109,8 +114,9 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
     // 通常イベント情報を受信
     channel.bind('get-event-info', (event: EventGetPusher) => {
       setEventDetails(event.eventInfo);
-      if (moneys !== event.moneys) {
-        setMoneys(event.moneys);
+      if (moneys !== event.newMoney) {
+        setMoneys(event.newMoney);
+        setBeforeMoney(event.beforeMoney);
       }
       setIsEventPop(true);
     });
@@ -215,6 +221,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
       );
       const data = await res.json();
       console.log(data, 'つうしん');
+      // console.log(newMoney, 'つうしん');
       return data;
     } catch (error: any) {
       console.error(error.message);
@@ -295,6 +302,8 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
     }
   }
 
+  console.log(beforeMoney, 'now');
+  console.log(moneys, 'new');
   return (
     <main className={styles.all}>
       <TurnDisplay
@@ -358,19 +367,22 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
             <h1>
               {isCountUpAnimation ? (
                 <CountUp
-                  // start={moneys[currentPlayer] - eventDetails.event.value}
-                  start={
-                    eventDetails.event.event_type === 'plus'
-                      ? moneys[currentPlayer] - eventDetails.event.value
-                      : moneys[currentPlayer] + eventDetails.event.value
-                  }
+                  start={beforeMoney[currentPlayer]}
+                  // start={
+                  //   eventDetails.event.event_type === 'plus'
+                  //     ? moneys[currentPlayer] - eventDetails.event.value
+                  //     : moneys[currentPlayer] + eventDetails.event.value
+                  // }
                   end={moneys[currentPlayer]}
                   duration={2}
                 />
-              ) : eventDetails.event.event_type === 'plus' ? (
-                moneys[currentPlayer] - eventDetails.event.value
               ) : (
-                moneys[currentPlayer] + eventDetails.event.value
+                // eventDetails.event.event_type === 'plus' ? (
+                //   moneys[currentPlayer] - eventDetails.event.value
+                // ) : (
+                //   moneys[currentPlayer] + eventDetails.event.value
+                // )
+                moneys[currentPlayer]
               )}{' '}
               万円
             </h1>

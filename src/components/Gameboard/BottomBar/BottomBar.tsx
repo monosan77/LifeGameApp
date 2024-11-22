@@ -22,6 +22,7 @@ const BottomBar = ({
   moneys,
   // eventDetails,
 }: Props) => {
+  console.log(moneys);
   return (
     <section className={styles.bottomBar}>
       <button className={styles.chat}>chat</button>
