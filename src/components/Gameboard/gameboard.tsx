@@ -9,7 +9,6 @@ import Board from './Board/Board';
 import BottomBar from './BottomBar/BottomBar';
 import Image from 'next/image';
 import CountUp from 'react-countup';
-import { fetchJSON } from '@/utils/fetch-functions';
 
 interface Prop {
   roomId: string;
@@ -121,32 +120,6 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
       setIsEventPop(true);
     });
 
-    // // 次のプレイヤー情報を受信
-    // channel.bind('result-next-player', (nextPlayer: number) => {
-    //   console.log('次プレや呼ばれたよ');
-    //   setIsEventPop(false);
-    //   setIsCountUpPop(true);
-
-    //   setTimeout(() => {
-    //     setIsCountUpAnimation(true);
-
-    //     setTimeout(() => {
-    //       // ターンチェンジアニメーションの開始
-    //       setIsCountUpPop(false);
-    //       setTimeout(() => {
-    //         setCurrentPlayer(nextPlayer);
-    //         setIsTaunChangeAnimation(true);
-
-    //         setTimeout(() => {
-    //           setIsTaunChangeAnimation(false);
-    //           setIsCountUpAnimation(false);
-    //           setIsActiveTurn(false);
-    //         }, 3000);
-    //       }, 350);
-    //     }, 2500);
-    //   }, 800);
-    // });
-
     return () => {
       // pusher.unsubscribe(`${roomId}`);
       pusher.disconnect();
@@ -220,8 +193,6 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
         }
       );
       const data = await res.json();
-      console.log(data, 'つうしん');
-      // console.log(newMoney, 'つうしん');
       return data;
     } catch (error: any) {
       console.error(error.message);
@@ -274,10 +245,12 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
     }
   }
 
+  // ダイスボタンを押したとき実行される
   function pushDiceBtn() {
     setIsActiveTurn(false);
     rollDice();
   }
+
   // ダイスを振る
   const [isErrorAnimation, setIsErrorAnimation] = useState(false);
   async function rollDice() {
@@ -341,7 +314,9 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
       />
 
       <div className={isEventPop ? styles.popUp : styles.noPopUp}>
-        <div className={styles.eventPopUp}>
+        <div
+          className={eventDetails ? styles[eventDetails.event.event_type] : ''}
+        >
           <h1 className={styles.title}>{eventDetails?.event.title}</h1>
           <Image
             src={'/game/event/event1.png'}
@@ -350,13 +325,16 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
             height={300}
             className={styles.image}
           />
-          <p className={styles.text}>
-            {eventDetails?.event.overview}
-            <br />
-            {eventDetails?.event.value}万円
-            {eventDetails?.event.event_type === 'plus' ? 'もらう' : '払う'}
-          </p>
-          <button className={styles.button} onClick={() => eventIgnition()}>
+          <p className={styles.text}>{eventDetails?.event.overview}</p>
+          <button
+            style={
+              member[currentPlayer].id === yourInfo.id
+                ? { display: 'block' }
+                : { display: 'none' }
+            }
+            className={styles.button}
+            onClick={() => eventIgnition()}
+          >
             OK
           </button>
         </div>
@@ -368,21 +346,11 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
               {isCountUpAnimation ? (
                 <CountUp
                   start={beforeMoney[currentPlayer]}
-                  // start={
-                  //   eventDetails.event.event_type === 'plus'
-                  //     ? moneys[currentPlayer] - eventDetails.event.value
-                  //     : moneys[currentPlayer] + eventDetails.event.value
-                  // }
                   end={moneys[currentPlayer]}
                   duration={2}
                 />
               ) : (
-                // eventDetails.event.event_type === 'plus' ? (
-                //   moneys[currentPlayer] - eventDetails.event.value
-                // ) : (
-                //   moneys[currentPlayer] + eventDetails.event.value
-                // )
-                moneys[currentPlayer]
+                beforeMoney[currentPlayer]
               )}{' '}
               万円
             </h1>

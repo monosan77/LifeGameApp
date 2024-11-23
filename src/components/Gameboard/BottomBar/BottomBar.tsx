@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './BottomBar.module.css';
 import { Members } from '@/types/session';
-import { formatNumber } from '@/utils/utils-function';
-import CountUp from 'react-countup';
+import { formatMoney } from '@/utils/utils-function';
 
 interface Props {
   yourInfo: Members;
@@ -22,7 +21,6 @@ const BottomBar = ({
   moneys,
   // eventDetails,
 }: Props) => {
-  console.log(moneys);
   return (
     <section className={styles.bottomBar}>
       <button className={styles.chat}>chat</button>
@@ -30,10 +28,9 @@ const BottomBar = ({
         {member.map((player, index) => (
           <div key={player.id} className={styles.userBox}>
             <div className={styles.userName}>{player.name}</div>
-            <div className={styles.money}>{moneys[index]} 万円</div>
-            {/* <div className={styles.money}>
-              {formatNumber(moneys[index])}万円
-            </div> */}
+            <div className={styles.money}>
+              {formatMoney(moneys[index])} 万円
+            </div>
           </div>
         ))}
       </div>
@@ -46,9 +43,6 @@ const BottomBar = ({
       >
         dice
       </button>
-      {/* {diceResult && (
-        <div className={styles.diceResult}>Dice: {diceResult}</div>
-      )} */}
     </section>
   );
 };
