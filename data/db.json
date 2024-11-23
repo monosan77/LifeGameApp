@@ -30,164 +30,144 @@
           "host": false
         }
       ]
-    },
-    {
-      "id": "732167",
-      "limitPlayer": 2,
-      "member": [
-        {
-          "id": "2fe92573-8f07-4701-aca5-ce638161797a",
-          "name": "ｄｄｄ",
-          "host": true
-        }
-      ]
-    },
-    {
-      "id": "477231",
-      "limitPlayer": 2,
-      "member": [
-        {
-          "id": "2cda982f-1e71-45bb-916a-136116532e92",
-          "name": "さつき",
-          "host": true
-        },
-        {
-          "id": "e030b37a-7921-4e4d-b784-eb1dcb9448a2",
-          "name": "47723",
-          "host": false
-        }
-      ]
     }
   ],
   "event_table": [
-    {
-      "id": "0",
-      "event": {
-        "id": "001",
-        "event_type": "plus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
-        "special_event": null
-      }
-    },
     {
       "id": "1",
       "event": {
         "id": "001",
         "event_type": "plus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
+        "title": "ママからのおこずかい",
+        "overview": "毎月ママからおこずかいを貰っていたが、いきなり今月で最後と言い渡された。最後なので多めに 50万円 貰う。",
+        "value": 50,
         "special_event": null
       }
     },
     {
       "id": "2",
       "event": {
-        "id": "001",
+        "id": "002",
         "event_type": "minus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
+        "title": "スピード違反",
+        "overview": "車を運転していたら隠れていた警察にスピード違反で捕まる。罰金で 50万 支払う。",
+        "value": 50,
         "special_event": null
       }
     },
     {
       "id": "3",
       "event": {
-        "id": "001",
-        "event_type": "plus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
+        "id": "003",
+        "event_type": "minus",
+        "title": "カツアゲ",
+        "overview": "道を歩いていたら高校生ヤンキーに絡まれカツアゲされる。100万円 失う。",
+        "value": 100,
         "special_event": null
       }
     },
     {
       "id": "4",
       "event": {
-        "id": "001",
+        "id": "004",
         "event_type": "minus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
+        "title": "幸せの連続",
+        "overview": "友人の結婚式が連続で続く。嫉妬と虚無感を抱きながらご祝儀で合計 30万円 失う。",
+        "value": 30,
         "special_event": null
       }
     },
     {
       "id": "5",
       "event": {
-        "id": "001",
-        "event_type": "plus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
-        "special_event": null
+        "id": "005",
+        "event_type": "special",
+        "title": "特殊イベント ~パチンコ~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "value": 0,
+        "special_event": {
+          "id": "1",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
       }
     },
     {
       "id": "6",
       "event": {
-        "id": "001",
-        "event_type": "minus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
+        "id": "006",
+        "event_type": "plus",
+        "title": "YouTuberへの道",
+        "overview": "たまたまパチンコの実況動画をYouTubeに揚げたらバズったようだ。収益として 100万円 もらう。",
+        "value": 100,
         "special_event": null
       }
     },
     {
       "id": "7",
       "event": {
-        "id": "001",
+        "id": "007",
         "event_type": "plus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
+        "title": "クイズ大会",
+        "overview": "クイズ大会に出場し優勝した。賞金 100万円 もらう。",
+        "value": 100,
         "special_event": null
       }
     },
     {
       "id": "8",
       "event": {
-        "id": "001",
-        "event_type": "minus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
-        "special_event": null
+        "id": "008",
+        "event_type": "special",
+        "title": "特殊イベント ~検討中~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "value": 0,
+        "special_event": {
+          "id": "2",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
       }
     },
     {
       "id": "9",
       "event": {
-        "id": "001",
+        "id": "009",
         "event_type": "plus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
+        "title": "無欲のポケカ",
+        "overview": "無心でポケモンカードを1パック買ったら、レアカードが当たった。売って 200万円 もらう。",
+        "value": 200,
         "special_event": null
       }
     },
     {
       "id": "10",
       "event": {
-        "id": "001",
-        "event_type": "minus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
-        "value": 300,
-        "special_event": null
+        "id": "010",
+        "event_type": "special",
+        "title": "特殊イベント ~検討中~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "value": 0,
+        "special_event": {
+          "id": "3",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
       }
     },
     {
       "id": "11",
       "event": {
-        "id": "001",
+        "id": "011",
         "event_type": "plus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "title": "急な気の狂い",
+        "overview": "急に気がくるってしまった。気づいたら目の前に300万があった。少し怖かったが 300万円 もらう。",
         "value": 300,
         "special_event": null
       }
@@ -195,12 +175,258 @@
     {
       "id": "12",
       "event": {
-        "id": "001",
-        "event_type": "minus",
-        "title": "新たな未来へ",
-        "overview": "長年尽くしてきた会社を辞めることになった。次の未来に向かって突き進もう！！",
+        "id": "012",
+        "event_type": "plus",
+        "title": "年収チャンネル",
+        "overview": "年収チャンネルで300万円の融資を受け取るが、周囲から冷ややかな視線を感じることになる。 300万円 もらう。",
         "value": 300,
         "special_event": null
+      }
+    },
+    {
+      "id": "13",
+      "event": {
+        "id": "013",
+        "event_type": "minus",
+        "title": "ぼったくりバー",
+        "overview": "隠れ家的なバーに入ったらそこは、ぼったくりバーだった。怖いお兄さんが脅され 300万円 支払うことになってしまった。",
+        "value": 300,
+        "special_event": null
+      }
+    },
+    {
+      "id": "14",
+      "event": {
+        "id": "014",
+        "event_type": "plus",
+        "title": "連続殺人犯を捕まえる",
+        "overview": "懸賞金付きの連続殺人犯を偶然逮捕した。懸賞金 500万円 もらう。",
+        "value": 500,
+        "special_event": null
+      }
+    },
+    {
+      "id": "15",
+      "event": {
+        "id": "015",
+        "event_type": "special",
+        "title": "特殊イベント ~仮想通貨~",
+        "overview": "仮想通貨に500万円賭ける。1が出たら 0倍、2が出たら 0.5倍、3~4が出たら 1倍、5以下がでたら 2倍、6が出たら 4倍 になる。",
+        "value": 0,
+        "special_event": {
+          "id": "4",
+          "conditions": ["1-1", "2-2", "3-4", "5-5", "6-6"],
+          "effect_type": "*/",
+          "effect_value": [0, 0.5, 1, 2, 4],
+          "base_amount": [500, 1]
+        }
+      }
+    },
+    {
+      "id": "16",
+      "event": {
+        "id": "016",
+        "event_type": "plus",
+        "title": "埋蔵金",
+        "overview": "いじめられていた犬を救った。犬はお礼に埋蔵金を見つけてきた。 500万円もらう。",
+        "value": 500,
+        "special_event": null
+      }
+    },
+    {
+      "id": "17",
+      "event": {
+        "id": "017",
+        "event_type": "special",
+        "title": "特殊イベント ~検討中~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "value": 0,
+        "special_event": {
+          "id": "5",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
+      }
+    },
+    {
+      "id": "18",
+      "event": {
+        "id": "018",
+        "event_type": "special",
+        "title": "特殊イベント ~検討中~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "value": 0,
+        "special_event": {
+          "id": "6",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
+      }
+    },
+    {
+      "id": "19",
+      "event": {
+        "id": "019",
+        "event_type": "special",
+        "title": "特殊イベント ~時計を買う~",
+        "overview": "300万で購入した時計が数年後、価値が大きく変動した。ダイスを振り 1~2が出れば 0.5倍、3~4が出れば 2倍、5~6が出れば 3倍になる。",
+        "value": 0,
+        "special_event": {
+          "id": "7",
+          "conditions": ["1-2", "3-4", "5-6"],
+          "effect_type": "*/",
+          "effect_value": [0.5, 2, 3],
+          "base_amount": [300, 1]
+        }
+      }
+    },
+    {
+      "id": "20",
+      "event": {
+        "id": "020",
+        "event_type": "special",
+        "title": "特殊イベント ~検討中~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "value": 0,
+        "special_event": {
+          "id": "8",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
+      }
+    },
+    {
+      "id": "21",
+      "event": {
+        "id": "021",
+        "event_type": "special",
+        "title": "特殊イベント ~宝くじ当選⁉~",
+        "overview": "宝くじを購入する。ダイスを振り 1 が出れば +1億円、2が出れば 5000万円、3~6は外れ +0万円 になる。",
+        "value": 0,
+        "special_event": {
+          "id": "9",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
+      }
+    },
+    {
+      "id": "22",
+      "event": {
+        "id": "022",
+        "event_type": "plus",
+        "title": "遺産",
+        "overview": "思わぬところから親戚の遺産が手に入る。500万円 もらう。",
+        "value": 500,
+        "special_event": null
+      }
+    },
+    {
+      "id": "23",
+      "event": {
+        "id": "023",
+        "event_type": "plus",
+        "title": "けがの功名",
+        "overview": "軽微な交通事故に会う。偶然相手がお金持ちで慰謝料を多めにもらう。800万円もらう。",
+        "value": 800,
+        "special_event": null
+      }
+    },
+    {
+      "id": "24",
+      "event": {
+        "id": "024",
+        "event_type": "minus",
+        "title": "ウイルス感染？",
+        "overview": "社用PCでウイルス対策サイトを閲覧しているとウイルスに感染した。800万円はらう。",
+        "value": 800,
+        "special_event": null
+      }
+    },
+    {
+      "id": "25",
+      "event": {
+        "id": "025",
+        "event_type": "special",
+        "title": "特殊イベント ~神様は不機嫌~",
+        "overview": "不機嫌な神様から八つ当たりをくらう。全財産を掛けダイスを振る。1~2が出れば0円、3~6が出れば半分になる。",
+        "value": 0,
+        "special_event": {
+          "id": "",
+          "conditions": ["1-2", "3-6"],
+          "effect_type": "*/",
+          "effect_value": [0, 0.5],
+          "base_amount": [0, 1]
+        }
+      }
+    },
+    {
+      "id": "26",
+      "event": {
+        "id": "026",
+        "event_type": "minus",
+        "title": "ねずみ講",
+        "overview": "信用していた人に1000万円預ける。しかし、その人はネズミ講だった。1000万円失う",
+        "value": 1000,
+        "special_event": null
+      }
+    },
+    {
+      "id": "27",
+      "event": {
+        "id": "027",
+        "event_type": "plus",
+        "title": "歌うま",
+        "overview": "カラオケで歌っている映像が大バズり。1000万円 もらう",
+        "value": 1000,
+        "special_event": null
+      }
+    },
+    {
+      "id": "28",
+      "event": {
+        "id": "028",
+        "event_type": "plus",
+        "title": "ペットの赤ちゃん",
+        "overview": "ペットに赤ちゃんができお金持ちに引き取ってもらう。お礼に 1000万円 もらう。",
+        "value": 1000,
+        "special_event": null
+      }
+    },
+    {
+      "id": "29",
+      "event": {
+        "id": "029",
+        "event_type": "minus",
+        "title": "炎上",
+        "overview": "SNSにギャンブルに勝った自慢をする。炎上し住所を特定され泥棒に入られる。2000万円失う。",
+        "value": 2000,
+        "special_event": null
+      }
+    },
+    {
+      "id": "30",
+      "event": {
+        "id": "030",
+        "event_type": "special",
+        "title": "特殊イベント ~検討中~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "value": 0,
+        "special_event": {
+          "id": "",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
       }
     }
   ]
