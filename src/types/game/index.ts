@@ -9,6 +9,7 @@ interface Event_Overview {
   title: string;
   overview: string;
   value: number;
+  src: string;
   special_event: Event_Special | null;
 }
 interface Event_Special {

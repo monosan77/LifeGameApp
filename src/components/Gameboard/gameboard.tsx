@@ -319,7 +319,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
         >
           <h1 className={styles.title}>{eventDetails?.event.title}</h1>
           <Image
-            src={'/game/event/event1.png'}
+            src={`/game/event/${eventDetails?.event.src}`}
             alt="イベント画像"
             width={500}
             height={300}
