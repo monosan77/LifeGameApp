@@ -12,7 +12,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log('ターンチェンジpusher呼ばれた');
   // POSTリクエスト以外を拒否
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -22,8 +21,6 @@ export default async function handler(
 
   const { roomId } = req.query;
   const { nextPlayer, newPosition, newMoney } = req.body;
-
-  console.log(nextPlayer, 'nextPlayer');
 
   // roomIdとnextPlayerのバリデーション
   if (

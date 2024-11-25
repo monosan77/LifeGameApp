@@ -77,11 +77,16 @@ describe('/game/taun-change API のテスト', () => {
       const { req, res } = createMocks({
         method: 'POST',
         query: { roomId: '123456' },
-        body: { newPosition: mockCurrentPlayer, currentPlayer: 0 },
+        body: {
+          newPosition: mockCurrentPlayer,
+          currentPlayer: 0,
+          newMoney: [0, 0, 0],
+        },
       });
       global.fetch = jest.fn().mockResolvedValueOnce({
         ok: false,
         status: 400,
+        json: () => {},
       });
       await handler(req, res);
       expect(res._getStatusCode()).toBe(500);
@@ -94,7 +99,11 @@ describe('/game/taun-change API のテスト', () => {
       const { req, res } = createMocks({
         method: 'POST',
         query: { roomId: '123456' },
-        body: { newPosition: mockCurrentPlayer, currentPlayer: 0 },
+        body: {
+          newPosition: mockCurrentPlayer,
+          currentPlayer: 0,
+          newMoney: [0, 0, 0],
+        },
       });
       global.fetch = jest.fn().mockResolvedValueOnce({
         ok: true,
