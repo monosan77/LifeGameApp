@@ -10,7 +10,7 @@ interface Event_Overview {
   overview: string;
   value: number;
   src: string;
-  special_event: Event_Special | null;
+  special_event: Event_Special;
 }
 interface Event_Special {
   id: string;

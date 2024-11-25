@@ -10,6 +10,7 @@ interface Props {
   pushDiceBtn: () => void;
   diceResult: number;
   moneys: number[];
+  isTachDiceBtn: boolean;
   // eventDetails: Event_Mold | null;
 }
 
@@ -19,6 +20,7 @@ const BottomBar = ({
   currentPlayer,
   pushDiceBtn,
   moneys,
+  isTachDiceBtn,
   // eventDetails,
 }: Props) => {
   return (
@@ -38,7 +40,9 @@ const BottomBar = ({
       <button
         className={styles.dice}
         onClick={
-          yourInfo.id === member[currentPlayer].id ? pushDiceBtn : undefined
+          yourInfo.id === member[currentPlayer].id && isTachDiceBtn
+            ? pushDiceBtn
+            : undefined
         }
       >
         dice

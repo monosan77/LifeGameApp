@@ -14,6 +14,7 @@ interface Prop {
   roomId: string;
   yourInfo: Members;
   member: Members[];
+  firstEventData: Event_Mold;
 }
 interface EventGetPusher {
   eventInfo: Event_Mold;
@@ -21,14 +22,19 @@ interface EventGetPusher {
   newMoney: number[];
 }
 
-export default function Gameboard({ roomId, yourInfo, member }: Prop) {
+export default function Gameboard({
+  roomId,
+  yourInfo,
+  member,
+  firstEventData,
+}: Prop) {
   const [playerPositions, setPlayerPositions] = useState<number[]>(
     Array(member.length).fill(0)
   ); // 3人のプレイヤーの位置を管理（初期値は全員0）
   const [currentPlayer, setCurrentPlayer] = useState(0); // 現在のプレイヤーを追跡
   const [diceResult, setDiceResult] = useState<number>(0); // ダイスの結果を管理
-  const [moneys, setMoneys] = useState(Array(member.length).fill(0));
-  const [eventDetails, setEventDetails] = useState<Event_Mold | null>(null);
+  const [moneys, setMoneys] = useState(Array(member.length).fill(300));
+  const [eventDetails, setEventDetails] = useState<Event_Mold>(firstEventData);
   const [isRouletteAnimation, setIsRouletteAnimation] = useState(false);
   const [isEventPop, setIsEventPop] = useState(false);
   const [isCountUpPop, setIsCountUpPop] = useState(false);
@@ -37,12 +43,22 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
   const [rouletteStyle, setRouletteStyle] = useState('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [beforeMoney, setBeforeMoney] = useState(Array(member.length).fill(0));
+  const [isRescueEventPop, setIsRescueEventPop] = useState(false);
+  const [isTaunChangeAnimation, setIsTaunChangeAnimation] = useState(false);
+  const [isTachDiceBtn, setIsTachDiceBtn] = useState(true);
+
   // const [playersFinished, setPlayersFinished] = useState([]);
 
   //ルーレットのアニメーションを開始する関数
   function handleRouletteAnimation(dice: number) {
     setRouletteStyle(`number-${dice}`);
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsEventPop(true);
+    }, 500);
+  }, []);
 
   // pusher受信
   useEffect(() => {
@@ -158,6 +174,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
               setIsTaunChangeAnimation(false);
               setIsCountUpAnimation(false);
               setIsActiveTurn(false);
+              setIsTachDiceBtn(true);
             }, 3000);
           }, 350);
         }, 2500);
@@ -213,18 +230,6 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
     });
     const data = await res.json();
   }
-  const [isTaunChangeAnimation, setIsTaunChangeAnimation] = useState(false);
-
-  function eventIgnition() {
-    if (eventDetails) {
-      if (eventDetails.event.event_type === 'special') {
-        rollDice();
-        // setIsEventPop(false);
-      } else {
-        getNextPlayer(playerPositions);
-      }
-    }
-  }
 
   async function getNextPlayer(newPosition: number[]) {
     try {
@@ -247,9 +252,41 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
 
   // ダイスボタンを押したとき実行される
   function pushDiceBtn() {
+    setIsTachDiceBtn(false);
     setIsActiveTurn(false);
     rollDice();
   }
+  // イベントPopUpのOkを押したとき実行される。
+  function eventIgnition() {
+    if (eventDetails) {
+      if (eventDetails.event.event_type === 'special') {
+        if (moneys[currentPlayer] <= 0) {
+          setIsEventPop(false);
+          eventDetails.event.special_event = {
+            id: '000',
+            conditions: ['1-2', '3-6'],
+            effect_type: '*/',
+            effect_value: [0, 1],
+            base_amount: [0, 1],
+          };
+          setTimeout(() => {
+            setIsRescueEventPop(true);
+          }, 500);
+        } else {
+          rollDice();
+        }
+        // setIsEventPop(false);
+      } else {
+        getNextPlayer(playerPositions);
+      }
+    }
+  }
+  // 救済イベントのOk押したとき実行される
+  function eventRescueBtn() {
+    setIsRescueEventPop(false);
+    rollDice();
+  }
+  console.log(eventDetails?.event.special_event);
 
   // ダイスを振る
   const [isErrorAnimation, setIsErrorAnimation] = useState(false);
@@ -277,6 +314,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
 
   console.log(beforeMoney, 'now');
   console.log(moneys, 'new');
+  console.log(member[currentPlayer].name, '今のプレイや');
   return (
     <main className={styles.all}>
       <TurnDisplay
@@ -298,6 +336,7 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
         currentPlayer={currentPlayer}
         pushDiceBtn={pushDiceBtn}
         diceResult={diceResult}
+        isTachDiceBtn={isTachDiceBtn}
         // eventDetails={eventDetails}
       />
 
@@ -334,6 +373,35 @@ export default function Gameboard({ roomId, yourInfo, member }: Prop) {
             }
             className={styles.button}
             onClick={() => eventIgnition()}
+          >
+            OK
+          </button>
+        </div>
+      </div>
+
+      <div className={isRescueEventPop ? styles.popUp : styles.noPopUp}>
+        <div
+          className={eventDetails ? styles[eventDetails.event.event_type] : ''}
+        >
+          <h1 className={styles.title}>救済チャレンジ</h1>
+          <Image
+            src={`/game/event/event-rescue.png`}
+            alt="イベント画像"
+            width={500}
+            height={300}
+            className={styles.image}
+          />
+          <p className={styles.text}>
+            あなたは借金を抱えている可哀そうな人間なのですね。惨めで汚らしいあなたに救済のチャンスを与えましょう。ダイスを振り、1~2が出れば借金をチャラにする。
+          </p>
+          <button
+            style={
+              member[currentPlayer].id === yourInfo.id
+                ? { display: 'block' }
+                : { display: 'none' }
+            }
+            className={styles.button}
+            onClick={eventRescueBtn}
           >
             OK
           </button>

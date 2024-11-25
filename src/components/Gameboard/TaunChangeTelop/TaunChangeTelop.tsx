@@ -24,16 +24,20 @@ const TaunChangeTelop = ({
       : member[currentPlayer].name + 'のターンです！！'
     : '不明なターンです';
   return (
-    <div
-      className={
-        isTaunChangeAnimation ? styles.nextTaunPop : styles.offNextTaunPop
-      }
-    >
-      <h2
-        className={isTaunChangeAnimation ? styles.taunText : styles.offTaunText}
+    <div className={isTaunChangeAnimation ? styles.bg : styles.nonBg}>
+      <div
+        className={
+          isTaunChangeAnimation ? styles.nextTaunPop : styles.offNextTaunPop
+        }
       >
-        {currentPlayerName}
-      </h2>
+        <h2
+          className={
+            isTaunChangeAnimation ? styles.taunText : styles.offTaunText
+          }
+        >
+          {currentPlayerName}
+        </h2>
+      </div>
     </div>
   );
 };
