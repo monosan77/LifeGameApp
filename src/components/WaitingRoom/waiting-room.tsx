@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './waiting-room.module.css';
 import { Members } from '@/types/session';
 import { useRouter } from 'next/router';
@@ -7,39 +7,48 @@ interface WaitingRoomPageProps {
   players: Members[];
   roomId: string;
   yourInfo: Members;
+  onExit: () => void;
+  startGame: () => void;
 }
 
 export default function WaitingRoom({
   players,
   roomId,
   yourInfo,
+  onExit,
+  startGame,
 }: WaitingRoomPageProps) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!players || players.length === 0) {
-      setErrorMessage(
-        'ルーム情報が取得できませんでした。トップページに戻ります。'
-      );
-      setTimeout(() => {
-        router.push('/');
-      }, 500);
-    }
-  }, [players, router]);
-
-  const startGame = async () => {
+  const exitRoom = async () => {
     try {
-      if (yourInfo.host) {
-        const response = await fetch(`/api/game/start-game?roomId=${roomId}`);
-        if (!response.ok) {
-          throw new Error('ゲーム開始に失敗しました');
-        }
-      } else {
-        setErrorMessage('ホストのみがゲームを開始できます');
+      const response = await fetch(`/api/session/exit?roomId=${roomId}`, {
+        method: 'DELETE',
+        body: JSON.stringify({
+          userId: yourInfo.id, // セッションストレージなどから取得したユーザーIDを使用
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error('退出処理に失敗しました');
       }
+
+      // 成功したら、waiting-roomからルーム情報を再取得
+      const roomResponse = await fetch(
+        `/api/session/get-room-info?roomId=${roomId}`
+      );
+      const roomData = await roomResponse.json();
+
+      if (!roomResponse.ok) {
+        throw new Error('ルーム情報の取得に失敗しました');
+      }
+
+      // 新しいプレイヤーリストに更新
+      router.push(`/waiting-room?roomId=${roomId}`); // ルーム情報更新後に再レンダリング
     } catch (error) {
-      setErrorMessage('ゲーム開始エラー:サーバーに問題が発生しました');
+      setErrorMessage('退出エラー: サーバーに問題が発生しました');
     }
   };
 
@@ -81,7 +90,9 @@ export default function WaitingRoom({
           <button onClick={startGame} className={styles.startButton}>
             大富豪を目指していざ出陣！
           </button>
-          <button className={styles.exitButton}>退出</button>
+          <button className={styles.exitButton} onClick={onExit}>
+            退出
+          </button>
         </div>
       </div>
     </div>
