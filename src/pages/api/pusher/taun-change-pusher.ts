@@ -21,23 +21,29 @@ export default async function handler(
   }
 
   const { roomId } = req.query;
-  const { nextPlayer } = req.body;
+  const { nextPlayer, newPosition, newMoney } = req.body;
 
   console.log(nextPlayer, 'nextPlayer');
 
   // roomIdとnextPlayerのバリデーション
-  if (!roomId || nextPlayer === null || nextPlayer === undefined) {
+  if (
+    !roomId ||
+    nextPlayer === null ||
+    nextPlayer === undefined ||
+    !newPosition ||
+    !newMoney
+  ) {
     return res
       .status(400)
       .json({ error: 'roomIdまたはnextPlayerデータがありません。' });
   }
 
   try {
-    const response = await pusher.trigger(
-      `${roomId}`,
-      'result-next-player',
-      nextPlayer
-    );
+    const response = await pusher.trigger(`${roomId}`, 'result-next-player', {
+      nextPlayer,
+      newPosition,
+      newMoney,
+    });
 
     // Pusherからのエラーチェック
     if (response.status !== 200) {

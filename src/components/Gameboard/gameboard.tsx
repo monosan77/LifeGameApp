@@ -33,7 +33,7 @@ export default function Gameboard({
   ); // 3人のプレイヤーの位置を管理（初期値は全員0）
   const [currentPlayer, setCurrentPlayer] = useState(0); // 現在のプレイヤーを追跡
   const [diceResult, setDiceResult] = useState<number>(0); // ダイスの結果を管理
-  const [moneys, setMoneys] = useState(Array(member.length).fill(300));
+  const [moneys, setMoneys] = useState(Array(member.length).fill(-300));
   const [eventDetails, setEventDetails] = useState<Event_Mold>(firstEventData);
   const [isRouletteAnimation, setIsRouletteAnimation] = useState(false);
   const [isEventPop, setIsEventPop] = useState(false);
@@ -71,8 +71,10 @@ export default function Gameboard({
     channel.bind('result-dice', async function (resultDice: number | null) {
       console.log(resultDice, '受け取ったダイス結果');
       if (resultDice) {
-        if (isEventPop) {
+        // popUpを初期化
+        if (isEventPop || isRescueEventPop) {
           setIsEventPop(false);
+          setIsRescueEventPop(false);
         }
         setIsRouletteAnimation(true);
         setDiceResult(resultDice);
@@ -94,7 +96,7 @@ export default function Gameboard({
             if (yourInfo.id === member[currentPlayer].id) {
               console.log(playerPositions, 'postion');
 
-              return getNextPlayer(playerPositions);
+              return getNextPlayer(playerPositions, data.newMoney);
             }
           } else {
             console.log('駒動かすよ');
@@ -156,7 +158,9 @@ export default function Gameboard({
     });
     const channel = pusher.subscribe(`${roomId}`);
     // 次のプレイヤー情報を受信
-    channel.bind('result-next-player', (nextPlayer: number) => {
+    channel.bind('result-next-player', (eventData: any) => {
+      setPlayerPositions(eventData.newPosition);
+      setMoneys(eventData.newMoney);
       setIsEventPop(false);
       setIsCountUpPop(true);
 
@@ -167,7 +171,7 @@ export default function Gameboard({
           // ターンチェンジアニメーションの開始
           setIsCountUpPop(false);
           setTimeout(() => {
-            setCurrentPlayer(nextPlayer);
+            setCurrentPlayer(eventData.nextPlayer);
             setIsTaunChangeAnimation(true);
 
             setTimeout(() => {
@@ -180,18 +184,20 @@ export default function Gameboard({
         }, 2500);
       }, 800);
     });
+
+    // 救済イベントを受信
+    channel.bind('rescue-event', (event: Event_Mold) => {
+      console.log(event, '救済イベントを受信');
+      setEventDetails(event);
+      setTimeout(() => {
+        setIsRescueEventPop(true);
+      }, 500);
+    });
     return () => {
       // pusher.unsubscribe(`${roomId}`);
       pusher.disconnect();
     };
-  }, [
-    roomId,
-    // currentPlayer,
-    // playerPositions,
-    // moneys,
-    // isEventPop,
-    // isActiveTurn,
-  ]);
+  }, [roomId]);
 
   async function getSpecialEvent(diceResult: number) {
     try {
@@ -231,7 +237,7 @@ export default function Gameboard({
     const data = await res.json();
   }
 
-  async function getNextPlayer(newPosition: number[]) {
+  async function getNextPlayer(newPosition: number[], newMoney: number[]) {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/game/taun-change?roomId=${roomId}`,
@@ -240,7 +246,7 @@ export default function Gameboard({
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ currentPlayer, newPosition }),
+          body: JSON.stringify({ currentPlayer, newPosition, newMoney }),
         }
       );
       const data = await res.json();
@@ -257,27 +263,38 @@ export default function Gameboard({
     rollDice();
   }
   // イベントPopUpのOkを押したとき実行される。
-  function eventIgnition() {
+  async function eventIgnition() {
     if (eventDetails) {
       if (eventDetails.event.event_type === 'special') {
         if (moneys[currentPlayer] <= 0) {
           setIsEventPop(false);
-          eventDetails.event.special_event = {
+          const rescueEvent: Event_Mold = { ...eventDetails };
+
+          rescueEvent.event.special_event = {
             id: '000',
             conditions: ['1-2', '3-6'],
             effect_type: '*/',
             effect_value: [0, 1],
             base_amount: [0, 1],
           };
-          setTimeout(() => {
-            setIsRescueEventPop(true);
-          }, 500);
+          const res = await fetch(`api/game/rescue-event?roomId=${roomId}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ rescueEvent }),
+          });
+          const data = await res.json();
+          console.log(data);
+          // setTimeout(() => {
+          //   setIsRescueEventPop(true);
+          // }, 500);
         } else {
           rollDice();
         }
         // setIsEventPop(false);
       } else {
-        getNextPlayer(playerPositions);
+        getNextPlayer(playerPositions, moneys);
       }
     }
   }
@@ -419,7 +436,7 @@ export default function Gameboard({
                 />
               ) : (
                 beforeMoney[currentPlayer]
-              )}{' '}
+              )}
               万円
             </h1>
           )}
