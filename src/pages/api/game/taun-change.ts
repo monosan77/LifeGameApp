@@ -7,7 +7,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    console.log('ターンチェンジ呼ばれた');
     if (req.method === 'POST') {
       return await getNextPlayer(req, res);
     }
@@ -20,7 +19,6 @@ export default async function handler(
 }
 
 async function getNextPlayer(req: NextApiRequest, res: NextApiResponse) {
-  // try {
   const { currentPlayer, newPosition, newMoney } = req.body;
   const { roomId } = req.query;
 
@@ -37,16 +35,8 @@ async function getNextPlayer(req: NextApiRequest, res: NextApiResponse) {
   // 次のプレイヤーを決定
   const nextPlayer = moveToNextPlayer(currentPlayer, newPosition);
 
-  // 全員が位置50以上に到達した場合のチェック
-  // if (nextPlayer === -1) {
-  //   return res.status(200).json({
-  //     message: '全てのプレイヤーが位置50以上に到達しました',
-  //     nextPlayer: -1,
-  //   });
-  // }
-
   // Pusher APIに次のプレイヤー情報を送信
-  await fetchJSON(
+  const resJson = await fetchJSON(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pusher/taun-change-pusher?roomId=${roomId}`,
     {
       method: 'POST',
@@ -55,7 +45,7 @@ async function getNextPlayer(req: NextApiRequest, res: NextApiResponse) {
     }
   );
 
-  res.status(200).json({ message: '正常に処理が完了しました。' });
+  return res.status(200).json({ message: '正常に処理が完了しました。' });
 }
 
 // 次のプレイヤーを決定する関数

@@ -43,7 +43,7 @@ describe('/pusher/taun-change APIのテスト', () => {
     const { req, res } = createMocks({
       method: 'POST',
       query: { roomId: '123456' },
-      body: { nextPlayer: 1 },
+      body: { nextPlayer: 1, newPosition: [0, 0, 0], newMoney: [1, 1, 1] },
     });
     const mockPusher = Pusher as jest.MockedClass<typeof Pusher>;
     mockPusher.prototype.trigger.mockResolvedValue({
@@ -59,7 +59,7 @@ describe('/pusher/taun-change APIのテスト', () => {
     const { req, res } = createMocks({
       method: 'POST',
       query: { roomId: '123456' },
-      body: { nextPlayer: 1 },
+      body: { nextPlayer: 1, newPosition: [0, 0, 0], newMoney: [1, 1, 1] },
     });
     const mockPusher = Pusher as jest.MockedClass<typeof Pusher>;
     mockPusher.prototype.trigger.mockResolvedValue({
