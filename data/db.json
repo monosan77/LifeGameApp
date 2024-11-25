@@ -30,31 +30,27 @@
           "host": false
         }
       ]
-    },
-    {
-      "id": "573600",
-      "limitPlayer": 2,
-      "member": [
-        {
-          "id": "31af9ff0-7d4b-4c66-b1aa-32cbd3c61cad",
-          "name": "よしき",
-          "host": true
-        }
-      ]
-    },
-    {
-      "id": "412643",
-      "limitPlayer": 2,
-      "member": [
-        {
-          "id": "aad1d89e-d55b-48ad-a1f5-c8f7753a82eb",
-          "name": "よしき",
-          "host": true
-        }
-      ]
     }
   ],
   "event_table": [
+    {
+      "id": "0",
+      "event": {
+        "id": "000",
+        "event_type": "plus",
+        "title": "新たな人生の始まり",
+        "overview": "これから始まる新たな人生。とりあえず会社を辞めておくか。。。全員、退職金として300万受け取る。",
+        "src": "event-0.png",
+        "value": 300,
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
+      }
+    },
     {
       "id": "1",
       "event": {
@@ -64,7 +60,13 @@
         "overview": "毎月ママからおこずかいを貰っていたが、いきなり今月で最後と言い渡された。最後なので多めに 50万円 貰う。",
         "src": "event-1.png",
         "value": 50,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -76,7 +78,13 @@
         "overview": "車を運転していたら隠れていた警察にスピード違反で捕まる。罰金で 50万 支払う。",
         "src": "event-2.png",
         "value": 50,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -88,7 +96,13 @@
         "overview": "道を歩いていたら高校生ヤンキーに絡まれカツアゲされる。100万円 失う。",
         "src": "event-3.png",
         "value": 100,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -100,7 +114,13 @@
         "overview": "友人の結婚式が連続で続く。嫉妬と虚無感を抱きながらご祝儀で合計 30万円 失う。",
         "src": "event-4.png",
         "value": 30,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -130,7 +150,13 @@
         "overview": "たまたまパチンコの実況動画をYouTubeに揚げたらバズったようだ。収益として 100万円 もらう。",
         "src": "event-6.png",
         "value": 100,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -142,7 +168,13 @@
         "overview": "クイズ大会に出場し優勝した。賞金 100万円 もらう。",
         "src": "event-7.png",
         "value": 100,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -172,7 +204,13 @@
         "overview": "無心でポケモンカードを1パック買ったら、レアカードが当たった。売って 200万円 もらう。",
         "src": "event-9.png",
         "value": 200,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -220,7 +258,13 @@
         "overview": "月収チャンネルで300万円の融資を受け取るが、周囲から冷ややかな視線を感じることになる。 300万円 もらう。",
         "src": "event-12.png",
         "value": 300,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -250,7 +294,13 @@
         "overview": "懸賞金付きの連続殺人犯を偶然逮捕した。懸賞金 500万円 もらう。",
         "src": "event-14.png",
         "value": 500,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -262,7 +312,13 @@
         "overview": "隠れ家的なバーに入ったらそこは、ぼったくりバーだった。怖いお兄さんが脅され 300万円 支払うことになってしまった。",
         "src": "event-15.png",
         "value": 300,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -274,7 +330,13 @@
         "overview": "いじめられていた犬を救った。犬はお礼に埋蔵金を見つけてきた。 500万円もらう。",
         "src": "event-16.png",
         "value": 500,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -286,7 +348,13 @@
         "overview": "急に気がくるってしまった。気づいたら目の前に300万があった。少し怖かったが 300万円 もらう。",
         "src": "event-17.png",
         "value": 300,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -352,7 +420,13 @@
         "overview": "軽微な交通事故に会う。偶然相手がお金持ちで慰謝料を多めにもらう。800万円もらう。",
         "src": "event-21.png",
         "value": 800,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -364,7 +438,13 @@
         "overview": "思わぬところから親戚の遺産が手に入る。500万円 もらう。",
         "src": "event-22.png",
         "value": 500,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -376,7 +456,13 @@
         "overview": "社用PCでウイルス対策サイトを閲覧しているとウイルスに感染した。800万円はらう。",
         "src": "event-23.png",
         "value": 800,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -406,7 +492,13 @@
         "overview": "信用していた人に1000万円預ける。しかし、その人はネズミ講だった。1000万円失う",
         "src": "event-25.png",
         "value": 1000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -418,7 +510,13 @@
         "overview": "カラオケで歌っている映像が大バズり。1000万円 もらう",
         "src": "event-26.png",
         "value": 1000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -430,7 +528,13 @@
         "overview": "愛するおじいちゃんがなくなってしまう。悲しみながらおじいちゃんが残した遺産を貰う。 負の遺産だったため、―3000万円支払う。",
         "src": "event-27.png",
         "value": 3000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -442,7 +546,13 @@
         "overview": "ペットに赤ちゃんができお金持ちに引き取ってもらう。お礼に 1000万円 もらう。",
         "src": "event-28.png",
         "value": 1000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -454,7 +564,13 @@
         "overview": "SNSにギャンブルに勝った自慢をする。炎上し住所を特定され泥棒に入られる。2000万円失う。",
         "src": "event-29.png",
         "value": 2000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -484,7 +600,13 @@
         "overview": "ハニートラップに引っかかり週刊誌に取り上げられる。会社の評判が悪くなり事業に失敗する。 2000万円はらう。",
         "src": "event-31.png",
         "value": 2000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -514,7 +636,13 @@
         "overview": "子供が生まれ養育費が生じる。あれ？独り身だったような。。。3000万円払う。",
         "src": "event-33.png",
         "value": 3000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -526,7 +654,13 @@
         "overview": "庭を掘ったら不思議な生命体を発見する。それは未発見生命体だった。世界中から注目され賞賛された。 5000万円もらう。",
         "src": "event-34.png",
         "value": 5000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -556,7 +690,13 @@
         "overview": "Netflixで話題の地面師。自分は引っかからないだろうと思っていたら簡単に引っかかる。10億円の被害にある。",
         "src": "event-36.png",
         "value": 100000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -568,7 +708,13 @@
         "overview": "ギャンブル講座の新規事業を始める。有名YouTuberに取り上げてもらい有名になり儲かる。 5000万円もらう。",
         "src": "event-37.png",
         "value": 5000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -598,7 +744,13 @@
         "overview": "ひょんなことから大金が手に入る。1億円もらう。",
         "src": "event-39.png",
         "value": 10000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -628,7 +780,13 @@
         "overview": "大親友がそばにいる価値に気づく。1億円もらう。",
         "src": "event-41.png",
         "value": 10000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -640,7 +798,13 @@
         "overview": "実は昔ヒカキンに恩を売っていて、当時のお返しを貰う。1億円もらう。",
         "src": "event-42.png",
         "value": 10000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -652,7 +816,13 @@
         "overview": "ゲームマスターの機嫌がよくなった。3億円もらう。",
         "src": "event-43.png",
         "value": 30000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -664,7 +834,13 @@
         "overview": "生涯愛する運命の人と出会う。気分がよくなりすべてがうまくいくようになった。4億円もらう",
         "src": "event-44.png",
         "value": 40000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -694,7 +870,13 @@
         "overview": "必ず利益が出ると思っていた株が大暴落する。5億円の損失。",
         "src": "event-46.png",
         "value": 50000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -706,7 +888,13 @@
         "overview": "ネズミがブレイカーの配線を嚙みちぎり火花が発生し出火する。気づいたころには燃え広がり火事になる。5000万円の損失。",
         "src": "event-47.png",
         "value": 5000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -718,7 +906,13 @@
         "overview": "持っていた株の価格が大幅に上がる。5億円もらう。",
         "src": "event-48.png",
         "value": 50000,
-        "special_event": null
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
       }
     },
     {
@@ -753,6 +947,134 @@
           "conditions": ["1-1", "2-2", "3-4", "5-5", "6-6"],
           "effect_type": "+-",
           "effect_value": [500000, 100000, 30000, -100000, -500000],
+          "base_amount": [0, 1]
+        }
+      }
+    }
+  ],
+  "event_table1": [
+    {
+      "id": "0",
+      "event": {
+        "id": "000",
+        "event_type": "plus",
+        "title": "新たな人生の始まり",
+        "overview": "これから始まる新たな人生。とりあえず会社を辞めておくか。。。全員、退職金として300万受け取る。",
+        "src": "event-0.png",
+        "value": 300,
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
+        }
+      }
+    },
+    {
+      "id": "1",
+      "event": {
+        "id": "005",
+        "event_type": "special",
+        "title": "特殊イベント ~パチンコ~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "src": "event-5.png",
+        "value": 0,
+        "special_event": {
+          "id": "1",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
+      }
+    },
+    {
+      "id": "2",
+      "event": {
+        "id": "005",
+        "event_type": "special",
+        "title": "特殊イベント ~パチンコ~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "src": "event-5.png",
+        "value": 0,
+        "special_event": {
+          "id": "1",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
+      }
+    },
+    {
+      "id": "3",
+      "event": {
+        "id": "005",
+        "event_type": "special",
+        "title": "特殊イベント ~パチンコ~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "src": "event-5.png",
+        "value": 0,
+        "special_event": {
+          "id": "1",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
+      }
+    },
+    {
+      "id": "4",
+      "event": {
+        "id": "005",
+        "event_type": "special",
+        "title": "特殊イベント ~パチンコ~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "src": "event-5.png",
+        "value": 0,
+        "special_event": {
+          "id": "1",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
+      }
+    },
+    {
+      "id": "5",
+      "event": {
+        "id": "005",
+        "event_type": "special",
+        "title": "特殊イベント ~パチンコ~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "src": "event-5.png",
+        "value": 0,
+        "special_event": {
+          "id": "1",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
+        }
+      }
+    },
+    {
+      "id": "6",
+      "event": {
+        "id": "005",
+        "event_type": "special",
+        "title": "特殊イベント ~パチンコ~",
+        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
+        "src": "event-5.png",
+        "value": 0,
+        "special_event": {
+          "id": "1",
+          "conditions": ["1-3", "4-6"],
+          "effect_type": "+-",
+          "effect_value": [300, -50],
           "base_amount": [0, 1]
         }
       }
