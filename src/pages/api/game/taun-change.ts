@@ -7,6 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
+    console.log('ターンチェンジ呼ばれた');
     if (req.method === 'POST') {
       return await getNextPlayer(req, res);
     }
@@ -20,14 +21,15 @@ export default async function handler(
 
 async function getNextPlayer(req: NextApiRequest, res: NextApiResponse) {
   // try {
-  const { currentPlayer, newPosition } = req.body;
+  const { currentPlayer, newPosition, newMoney } = req.body;
   const { roomId } = req.query;
 
   // 必須パラメータのチェック
   if (
     typeof currentPlayer !== 'number' ||
     !Array.isArray(newPosition) ||
-    !roomId
+    !roomId ||
+    !newMoney
   ) {
     return res.status(400).json({ error: 'リクエストのパラメータが不正です' });
   }
@@ -49,7 +51,7 @@ async function getNextPlayer(req: NextApiRequest, res: NextApiResponse) {
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nextPlayer }),
+      body: JSON.stringify({ nextPlayer, newPosition, newMoney }),
     }
   );
 
