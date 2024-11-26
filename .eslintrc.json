@@ -34,8 +34,7 @@
       {
         "argsIgnorePattern": "^_" // `_` で始まる引数は未使用でも無視
       }
-    ],
-    
+    ]
   },
   "settings": {
     "react": {

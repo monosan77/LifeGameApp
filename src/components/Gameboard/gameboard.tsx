@@ -9,6 +9,7 @@ import Board from './Board/Board';
 import BottomBar from './BottomBar/BottomBar';
 import Image from 'next/image';
 import CountUp from 'react-countup';
+import Result from './Result/result';
 
 interface Prop {
   roomId: string;
@@ -333,118 +334,124 @@ export default function Gameboard({
   console.log(moneys, 'new');
   console.log(member[currentPlayer].name, '今のプレイや');
   return (
-    <main className={styles.all}>
-      <TurnDisplay
-        yourInfo={yourInfo}
-        member={member}
-        currentPlayer={currentPlayer}
-      />
+    <>
+      <Result member={member} moneys={moneys} />
+      <main className={styles.all}>
+        <TurnDisplay
+          yourInfo={yourInfo}
+          member={member}
+          currentPlayer={currentPlayer}
+        />
 
-      <Board
-        playerPositions={playerPositions}
-        isErrorAnimation={isErrorAnimation}
-        errorMessage={errorMessage}
-      />
+        <Board
+          playerPositions={playerPositions}
+          isErrorAnimation={isErrorAnimation}
+          errorMessage={errorMessage}
+        />
 
-      <BottomBar
-        yourInfo={yourInfo}
-        member={member}
-        moneys={moneys}
-        currentPlayer={currentPlayer}
-        pushDiceBtn={pushDiceBtn}
-        diceResult={diceResult}
-        isTachDiceBtn={isTachDiceBtn}
-        // eventDetails={eventDetails}
-      />
+        <BottomBar
+          yourInfo={yourInfo}
+          member={member}
+          moneys={moneys}
+          currentPlayer={currentPlayer}
+          pushDiceBtn={pushDiceBtn}
+          diceResult={diceResult}
+          isTachDiceBtn={isTachDiceBtn}
+          // eventDetails={eventDetails}
+        />
 
-      <TaunChangeTelop
-        isTaunChangeAnimation={isTaunChangeAnimation}
-        yourInfo={yourInfo}
-        member={member}
-        currentPlayer={currentPlayer}
-      />
+        <TaunChangeTelop
+          isTaunChangeAnimation={isTaunChangeAnimation}
+          yourInfo={yourInfo}
+          member={member}
+          currentPlayer={currentPlayer}
+        />
 
-      <Roulette
-        isRouletteAnimation={isRouletteAnimation}
-        rouletteStyle={rouletteStyle}
-      />
+        <Roulette
+          isRouletteAnimation={isRouletteAnimation}
+          rouletteStyle={rouletteStyle}
+        />
 
-      <div className={isEventPop ? styles.popUp : styles.noPopUp}>
-        <div
-          className={eventDetails ? styles[eventDetails.event.event_type] : ''}
-        >
-          <h1 className={styles.title}>{eventDetails?.event.title}</h1>
-          <Image
-            src={`/game/event/${eventDetails?.event.src}`}
-            alt="イベント画像"
-            width={500}
-            height={300}
-            className={styles.image}
-          />
-          <p className={styles.text}>{eventDetails?.event.overview}</p>
-          <button
-            style={
-              member[currentPlayer].id === yourInfo.id
-                ? { display: 'block' }
-                : { display: 'none' }
+        <div className={isEventPop ? styles.popUp : styles.noPopUp}>
+          <div
+            className={
+              eventDetails ? styles[eventDetails.event.event_type] : ''
             }
-            className={styles.button}
-            onClick={() => eventIgnition()}
           >
-            OK
-          </button>
+            <h1 className={styles.title}>{eventDetails?.event.title}</h1>
+            <Image
+              src={`/game/event/${eventDetails?.event.src}`}
+              alt="イベント画像"
+              width={500}
+              height={300}
+              className={styles.image}
+            />
+            <p className={styles.text}>{eventDetails?.event.overview}</p>
+            <button
+              style={
+                member[currentPlayer].id === yourInfo.id
+                  ? { display: 'block' }
+                  : { display: 'none' }
+              }
+              className={styles.button}
+              onClick={() => eventIgnition()}
+            >
+              OK
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div className={isRescueEventPop ? styles.popUp : styles.noPopUp}>
-        <div
-          className={eventDetails ? styles[eventDetails.event.event_type] : ''}
-        >
-          <h1 className={styles.title}>救済チャレンジ</h1>
-          <Image
-            src={`/game/event/event-rescue.png`}
-            alt="イベント画像"
-            width={500}
-            height={300}
-            className={styles.image}
-          />
-          <p className={styles.text}>
-            あなたは借金を抱えている可哀そうな人間なのですね。惨めで汚らしいあなたに救済のチャンスを与えましょう。ダイスを振り、1~2が出れば借金をチャラにする。
-          </p>
-          <button
-            style={
-              member[currentPlayer].id === yourInfo.id
-                ? { display: 'block' }
-                : { display: 'none' }
+        <div className={isRescueEventPop ? styles.popUp : styles.noPopUp}>
+          <div
+            className={
+              eventDetails ? styles[eventDetails.event.event_type] : ''
             }
-            className={styles.button}
-            onClick={eventRescueBtn}
           >
-            OK
-          </button>
+            <h1 className={styles.title}>救済チャレンジ</h1>
+            <Image
+              src={`/game/event/event-rescue.png`}
+              alt="イベント画像"
+              width={500}
+              height={300}
+              className={styles.image}
+            />
+            <p className={styles.text}>
+              あなたは借金を抱えている可哀そうな人間なのですね。惨めで汚らしいあなたに救済のチャンスを与えましょう。ダイスを振り、1~2が出れば借金をチャラにする。
+            </p>
+            <button
+              style={
+                member[currentPlayer].id === yourInfo.id
+                  ? { display: 'block' }
+                  : { display: 'none' }
+              }
+              className={styles.button}
+              onClick={eventRescueBtn}
+            >
+              OK
+            </button>
+          </div>
         </div>
-      </div>
-      <div className={isCountUpPop ? styles.popUp : styles.noPopUp}>
-        <div className={styles.countUpPop}>
-          {eventDetails && (
-            <h1>
-              {isCountUpAnimation ? (
-                <CountUp
-                  start={beforeMoney[currentPlayer]}
-                  end={moneys[currentPlayer]}
-                  duration={2}
-                />
-              ) : (
-                beforeMoney[currentPlayer]
-              )}
-              万円
-            </h1>
-          )}
+        <div className={isCountUpPop ? styles.popUp : styles.noPopUp}>
+          <div className={styles.countUpPop}>
+            {eventDetails && (
+              <h1>
+                {isCountUpAnimation ? (
+                  <CountUp
+                    start={beforeMoney[currentPlayer]}
+                    end={moneys[currentPlayer]}
+                    duration={2}
+                  />
+                ) : (
+                  beforeMoney[currentPlayer]
+                )}
+                万円
+              </h1>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* 一旦保留：ゴールしたプレイヤーを表示 */}
-      {/* {playersFinished.length > 0 && (
+        {/* 一旦保留：ゴールしたプレイヤーを表示 */}
+        {/* {playersFinished.length > 0 && (
         <section className={styles.results}>
           <h2>ゴールしたプレイヤー</h2>
           <ul>
@@ -456,6 +463,7 @@ export default function Gameboard({
           </ul>
         </section>
       )} */}
-    </main>
+      </main>
+    </>
   );
 }
