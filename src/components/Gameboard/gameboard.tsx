@@ -9,6 +9,9 @@ import Board from './Board/Board';
 import BottomBar from './BottomBar/BottomBar';
 import Image from 'next/image';
 import CountUp from 'react-countup';
+import EventPopUp from './EventPopUp/EventPopUp';
+import RescueEventPopUp from './RescueEventPopUp/RescueEventPopUp';
+import CountUpPop from './CountUpPop/CountUpPop';
 
 interface Prop {
   roomId: string;
@@ -33,16 +36,18 @@ export default function Gameboard({
   ); // 3人のプレイヤーの位置を管理（初期値は全員0）
   const [currentPlayer, setCurrentPlayer] = useState(0); // 現在のプレイヤーを追跡
   const [diceResult, setDiceResult] = useState<number>(0); // ダイスの結果を管理
-  const [moneys, setMoneys] = useState(Array(member.length).fill(-300));
-  const [eventDetails, setEventDetails] = useState<Event_Mold>(firstEventData);
+  const [moneys, setMoneys] = useState(Array(member.length).fill(-300)); //所持金
+  const [beforeMoney, setBeforeMoney] = useState(Array(member.length).fill(0)); //所持金の増減前の金額を格納
+  const [eventDetails, setEventDetails] = useState<Event_Mold>(firstEventData); //マスごとのイベントを格納
+  const [errorMessage, setErrorMessage] = useState<string>(''); //エラーメッセージ
+
+  // アニメーション開始フラグ
   const [isRouletteAnimation, setIsRouletteAnimation] = useState(false);
+  const [rouletteStyle, setRouletteStyle] = useState(''); //ルーレットのスタイル
   const [isEventPop, setIsEventPop] = useState(false);
   const [isCountUpPop, setIsCountUpPop] = useState(false);
   const [isCountUpAnimation, setIsCountUpAnimation] = useState(false);
   const [isActiveTurn, setIsActiveTurn] = useState(false);
-  const [rouletteStyle, setRouletteStyle] = useState('');
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [beforeMoney, setBeforeMoney] = useState(Array(member.length).fill(0));
   const [isRescueEventPop, setIsRescueEventPop] = useState(false);
   const [isTaunChangeAnimation, setIsTaunChangeAnimation] = useState(false);
   const [isTachDiceBtn, setIsTachDiceBtn] = useState(true);
@@ -54,6 +59,7 @@ export default function Gameboard({
     setRouletteStyle(`number-${dice}`);
   }
 
+  // 画面読み込み時に一度だけ動作するイベントアニメションの開始
   useEffect(() => {
     setTimeout(() => {
       setIsEventPop(true);
@@ -69,7 +75,6 @@ export default function Gameboard({
 
     // ダイスの結果を受信
     channel.bind('result-dice', async function (resultDice: number | null) {
-      console.log(resultDice, '受け取ったダイス結果');
       if (resultDice) {
         // popUpを初期化
         if (isEventPop || isRescueEventPop) {
@@ -86,10 +91,7 @@ export default function Gameboard({
           setIsRouletteAnimation(false);
           setRouletteStyle('');
           if (isActiveTurn) {
-            console.log('特殊イベント');
-            // const newMoney: number[] = await getSpecialEvent(resultDice);
             const data = await getSpecialEvent(resultDice);
-            console.log(data, '新しい金額');
             setBeforeMoney(data.beforeMoney);
             setMoneys(data.newMoney);
             // setMoneys(newMoney);
@@ -99,10 +101,11 @@ export default function Gameboard({
               return getNextPlayer(playerPositions, data.newMoney);
             }
           } else {
-            console.log('駒動かすよ');
             setIsActiveTurn(true);
             // プレイヤーの位置を更新
             const newPosition = [...playerPositions];
+
+            // 一マスずつ駒を移動する処理
             for (let i = 1; i <= resultDice; i++) {
               setTimeout(() => {
                 newPosition[currentPlayer] = newPosition[currentPlayer] + 1;
@@ -152,6 +155,7 @@ export default function Gameboard({
     isActiveTurn,
   ]);
 
+  // Pusherのイベントを受信
   useEffect(() => {
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY as string, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER as string,
@@ -175,6 +179,7 @@ export default function Gameboard({
             setIsTaunChangeAnimation(true);
 
             setTimeout(() => {
+              // ターンチェンジ終了時アニメーションを初期化
               setIsTaunChangeAnimation(false);
               setIsCountUpAnimation(false);
               setIsActiveTurn(false);
@@ -187,7 +192,6 @@ export default function Gameboard({
 
     // 救済イベントを受信
     channel.bind('rescue-event', (event: Event_Mold) => {
-      console.log(event, '救済イベントを受信');
       setEventDetails(event);
       setTimeout(() => {
         setIsRescueEventPop(true);
@@ -285,7 +289,6 @@ export default function Gameboard({
             body: JSON.stringify({ rescueEvent }),
           });
           const data = await res.json();
-          console.log(data);
           // setTimeout(() => {
           //   setIsRescueEventPop(true);
           // }, 500);
@@ -303,7 +306,6 @@ export default function Gameboard({
     setIsRescueEventPop(false);
     rollDice();
   }
-  console.log(eventDetails?.event.special_event);
 
   // ダイスを振る
   const [isErrorAnimation, setIsErrorAnimation] = useState(false);
@@ -329,9 +331,6 @@ export default function Gameboard({
     }
   }
 
-  console.log(beforeMoney, 'now');
-  console.log(moneys, 'new');
-  console.log(member[currentPlayer].name, '今のプレイや');
   return (
     <main className={styles.all}>
       <TurnDisplay
@@ -369,79 +368,31 @@ export default function Gameboard({
         rouletteStyle={rouletteStyle}
       />
 
-      <div className={isEventPop ? styles.popUp : styles.noPopUp}>
-        <div
-          className={eventDetails ? styles[eventDetails.event.event_type] : ''}
-        >
-          <h1 className={styles.title}>{eventDetails?.event.title}</h1>
-          <Image
-            src={`/game/event/${eventDetails?.event.src}`}
-            alt="イベント画像"
-            width={500}
-            height={300}
-            className={styles.image}
-          />
-          <p className={styles.text}>{eventDetails?.event.overview}</p>
-          <button
-            style={
-              member[currentPlayer].id === yourInfo.id
-                ? { display: 'block' }
-                : { display: 'none' }
-            }
-            className={styles.button}
-            onClick={() => eventIgnition()}
-          >
-            OK
-          </button>
-        </div>
-      </div>
+      <EventPopUp
+        isEventPop={isEventPop}
+        eventDetails={eventDetails}
+        member={member}
+        currentPlayer={currentPlayer}
+        yourInfo={yourInfo}
+        eventIgnition={eventIgnition}
+      />
+      <RescueEventPopUp
+        isRescueEventPop={isRescueEventPop}
+        eventDetails={eventDetails}
+        member={member}
+        currentPlayer={currentPlayer}
+        yourInfo={yourInfo}
+        eventRescueBtn={eventRescueBtn}
+      />
 
-      <div className={isRescueEventPop ? styles.popUp : styles.noPopUp}>
-        <div
-          className={eventDetails ? styles[eventDetails.event.event_type] : ''}
-        >
-          <h1 className={styles.title}>救済チャレンジ</h1>
-          <Image
-            src={`/game/event/event-rescue.png`}
-            alt="イベント画像"
-            width={500}
-            height={300}
-            className={styles.image}
-          />
-          <p className={styles.text}>
-            あなたは借金を抱えている可哀そうな人間なのですね。惨めで汚らしいあなたに救済のチャンスを与えましょう。ダイスを振り、1~2が出れば借金をチャラにする。
-          </p>
-          <button
-            style={
-              member[currentPlayer].id === yourInfo.id
-                ? { display: 'block' }
-                : { display: 'none' }
-            }
-            className={styles.button}
-            onClick={eventRescueBtn}
-          >
-            OK
-          </button>
-        </div>
-      </div>
-      <div className={isCountUpPop ? styles.popUp : styles.noPopUp}>
-        <div className={styles.countUpPop}>
-          {eventDetails && (
-            <h1>
-              {isCountUpAnimation ? (
-                <CountUp
-                  start={beforeMoney[currentPlayer]}
-                  end={moneys[currentPlayer]}
-                  duration={2}
-                />
-              ) : (
-                beforeMoney[currentPlayer]
-              )}
-              万円
-            </h1>
-          )}
-        </div>
-      </div>
+      <CountUpPop
+        isCountUpPop={isCountUpPop}
+        eventDetails={eventDetails}
+        isCountUpAnimation={isCountUpAnimation}
+        beforeMoney={beforeMoney}
+        moneys={moneys}
+        currentPlayer={currentPlayer}
+      />
 
       {/* 一旦保留：ゴールしたプレイヤーを表示 */}
       {/* {playersFinished.length > 0 && (
