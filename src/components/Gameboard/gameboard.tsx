@@ -216,6 +216,7 @@ export default function Gameboard({
     });
 
     return () => {
+      pusher.unsubscribe(roomId);
       pusher.disconnect();
     };
   }, [roomId]);
