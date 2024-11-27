@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 100vh;
   position: fixed;
@@ -85,24 +84,22 @@
   opacity: 0;
   animation: fadeIn 2s forwards;
   animation-delay: 4s;
-  background: linear-gradient(
-    145deg,
-    rgb(150, 30, 30),
-    rgb(70, 5, 5)
-  ); /* 明るい赤から暗い赤へ */
-  border-radius: 10px; /* 角を丸めて柔らかい印象 */
+  background: linear-gradient(145deg, rgb(150, 30, 30), rgb(70, 5, 5));
+  border-radius: 10px;
   box-shadow:
     5px 5px 15px rgba(0, 0, 0, 0.5),
-    /* 外側の濃い影 */ -5px -5px 15px rgba(255, 255, 255, 0.2); /* 内側の柔らかい光 */
+    -5px -5px 15px rgba(255, 255, 255, 0.2);
 }
 
-.resultPage dl {
+.firstPlace,
+.secondPlace,
+.otherPlace {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
   opacity: 0;
-  animation: fadeIn 3s forwards;
+  animation: fadeIn 3s ease forwards;
 }
 
 @keyframes fadeIn {
@@ -115,14 +112,18 @@
   width: 950px;
   height: 70px;
   padding: 0 50px;
-  animation-delay: 9s;
 }
 
-.rank dl:nth-child(1) {
+.firstPlace {
   animation-delay: 6s;
 }
 
-.resultPage dl:last-child {
+.secondPlace,
+.otherPlace {
+  animation-delay: 9s;
+}
+
+.rank dl:last-child {
   margin-bottom: 0;
 }
 
@@ -142,22 +143,22 @@
   background-image: url('../../../../public/result/copper.png');
 }
 
-.resultPage dt,
-.resultPage dd {
+.rank dt,
+.rank dd {
   font-size: 2.5rem;
   font-weight: bold;
 }
 
-.resultPage dt {
+.rank dt {
   min-width: 380px;
   text-align: start;
 }
 
-.resultPage dt span {
+.rank dt span {
   width: 100px;
 }
 
-.resultPage dl:first-child {
+.rank dl:first-child {
   border-bottom: 1px dotted #333333;
 }
 
