@@ -26,13 +26,15 @@ const RescueEventPopUp = ({
         className={eventDetails ? styles[eventDetails.event.event_type] : ''}
       >
         <h1 className={styles.title}>救済チャレンジ</h1>
-        <Image
-          src={`/game/event/event-rescue.png`}
-          alt="イベント画像"
-          width={500}
-          height={300}
-          className={styles.image}
-        />
+
+        <div className={styles.image}>
+          <Image
+            src={`/game/event/event-rescue.png`}
+            alt="イベント画像"
+            fill
+            sizes="(max-width: 768px) 100%, 300px"
+          />
+        </div>
         <p className={styles.text}>
           あなたは借金を抱えている可哀そうな人間なのですね。惨めで汚らしいあなたに救済のチャンスを与えましょう。ダイスを振り、1~2が出れば借金をチャラにする。
         </p>

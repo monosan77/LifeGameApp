@@ -31,7 +31,10 @@ const BottomBar = ({
           <div key={player.id} className={styles.userBox}>
             <div className={styles.userName}>{player.name}</div>
             <div className={styles.money}>
-              {formatMoney(moneys[index])} 万円
+              {moneys && Array.isArray(moneys)
+                ? formatMoney(moneys[index])
+                : '???'}{' '}
+              万円
             </div>
           </div>
         ))}
@@ -44,6 +47,9 @@ const BottomBar = ({
             ? pushDiceBtn
             : undefined
         }
+        // onClick={
+        //   yourInfo.id === member[currentPlayer].id ? pushDiceBtn : undefined
+        // }
       >
         dice
       </button>

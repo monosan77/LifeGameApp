@@ -15,7 +15,6 @@ interface Props {
   squareNumber: number;
 }
 const Square = ({ playerPositions, squareNumber }: Props) => {
-  console.log(playerPositions, 'position');
   return (
     <>
       {playerPositions.map(

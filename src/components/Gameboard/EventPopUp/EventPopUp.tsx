@@ -26,13 +26,14 @@ const EventPopUp = ({
         className={eventDetails ? styles[eventDetails.event.event_type] : ''}
       >
         <h1 className={styles.title}>{eventDetails?.event.title}</h1>
-        <Image
-          src={`/game/event/${eventDetails?.event.src}`}
-          alt="イベント画像"
-          width={500}
-          height={300}
-          className={styles.image}
-        />
+        <div className={styles.image}>
+          <Image
+            src={`/game/event/${eventDetails?.event.src}`}
+            alt="イベント画像"
+            fill
+            sizes="(max-width: 768px) 100%, 300px"
+          />
+        </div>
         <p className={styles.text}>{eventDetails?.event.overview}</p>
         <button
           style={

@@ -123,7 +123,7 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
     });
 
     return () => {
-      pusher.unsubscribe(roomId);
+      // pusher.unsubscribe(roomId);
       pusher.disconnect();
     };
   }, [roomId]);
