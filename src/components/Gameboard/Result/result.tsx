@@ -2,33 +2,45 @@ import ConfettiComponent from '@/components/Confetti/confetti';
 import styles from './result.module.css';
 import { Members } from '@/types/session';
 import Link from 'next/link';
-import Image from 'next/image';
 
 interface resultProps {
   moneys: number[];
   member: Members[];
 }
 
+interface resultArrayProps {
+  user:string;
+  sum:number;
+  rank?:number;
+}
+
 const Result = ({ moneys, member }: resultProps) => {
-  const resultData = member.map((player, index) => ({
+  const resultData:resultArrayProps[] = member.map((player, index) => ({
     user: player.name,
     sum: moneys[index],
   }));
 
   const resultArray = resultData.sort((a, b) => b.sum - a.sum);
 
-  console.log(resultArray);
+  let rank = 1;
+  resultArray.forEach((player, index, arr) => {
+    if (index > 0 && player.sum === arr[index - 1].sum) {
+      player.rank = arr[index - 1].rank;
+    } else {
+      player.rank = rank;
+    }
+    rank++;
+  });
+  
 
   return (
     <div className={styles.resultPage}>
       <ConfettiComponent />
       <div className={styles.textWrapper}>
-        {/* <span>〜</span> */}
         <span>結</span>
         <span>果</span>
         <span>発</span>
         <span>表</span>
-        {/* <span>〜</span> */}
       </div>
 
       <div className={styles.rank}>
@@ -36,22 +48,22 @@ const Result = ({ moneys, member }: resultProps) => {
           <dl
             key={index + 1}
             className={
-              index === 0
+              players.rank === 1
                 ? styles.firstPlace
-                : index === 1
+                : players.rank === 2
                   ? styles.secondPlace
                   : styles.otherPlace
             }
           >
             <dt>
-              {index + 1}位：{players.user}さん
+              {players.rank}位：{players.user}さん
             </dt>
             <dd>{players.sum}万円</dd>
           </dl>
         ))}
       </div>
       <Link href="../" className={styles.returnTop}>
-        <button>Top</button>
+        <button>TOP</button>
       </Link>
     </div>
   );
