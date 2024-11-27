@@ -9,8 +9,6 @@ export default async function handler(
     if (req.method === 'POST') {
       const { roomId } = req.query;
       const { eventId, currentPlayer, moneys } = req.body;
-      console.log(currentPlayer, 'ydydy');
-      console.log(moneys, 'ydydy');
       if (
         !roomId ||
         !eventId ||

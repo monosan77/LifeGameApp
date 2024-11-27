@@ -7,8 +7,6 @@ import { Members } from '@/types/session';
 import TurnDisplay from './TurnDisplay/TurnDisplay';
 import Board from './Board/Board';
 import BottomBar from './BottomBar/BottomBar';
-import Image from 'next/image';
-import CountUp from 'react-countup';
 import EventPopUp from './EventPopUp/EventPopUp';
 import RescueEventPopUp from './RescueEventPopUp/RescueEventPopUp';
 import CountUpPop from './CountUpPop/CountUpPop';
@@ -96,8 +94,6 @@ export default function Gameboard({
             setMoneys(data.newMoney);
             // setMoneys(newMoney);
             if (yourInfo.id === member[currentPlayer].id) {
-              console.log(playerPositions, 'postion');
-
               return getNextPlayer(playerPositions, data.newMoney);
             }
           } else {
@@ -131,6 +127,45 @@ export default function Gameboard({
       }
     });
 
+    return () => {
+      pusher.disconnect();
+    };
+  }, [
+    roomId,
+    currentPlayer,
+    playerPositions,
+    moneys,
+    isEventPop,
+    isActiveTurn,
+    yourInfo.id,
+    member[currentPlayer]?.id,
+  ]);
+
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY as string, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER as string,
+    });
+    const channel = pusher.subscribe(`${roomId}`);
+
+    // 救済イベントを受信
+    channel.bind('rescue-event', (event: Event_Mold) => {
+      setEventDetails(event);
+      setTimeout(() => {
+        setIsRescueEventPop(true);
+      }, 500);
+    });
+
+    return () => {
+      channel.unbind('rescue-event');
+      pusher.disconnect();
+    };
+  }, [roomId]);
+
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY as string, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER as string,
+    });
+    const channel = pusher.subscribe(`${roomId}`);
     // 通常イベント情報を受信
     channel.bind('get-event-info', (event: EventGetPusher) => {
       setEventDetails(event.eventInfo);
@@ -140,20 +175,10 @@ export default function Gameboard({
       }
       setIsEventPop(true);
     });
-
     return () => {
-      // pusher.unsubscribe(`${roomId}`);
       pusher.disconnect();
     };
-  }, [
-    roomId,
-    diceResult,
-    currentPlayer,
-    playerPositions,
-    moneys,
-    isEventPop,
-    isActiveTurn,
-  ]);
+  }, [moneys, roomId]);
 
   // Pusherのイベントを受信
   useEffect(() => {
@@ -190,15 +215,7 @@ export default function Gameboard({
       }, 800);
     });
 
-    // 救済イベントを受信
-    channel.bind('rescue-event', (event: Event_Mold) => {
-      setEventDetails(event);
-      setTimeout(() => {
-        setIsRescueEventPop(true);
-      }, 500);
-    });
     return () => {
-      // pusher.unsubscribe(`${roomId}`);
       pusher.disconnect();
     };
   }, [roomId]);
@@ -254,7 +271,6 @@ export default function Gameboard({
         }
       );
       const data = await res.json();
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -265,6 +281,13 @@ export default function Gameboard({
     setIsTachDiceBtn(false);
     setIsActiveTurn(false);
     rollDice();
+
+    // ダイスボタンを押した後ルーレットアニメーションが動かない場合再度ボタンを押せるようにする
+    setTimeout(() => {
+      if (!isRouletteAnimation) {
+        setIsTachDiceBtn(true);
+      }
+    }, 2000);
   }
   // イベントPopUpのOkを押したとき実行される。
   async function eventIgnition() {
@@ -289,13 +312,9 @@ export default function Gameboard({
             body: JSON.stringify({ rescueEvent }),
           });
           const data = await res.json();
-          // setTimeout(() => {
-          //   setIsRescueEventPop(true);
-          // }, 500);
         } else {
           rollDice();
         }
-        // setIsEventPop(false);
       } else {
         getNextPlayer(playerPositions, moneys);
       }
