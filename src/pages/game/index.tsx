@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<
       props: {
         players: roomData.member,
         roomId: roomData.id,
-        yourInfo: roomData.member.find((player) => player.id === userId)!, // `yourInfo`を設定
+        yourInfo: roomData.member.find((player) => player.id === userId)!,
         firstEvent,
       },
     };
