@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './waiting-room.module.css';
 import { Members } from '@/types/session';
-import { useRouter } from 'next/router';
 
 interface WaitingRoomPageProps {
   players: Members[];
@@ -9,6 +8,8 @@ interface WaitingRoomPageProps {
   yourInfo: Members;
   onExit: () => void;
   startGame: () => void;
+  errorMessage: string | null;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export default function WaitingRoom({
@@ -17,40 +18,21 @@ export default function WaitingRoom({
   yourInfo,
   onExit,
   startGame,
+  errorMessage,
+  setErrorMessage,
 }: WaitingRoomPageProps) {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const router = useRouter();
+  const [showError, setShowError] = useState(false);
 
-  const exitRoom = async () => {
-    try {
-      const response = await fetch(`/api/session/exit?roomId=${roomId}`, {
-        method: 'DELETE',
-        body: JSON.stringify({
-          userId: yourInfo.id, // セッションストレージなどから取得したユーザーIDを使用
-        }),
-        headers: { 'Content-Type': 'application/json' },
-      });
+  useEffect(() => {
+    if (errorMessage) {
+      setShowError(true);
+      const timer = setTimeout(() => {
+        setShowError(false);
+      }, 3000);
 
-      if (!response.ok) {
-        throw new Error('退出処理に失敗しました');
-      }
-
-      // 成功したら、waiting-roomからルーム情報を再取得
-      const roomResponse = await fetch(
-        `/api/session/get-room-info?roomId=${roomId}`
-      );
-      const roomData = await roomResponse.json();
-
-      if (!roomResponse.ok) {
-        throw new Error('ルーム情報の取得に失敗しました');
-      }
-
-      // 新しいプレイヤーリストに更新
-      router.push(`/waiting-room?roomId=${roomId}`); // ルーム情報更新後に再レンダリング
-    } catch (error) {
-      setErrorMessage('退出エラー: サーバーに問題が発生しました');
+      return () => clearTimeout(timer);
     }
-  };
+  }, [errorMessage]);
 
   return (
     <div className={styles.all}>
@@ -58,7 +40,7 @@ export default function WaitingRoom({
         <h1 className={styles.title}>待機中....</h1>
 
         {/* エラーメッセージの表示 */}
-        {errorMessage && (
+        {showError && errorMessage && (
           <div className={styles.errorBox}>
             <p>{errorMessage}</p>
           </div>

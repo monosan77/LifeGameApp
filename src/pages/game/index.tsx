@@ -28,7 +28,6 @@ export const getServerSideProps: GetServerSideProps<
   }
 
   try {
-    // 最新のルーム情報を取得
     const roomResponse = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${roomId}`
     );
@@ -39,7 +38,6 @@ export const getServerSideProps: GetServerSideProps<
 
     const roomData: RoomInfo = await roomResponse.json();
 
-    // ユーザーがルームに存在するか確認
     const isUserInRoom = roomData.member.some((member) => member.id === userId);
 
     if (!isUserInRoom) {
@@ -55,7 +53,7 @@ export const getServerSideProps: GetServerSideProps<
       props: {
         players: roomData.member,
         roomId: roomData.id,
-        yourInfo: roomData.member.find((player) => player.id === userId)!, // yourInfoを設定
+        yourInfo: roomData.member.find((player) => player.id === userId)!,
       },
     };
   } catch (error) {
@@ -75,28 +73,30 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
 }) => {
   const [currentPlayers, setCurrentPlayers] = useState(players);
   const [isFadingOut, setIsFadingOut] = useState(false);
-  const [gameStarted, setGameStarted] = useState(false); // ゲーム開始の状態を保持
+  const [gameStarted, setGameStarted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
-  // ゲーム開始の関数
   const startGame = async () => {
+    if (!yourInfo.host) {
+      setErrorMessage('ホストのみゲームを開始できます');
+      return;
+    }
     try {
-      const response = await fetch(`/api/session/start-game?roomId=${roomId}`, {
-        method: 'POST',
-      });
+      const response = await fetch(`/api/game/start-game?roomId=${roomId}`);
 
       if (!response.ok) {
-        throw new Error('ゲームの開始に失敗しました');
+        setErrorMessage('ゲームの開始に失敗しました');
+        return;
       }
 
       setIsFadingOut(true);
       setTimeout(() => {
         setIsFadingOut(false);
-        setGameStarted(true); // ゲーム開始の状態を更新
+        setGameStarted(true);
       }, 1000);
-    } catch (error) {
-      setErrorMessage('ゲーム開始処理に失敗しました');
+    } catch (error: any) {
+      setErrorMessage(error.message || 'ゲーム開始処理に失敗しました');
     }
   };
 
@@ -117,11 +117,8 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
 
       const res = await fetch(`/api/pusher/wait-room-pusher?roomId=${roomId}`);
       const data = await res.json();
-      console.log(data, 'pusherリクエスト');
 
-      // 退出成功後にトップページへ遷移
-      alert('退出した');
-      // router.push('/');
+      router.push('/');
     } catch (error) {
       setErrorMessage('退出処理に失敗しました');
     }
@@ -152,8 +149,15 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
 
     const channel = pusher.subscribe(roomId);
 
+    channel.bind('room-deleted', (data: any) => {
+      setErrorMessage(data.message);
+
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    });
+
     channel.bind('joinRoom', (data: any) => {
-      console.log(data, '最新情報');
       setCurrentPlayers(data.member);
     });
 
@@ -168,7 +172,7 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
     return () => {
       pusher.unsubscribe(roomId);
     };
-  }, [roomId]);
+  }, [roomId, router]);
 
   if (gameStarted) {
     return (
@@ -182,15 +186,14 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
     <div
       className={`${styles.container} ${isFadingOut ? styles.fadeOut : styles.fadeIn}`}
     >
-      {errorMessage && (
-        <p style={{ color: 'red', fontWeight: 'bold' }}>{errorMessage}</p>
-      )}
       <WaitingRoom
         players={currentPlayers}
         roomId={roomId}
         yourInfo={yourInfo}
         onExit={handleExit}
-        startGame={startGame} // startGameを渡す
+        startGame={startGame}
+        errorMessage={errorMessage}
+        setErrorMessage={setErrorMessage}
       />
     </div>
   );
