@@ -20,32 +20,38 @@ export default async function handler(
   }
 
   const { roomId } = req.query;
-  const { nextPlayer } = req.body;
+  const { nextPlayer, newPosition, newMoney } = req.body;
 
   // roomIdとnextPlayerのバリデーション
-  if (!roomId || nextPlayer === null || nextPlayer === undefined) {
+  if (
+    !roomId ||
+    nextPlayer === null ||
+    nextPlayer === undefined ||
+    !newPosition ||
+    !newMoney
+  ) {
     return res
       .status(400)
       .json({ error: 'roomIdまたはnextPlayerデータがありません。' });
   }
 
   try {
-    const response = await pusher.trigger(
-      `${roomId}`,
-      'result-next-player',
-      nextPlayer
-    );
+    const response = await pusher.trigger(`${roomId}`, 'result-next-player', {
+      nextPlayer,
+      newPosition,
+      newMoney,
+    });
 
     // Pusherからのエラーチェック
     if (response.status !== 200) {
-      // console.error('Pusherエラー:', response);
+      console.error('Pusherエラー:', response);
       throw new Error('pusher APIで同期できませんでした。');
     }
 
     res.status(200).json({ message: 'プレイヤーが正常に同期されました。' });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    // console.error('サーバーエラー:', error);
+    console.error('サーバーエラー:', error);
     res.status(500).json({ error: `server error : ${error.message}` });
   }
 }

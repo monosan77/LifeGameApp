@@ -36,7 +36,10 @@ export default function NamePopup({
   };
 
   return (
-    <div className={createName ? styles.userNamePage : styles.notUserNamePage}>
+    <div
+      className={createName ? styles.userNamePage : styles.notUserNamePage}
+      id="NamePopupPage"
+    >
       <div className={styles.userNames}>
         {rename ? (
           <div className={styles.rename}>

@@ -1,0 +1,90 @@
+.all {
+  background-image: url('/background_casino.jpg');
+  width: 100vw;
+  height: 100vh;
+}
+.popUp,
+.noPopUp {
+  width: 100%;
+  height: 100vh;
+  background-color: #00000080;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  transition: 0.1s ease-in;
+  transition-duration: 0.5s;
+}
+.popUp {
+  visibility: visible;
+  opacity: 1;
+}
+.noPopUp {
+  visibility: hidden;
+  opacity: 0;
+}
+.plus,
+.minus,
+.special {
+  width: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 15px;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 30px #000000;
+}
+.plus {
+  background-color: rgb(119, 189, 255);
+  border: solid 5px #008cff;
+}
+.minus {
+  background-color: rgb(255, 163, 163);
+  border: solid 5px #ff0000;
+}
+.special {
+  background-color: rgba(249, 221, 187, 100%);
+  border: solid 5px #ffb300;
+}
+.title {
+  width: calc(100% - 32px);
+  text-align: center;
+  font-weight: normal;
+  border-radius: 10px;
+  margin: 10px 16px;
+  box-shadow: 0px 0px 10px #00000080;
+  background-color: #fff;
+}
+.image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  position: relative;
+}
+.text {
+  margin: 20px;
+  padding: 5px;
+  border-radius: 10px;
+  border: solid 3px #ccc;
+  font-size: 1.2rem;
+  background-color: #fff;
+}
+
+.button {
+  color: #000000;
+  font-weight: bold;
+  width: 300px;
+  margin: 10px auto 10px auto;
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px #00000080;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  border: solid 2px #000000;
+  transition: 0.2s ease;
+}
+.button:hover {
+  transform: scale(1.02);
+}

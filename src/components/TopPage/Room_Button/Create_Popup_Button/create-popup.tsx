@@ -33,9 +33,6 @@ export default function CreatePopup({
       if (!response.ok) throw new Error('ルーム作成に失敗しました。');
 
       const data = await response.json();
-
-      console.log('APIレスポンス:', data);
-
       const { roomId, yourId } = data;
 
       // セッションストレージに保存
@@ -49,15 +46,21 @@ export default function CreatePopup({
 
       // 画面遷移
       router.push(`/game?roomId=${roomId}&userId=${yourId}`);
-    } catch (error) {
-      console.error('エラー:', error);
-      setErrorMessage('ルーム作成に失敗しました。');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      setErrorMessage(error.message);
     }
   };
 
   return (
-    <div className={createPop ? styles.visibl : styles.hidde}>
-      <div className={createPop ? styles.createPop : styles.createNoPop}>
+    <div
+      data-testid="popClass1"
+      className={createPop ? styles.visibl : styles.hidde}
+    >
+      <div
+        data-testid="popClass2"
+        className={createPop ? styles.createPop : styles.createNoPop}
+      >
         <div className={styles.friendPop}>
           <div className={styles.close}>
             <button onClick={closeChanger}>X</button>

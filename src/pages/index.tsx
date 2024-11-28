@@ -12,14 +12,8 @@ export default function Home() {
   const [showLinks, setShowLinks] = useState(false);
   const [conformName, setConformName] = useState(false);
 
-  // console.log('index.tsx - playerName (initial render):', playerName);
-
   return (
     <>
-      <Head>
-        <meta name="description" content="This is life of game Application" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className={styles.topPage_contents}>
         <Video />
         <div className={styles.component}>

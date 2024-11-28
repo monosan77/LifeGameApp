@@ -13,21 +13,21 @@ export default async function handler(
     // GETやその他のメソッドへの対応
     res.status(405).json({ error: 'リクエストエラー：メソッドが不正です。' });
   } catch (error: any) {
-    console.error('ハンドラーレベルでのエラー:', error);
+    // console.error('ハンドラーレベルでのエラー:', error);
     res.status(500).json({ error: `server error : ${error.message}` });
   }
 }
 
 async function getNextPlayer(req: NextApiRequest, res: NextApiResponse) {
-  // try {
-  const { currentPlayer, newPosition } = req.body;
+  const { currentPlayer, newPosition, newMoney } = req.body;
   const { roomId } = req.query;
 
   // 必須パラメータのチェック
   if (
     typeof currentPlayer !== 'number' ||
     !Array.isArray(newPosition) ||
-    !roomId
+    !roomId ||
+    !newMoney
   ) {
     return res.status(400).json({ error: 'リクエストのパラメータが不正です' });
   }
@@ -35,25 +35,17 @@ async function getNextPlayer(req: NextApiRequest, res: NextApiResponse) {
   // 次のプレイヤーを決定
   const nextPlayer = moveToNextPlayer(currentPlayer, newPosition);
 
-  // 全員が位置50以上に到達した場合のチェック
-  // if (nextPlayer === -1) {
-  //   return res.status(200).json({
-  //     message: '全てのプレイヤーが位置50以上に到達しました',
-  //     nextPlayer: -1,
-  //   });
-  // }
-
   // Pusher APIに次のプレイヤー情報を送信
-  await fetchJSON(
+  const resJson = await fetchJSON(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pusher/taun-change-pusher?roomId=${roomId}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nextPlayer }),
+      body: JSON.stringify({ nextPlayer, newPosition, newMoney }),
     }
   );
 
-  res.status(200).json({ message: '正常に処理が完了しました。' });
+  return res.status(200).json({ message: '正常に処理が完了しました。' });
 }
 
 // 次のプレイヤーを決定する関数
