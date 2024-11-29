@@ -10,6 +10,7 @@ import BottomBar from './BottomBar/BottomBar';
 import EventPopUp from './EventPopUp/EventPopUp';
 import RescueEventPopUp from './RescueEventPopUp/RescueEventPopUp';
 import CountUpPop from './CountUpPop/CountUpPop';
+import Result from './Result/result';
 
 interface Prop {
   roomId: string;
@@ -34,7 +35,7 @@ export default function Gameboard({
   ); // 3人のプレイヤーの位置を管理（初期値は全員0）
   const [currentPlayer, setCurrentPlayer] = useState(0); // 現在のプレイヤーを追跡
   const [diceResult, setDiceResult] = useState<number>(0); // ダイスの結果を管理
-  const [moneys, setMoneys] = useState(Array(member.length).fill(-300)); //所持金
+  const [moneys, setMoneys] = useState(Array(member.length).fill(300)); //所持金
   const [beforeMoney, setBeforeMoney] = useState(Array(member.length).fill(0)); //所持金の増減前の金額を格納
   const [eventDetails, setEventDetails] = useState<Event_Mold>(firstEventData); //マスごとのイベントを格納
   const [errorMessage, setErrorMessage] = useState<string>(''); //エラーメッセージ
@@ -49,6 +50,9 @@ export default function Gameboard({
   const [isRescueEventPop, setIsRescueEventPop] = useState(false);
   const [isTaunChangeAnimation, setIsTaunChangeAnimation] = useState(false);
   const [isTachDiceBtn, setIsTachDiceBtn] = useState(true);
+
+  //result画面
+  const [isResult, setIsResult] = useState(false);
 
   // const [playersFinished, setPlayersFinished] = useState([]);
 
@@ -72,7 +76,7 @@ export default function Gameboard({
     const channel = pusher.subscribe(`${roomId}`);
 
     // ダイスの結果を受信
-    channel.bind('result-dice', async function (resultDice: number | null) {
+    channel.bind('result-dice', async function (resultDice: number) {
       if (resultDice) {
         // popUpを初期化
         if (isEventPop || isRescueEventPop) {
@@ -101,17 +105,23 @@ export default function Gameboard({
             // プレイヤーの位置を更新
             const newPosition = [...playerPositions];
 
+            if (newPosition[currentPlayer] + resultDice > 50) {
+              resultDice = 51 - newPosition[currentPlayer];
+            }
+
             // 一マスずつ駒を移動する処理
             for (let i = 1; i <= resultDice; i++) {
               setTimeout(() => {
                 newPosition[currentPlayer] = newPosition[currentPlayer] + 1;
+
                 setPlayerPositions([...newPosition]);
 
-                // 現在のプレイヤーと操作プレイヤーを比較し同じであればターンを回すAPIにリクエストを送る
                 if (
                   i === resultDice &&
                   yourInfo.id === member[currentPlayer].id
+                  // yourInfo.id === member[currentPlayer].id && newPosition[currentPlayer] !>50
                 ) {
+                  // console.log('呼び出された')
                   setTimeout(() => {
                     handleGETEvent(
                       newPosition[currentPlayer],
@@ -129,6 +139,7 @@ export default function Gameboard({
 
     return () => {
       pusher.disconnect();
+      pusher.unsubscribe(roomId);
     };
   }, [
     roomId,
@@ -157,6 +168,8 @@ export default function Gameboard({
 
     return () => {
       channel.unbind('rescue-event');
+      pusher.unsubscribe(roomId);
+
       pusher.disconnect();
     };
   }, [roomId]);
@@ -176,6 +189,8 @@ export default function Gameboard({
       setIsEventPop(true);
     });
     return () => {
+      pusher.unsubscribe(roomId);
+
       pusher.disconnect();
     };
   }, [moneys, roomId]);
@@ -188,31 +203,36 @@ export default function Gameboard({
     const channel = pusher.subscribe(`${roomId}`);
     // 次のプレイヤー情報を受信
     channel.bind('result-next-player', (eventData: any) => {
-      setPlayerPositions(eventData.newPosition);
-      setMoneys(eventData.newMoney);
-      setIsEventPop(false);
-      setIsCountUpPop(true);
-
-      setTimeout(() => {
-        setIsCountUpAnimation(true);
+      if (eventData.nextPlayer === -1) {
+        setIsResult(true);
+        setIsEventPop(false);
+      } else {
+        setPlayerPositions(eventData.newPosition);
+        setMoneys(eventData.newMoney);
+        setIsEventPop(false);
+        setIsCountUpPop(true);
 
         setTimeout(() => {
-          // ターンチェンジアニメーションの開始
-          setIsCountUpPop(false);
-          setTimeout(() => {
-            setCurrentPlayer(eventData.nextPlayer);
-            setIsTaunChangeAnimation(true);
+          setIsCountUpAnimation(true);
 
+          setTimeout(() => {
+            // ターンチェンジアニメーションの開始
+            setIsCountUpPop(false);
             setTimeout(() => {
-              // ターンチェンジ終了時アニメーションを初期化
-              setIsTaunChangeAnimation(false);
-              setIsCountUpAnimation(false);
-              setIsActiveTurn(false);
-              setIsTachDiceBtn(true);
-            }, 3000);
-          }, 350);
-        }, 2500);
-      }, 800);
+              setCurrentPlayer(eventData.nextPlayer);
+              setIsTaunChangeAnimation(true);
+
+              setTimeout(() => {
+                // ターンチェンジ終了時アニメーションを初期化
+                setIsTaunChangeAnimation(false);
+                setIsCountUpAnimation(false);
+                setIsActiveTurn(false);
+                setIsTachDiceBtn(true);
+              }, 3000);
+            }, 350);
+          }, 2500);
+        }, 800);
+      }
     });
 
     return () => {
@@ -350,9 +370,13 @@ export default function Gameboard({
       }, 5000);
     }
   }
+  console.log(currentPlayer);
 
+  //result画面への遷移
+  async function result() {}
   return (
     <main className={styles.all}>
+      {isResult && <Result member={member} moneys={moneys} />}
       <TurnDisplay
         yourInfo={yourInfo}
         member={member}

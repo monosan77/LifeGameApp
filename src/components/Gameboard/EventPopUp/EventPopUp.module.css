@@ -20,7 +20,8 @@
 }
 .plus,
 .minus,
-.special {
+.special,
+.goal {
   width: 600px;
   position: absolute;
   top: 50%;
@@ -39,6 +40,11 @@
   border: solid 5px #ff0000;
 }
 .special {
+  background-color: rgb(95, 95, 95);
+  border: solid 5px #262626;
+}
+
+.goal{
   background-color: rgba(249, 221, 187, 100%);
   border: solid 5px #ffb300;
 }

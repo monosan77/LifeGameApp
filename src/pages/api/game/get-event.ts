@@ -22,6 +22,7 @@ export default async function handler(
       const eventInfo: Event_Mold = await fetchJSON(
         `${process.env.API_BACK_URL}/event_table/${eventId}`
       );
+
       let beforeMoney = [...moneys];
       let newMoney = [...moneys];
       if (eventInfo.event.event_type === 'plus') {
@@ -46,7 +47,7 @@ export default async function handler(
       return res.status(405).json({ error: '不正なリクエスト:methodエラー' });
     }
   } catch (error: any) {
-    // console.error(error);
+    console.error(error);
     return res.status(500).json({ error: `sever error : ${error.message}` });
   }
   // res.status(200).json({ message: 'ok' });

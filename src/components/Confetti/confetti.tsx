@@ -7,11 +7,9 @@ const ConfettiComponent = () => {
 
   useEffect(() => {
     setDimensions({ width: window.innerWidth, height: window.innerHeight });
-
-    // 3秒後にConfettiを表示
     const showConfettiTimer = setTimeout(() => {
       setIsConfettiVisible(true);
-    }, 6000); // 3000ミリ秒 (3秒)
+    }, 10000);
 
     const hideConfettiTimer = setTimeout(() => {
       setIsConfettiVisible(false);
