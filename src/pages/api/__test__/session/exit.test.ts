@@ -15,14 +15,14 @@ describe('session/exit APIのテスト', () => {
     jest.clearAllMocks();
   });
 
-  it('DELETEリクエストでないときに400エラーを返すことを確認', async () => {
+  it('DELETEリクエストでないときに405エラーを返すことを確認', async () => {
     const { req, res } = createMocks({
       method: 'GET',
     });
 
     await handler(req, res);
 
-    expect(res._getStatusCode()).toBe(400);
+    expect(res._getStatusCode()).toBe(405);
   });
 
   it('リクエスト時のクエリが不正の時に400エラーを返すことを確認', async () => {
@@ -83,7 +83,7 @@ describe('session/exit APIのテスト', () => {
       await handler(req, res);
       expect(res._getStatusCode()).toBe(500);
       expect(res._getJSONData()).toEqual({
-        message: 'Server Error:HTTP Error! status:404',
+        message: 'Server Error : ルーム削除できませんでした。',
       });
     });
   });
@@ -106,7 +106,7 @@ describe('session/exit APIのテスト', () => {
       await handler(req, res);
       expect(res._getStatusCode()).toBe(500);
       expect(res._getJSONData()).toEqual({
-        message: 'Server Error:HTTP error! status: 400',
+        message: 'Server Error : HTTP error! status: 400',
       });
     });
     it('PATCHリクエストが失敗したとき500エラーコードを返すとこ確認', async () => {
@@ -128,7 +128,7 @@ describe('session/exit APIのテスト', () => {
       await handler(req, res);
       expect(res._getStatusCode()).toBe(500);
       expect(res._getJSONData()).toEqual({
-        message: 'Server Error:HTTP Error! status: 500',
+        message: 'Server Error : 退出できませんでした。',
       });
     });
 
@@ -149,7 +149,7 @@ describe('session/exit APIのテスト', () => {
         });
       await handler(req, res);
       expect(res._getStatusCode()).toBe(200);
-      expect(res._getJSONData()).toEqual({ message: '退室しました' });
+      expect(res._getJSONData()).toEqual({ message: '退室しました。' });
     });
   });
 });
