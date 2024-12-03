@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Home from './index';
+import Home from '../pages/index';
 
 jest.mock('../components/TopPage/Room_Button/room-button', () => {
   return jest.fn(() => <div>Mocked RoomButton</div>);
