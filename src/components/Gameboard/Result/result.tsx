@@ -9,13 +9,13 @@ interface resultProps {
 }
 
 interface resultArrayProps {
-  user:string;
-  sum:number;
-  rank?:number;
+  user: string;
+  sum: number;
+  rank?: number;
 }
 
 const Result = ({ moneys, member }: resultProps) => {
-  const resultData:resultArrayProps[] = member.map((player, index) => ({
+  const resultData: resultArrayProps[] = member.map((player, index) => ({
     user: player.name,
     sum: moneys[index],
   }));
@@ -31,11 +31,13 @@ const Result = ({ moneys, member }: resultProps) => {
     }
     rank++;
   });
-  
 
   return (
     <div className={styles.resultPage}>
       <ConfettiComponent />
+      <div className={styles.finishContents}>
+        <p>ゲーム終了！</p>
+      </div>
       <div className={styles.textWrapper}>
         <span>結</span>
         <span>果</span>

@@ -19,6 +19,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   // POSTメソッドのみ許可
+
   if (req.method !== 'POST') {
     return res.status(405).json({
       error: 'メソッドが許可されていません。POSTメソッドのみ許可されています。',

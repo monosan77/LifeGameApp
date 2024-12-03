@@ -5,7 +5,7 @@ interface Event_Mold {
 
 interface Event_Overview {
   id: string;
-  event_type: 'plus' | 'minus' | 'special';
+  event_type: 'plus' | 'minus' | 'special' | 'goal';
   title: string;
   overview: string;
   value: number;

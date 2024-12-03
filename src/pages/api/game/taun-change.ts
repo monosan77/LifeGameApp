@@ -59,13 +59,13 @@ export const moveToNextPlayer = (
   while (newPosition[nextPlayer] > 50) {
     nextPlayer = (nextPlayer + 1) % newPosition.length;
 
+    // 無限ループ防止チェック 全員ゴールした時
+    if (newPosition.every((num) => num > 50)) {
+      return -1; // 全員スキップの状態
+    }
     // 自分以外がゴールしているとき再度自分のターン
     if (nextPlayer === currentPlayer) {
       return nextPlayer;
-    }
-    // 無限ループ防止チェック
-    if (newPosition.every((num) => num > 50)) {
-      return -1; // 全員スキップの状態
     }
   }
   return nextPlayer;
