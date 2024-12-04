@@ -28,6 +28,7 @@ export default function Home() {
             <RoomButton playerName={playerName} />
           </div>
         </div>
+
         <NamePopup
           playerName={playerName}
           setPlayerName={setPlayerName}
