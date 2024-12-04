@@ -13,7 +13,7 @@
     "json": "json-server --watch data/db.json --port 8000"
   },
   "dependencies": {
-    "@prisma/client": "^5.x.x",
+    "@prisma/client": "^6.0.1",
     "next": "14.2.14",
     "node-mocks-http": "^1.16.1",
     "pusher": "^5.2.0",
@@ -41,7 +41,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "json-server": "^1.0.0-beta.3",
     "prettier": "3.3.3",
-    "prisma": "^5.x.x",
+    "prisma": "^6.0.1",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5"
