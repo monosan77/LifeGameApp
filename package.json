@@ -10,7 +10,8 @@
     "test": "jest",
     "lint:fix": "next lint --fix",
     "format": "prettier --write --ignore-path .gitignore './**/*.{ts,tsx,json}'",
-    "json": "json-server --watch data/db.json --port 8000"
+    "json": "json-server --watch data/db.json --port 8000",
+    "postinstall": "prisma migrate deploy && prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.0.1",
