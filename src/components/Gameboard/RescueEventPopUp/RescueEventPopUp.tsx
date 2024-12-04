@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import styles from './RescueEventPopUp.module.css';
 import { Members } from '@/types/session';
+import { Event_Mold } from '@/types/game';
 
 interface Props {
   isRescueEventPop: boolean;
