@@ -1,5 +1,4 @@
 import { RoomInfo } from '@/types/session';
-import { fetchJSON } from '@/utils/fetch-functions';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidv4 } from 'uuid';
 import { PrismaClient } from '@prisma/client';
@@ -31,9 +30,6 @@ async function handlePatchRequest(req: NextApiRequest, res: NextApiResponse) {
       .json({ message: '不正なリクエストです。不正なbody' });
   }
 
-  // const CheckPlayer: RoomInfo = await fetchJSON(
-  //   `${process.env.API_BACK_URL}/room/${roomInfo.id}`
-  // );
   const CheckPlayer: RoomInfo | null = await prisma.gameRoom.findUnique({
     where: {
       id: roomInfo.id,
@@ -69,27 +65,13 @@ async function handlePatchRequest(req: NextApiRequest, res: NextApiResponse) {
     })),
   });
 
-  // const response = await fetch(
-  //   `${process.env.API_BACK_URL}/room/${roomInfo.id}`,
-  //   {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ member: newMember }), // 部分的に更新
-  //   }
-  // );
-  const response = await prisma.gameRoom.findUnique({
-    where: {
-      id: roomInfo.id,
-    },
-    include: {
-      member: true,
-    },
-  });
-  console.log(response, '更新された？');
-  // if (!response.ok) {
-  //   throw new Error(`HTTP error! status: ${response.status}`);
-  // }
+  // const response = await prisma.gameRoom.findUnique({
+  //   where: {
+  //     id: roomInfo.id,
+  //   },
+  //   include: {
+  //     member: true,
+  //   },
+  // });
   return res.status(200).json({ playerId });
 }

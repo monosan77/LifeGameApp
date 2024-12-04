@@ -11,6 +11,7 @@ import EventPopUp from './EventPopUp/EventPopUp';
 import RescueEventPopUp from './RescueEventPopUp/RescueEventPopUp';
 import CountUpPop from './CountUpPop/CountUpPop';
 import Result from './Result/result';
+import { Event_Mold } from '@/types/game';
 
 interface Prop {
   roomId: string;

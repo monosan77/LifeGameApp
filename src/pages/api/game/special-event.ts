@@ -1,3 +1,4 @@
+import { Event_Mold } from '@/types/game';
 import { NextApiRequest, NextApiResponse } from 'next';
 interface API_request {
   eventDetails: Event_Mold;

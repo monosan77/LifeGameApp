@@ -6,6 +6,10 @@ import Pusher from 'pusher-js';
 import Gameboard from '@/components/Gameboard/gameboard';
 import styles from './index.module.css';
 import { useRouter } from 'next/router';
+import { PrismaClient } from '@prisma/client';
+import { Event_Mold } from '@/types/game';
+
+const prisma = new PrismaClient();
 
 interface WaitingRoomPageProps {
   players: Members[];
@@ -33,14 +37,25 @@ export const getServerSideProps: GetServerSideProps<
     const roomResponse = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${roomId}`
     );
-    const eventRes = await fetch(`${process.env.API_BACK_URL}/event_table/0`);
+    // const eventRes = await fetch(`${process.env.API_BACK_URL}/event_table/0`);
+    const firstEvent = await prisma.eventContainer.findUnique({
+      where: {
+        id: '0',
+      },
+      include: {
+        event: {
+          include: {
+            special_event: true,
+          },
+        },
+      },
+    });
 
-    if (!roomResponse.ok || !eventRes.ok) {
+    if (!roomResponse.ok || !firstEvent) {
       throw new Error('ルーム情報の取得に失敗しました。');
     }
 
     const roomData: RoomInfo = await roomResponse.json();
-    const firstEvent: Event_Mold = await eventRes.json();
 
     const isUserInRoom = roomData.member.some((member) => member.id === userId);
 

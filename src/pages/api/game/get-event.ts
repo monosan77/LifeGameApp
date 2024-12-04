@@ -22,9 +22,6 @@ export default async function handler(
           .status(400)
           .json({ error: 'リクエストエラー:queryまたはbodyエラー' });
       }
-      // const eventInfo: Event_Mold = await fetchJSON(
-      //   `${process.env.API_BACK_URL}/event_table/${eventId}`
-      // );
       const eventInfo = await prisma.eventContainer.findUnique({
         where: {
           id: eventId.toString(),
@@ -58,7 +55,6 @@ export default async function handler(
         }
       );
       return res.status(200).json({ message: '正常に同期できました。' });
-      // console.log(eventInfo);
     } else {
       return res.status(405).json({ error: '不正なリクエスト:methodエラー' });
     }
@@ -66,5 +62,4 @@ export default async function handler(
     console.error(error);
     return res.status(500).json({ error: `sever error : ${error.message}` });
   }
-  // res.status(200).json({ message: 'ok' });
 }

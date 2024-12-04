@@ -1,9 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-interface API_request {
-  eventDetails: Event_Mold;
-  moneys: number[];
-  currentPlayer: number;
-}
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
