@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import styles from './toppage.module.css';
 import Video from '@/components/TopPage/Video/video';
 import RoomButton from '@/components/TopPage/Room_Button/room-button';

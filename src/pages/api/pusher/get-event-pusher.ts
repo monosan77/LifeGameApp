@@ -1,3 +1,4 @@
+import { Event_Mold } from '@/types/game';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Pusher from 'pusher';
 
@@ -47,6 +48,7 @@ export default async function handler(
     }
 
     res.status(200).json({ message: 'サイコロの結果が正常に送信されました。' });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     // console.error('サーバーエラー:', error);
     res.status(500).json({ error: `server error : ${error.message}` });

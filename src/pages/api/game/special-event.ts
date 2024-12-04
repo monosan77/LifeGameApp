@@ -1,3 +1,4 @@
+import { Event_Mold } from '@/types/game';
 import { NextApiRequest, NextApiResponse } from 'next';
 interface API_request {
   eventDetails: Event_Mold;
@@ -24,9 +25,9 @@ export default async function handler(
           .json({ message: 'リクエストエラー:queryまたはbodyが不正です' });
       }
       const specialEvent = eventDetails.event.special_event;
-      let beforeMoney = [...moneys];
-      let newMoney = [...moneys];
-      console.log(moneys);
+      const beforeMoney = [...moneys];
+      const newMoney = [...moneys];
+
       specialEvent?.conditions.forEach((condition, index) => {
         const [min, max] = condition.split('-').map(Number); // "1-3" -> [1, 3]
         if (Number(diceResult) >= min && Number(diceResult) <= max) {
@@ -50,6 +51,7 @@ export default async function handler(
     } else {
       return res.status(405).json({ error: 'リクエストエラー:methodエラー' });
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(error.massage);
   }

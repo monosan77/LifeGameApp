@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './CountUpPop.module.css';
 import CountUp from 'react-countup';
+import { Event_Mold } from '@/types/game';
 
 interface Props {
   isCountUpPop: boolean;

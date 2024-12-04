@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './EventPopUp.module.css';
 import Image from 'next/image';
 import { Members } from '@/types/session';
+import { Event_Mold } from '@/types/game';
 
 interface Props {
   isEventPop: boolean;

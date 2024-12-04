@@ -36,7 +36,7 @@ async function getNextPlayer(req: NextApiRequest, res: NextApiResponse) {
   const nextPlayer = moveToNextPlayer(currentPlayer, newPosition);
 
   // Pusher APIに次のプレイヤー情報を送信
-  const resJson = await fetchJSON(
+  await fetchJSON(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pusher/taun-change-pusher?roomId=${roomId}`,
     {
       method: 'POST',
