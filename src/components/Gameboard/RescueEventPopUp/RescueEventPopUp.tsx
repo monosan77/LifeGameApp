@@ -30,7 +30,7 @@ const RescueEventPopUp = ({
 
         <div className={styles.image}>
           <Image
-            src={`/game/event/event-rescue.png`}
+            src={'/game/event/event-rescue.png'}
             alt="イベント画像"
             fill
             sizes="(max-width: 768px) 100%, 300px"

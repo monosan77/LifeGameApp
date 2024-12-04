@@ -25,6 +25,7 @@ export default async function handler(
       }
       res.status(200).json({ message: '正常に終了しました。' });
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log(error.massage);
   }

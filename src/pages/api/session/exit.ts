@@ -22,6 +22,7 @@ export default async function handler(
       return await handleDeleteRequest(req, res);
     }
     return res.status(405).json({ message: 'リクエストメソッドが不正です。' });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log(error);
     return res.status(500).json({ message: `Server Error : ${error.message}` });
@@ -40,7 +41,7 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
 
   if (playerInfo.host) {
     // ホストが退出した場合、ルームを削除
-    const response = await prisma.gameRoom.delete({
+    await prisma.gameRoom.delete({
       where: {
         id: uniqueId,
       },
@@ -67,7 +68,7 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
     },
   });
 
-  const response = await prisma.member.createMany({
+  await prisma.member.createMany({
     data: newMembers.map((member) => ({
       id: member.id,
       name: member.name,

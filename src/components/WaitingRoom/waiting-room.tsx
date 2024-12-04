@@ -51,11 +51,10 @@ export default function WaitingRoom({
         throw new Error('退出に失敗しました');
       }
 
-      const res = await fetch(`/api/pusher/wait-room-pusher?roomId=${roomId}`);
-      const data = await res.json();
+      await fetch(`/api/pusher/wait-room-pusher?roomId=${roomId}`);
 
       router.push('/');
-    } catch (error) {
+    } catch {
       setErrorMessage('退出処理に失敗しました');
     }
   };

@@ -1,5 +1,4 @@
 import { RoomInfo } from '@/types/session';
-import { fetchJSON } from '@/utils/fetch-functions';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Pusher from 'pusher';
 import { PrismaClient } from '@prisma/client';

@@ -1,4 +1,3 @@
-import { RoomInfo } from '@/types/session';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidv4 } from 'uuid';
 import { PrismaClient } from '@prisma/client';
@@ -16,6 +15,7 @@ export default async function handler(
     return res
       .status(405)
       .json({ message: 'リクエストが不正です。メソッドが不正' });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log(error);
     res.status(500).json({ message: `Server Error : ${error.message}` });
@@ -41,7 +41,7 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
     },
   });
   if (getRoomId) {
-    throw new Error(`HTTP Error! message : 作成済みのIDです。`);
+    throw new Error('HTTP Error! message : 作成済みのIDです。');
   }
   const yourId = uuidv4();
   // ルームを作成したプレイヤーがルームホストになる
@@ -60,7 +60,7 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
     },
   });
   if (!postRoomId) {
-    throw new Error(`HTTP Error! ルーム作成に失敗しました。`);
+    throw new Error('HTTP Error! ルーム作成に失敗しました。');
   }
   return res.status(200).json({ roomId, yourId, getRoomId });
 }

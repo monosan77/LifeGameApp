@@ -2,9 +2,9 @@ import { createMocks } from 'node-mocks-http';
 import handler from '../../session/join';
 
 describe('session/join APIのテスト', () => {
-  const mockRoomInfo = {
-    id: '123456',
-  };
+  // const mockRoomInfo = {
+  //   id: '123456',
+  // };
   beforeEach(() => {
     jest.clearAllMocks();
   });

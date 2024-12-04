@@ -12,6 +12,7 @@ export default async function handler(
       return await handleGetRequest(req, res);
     }
     return res.status(405).json({ message: 'リクエストが不正です。' });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).json({ message: `Server Error : ${error.message}` });
   }

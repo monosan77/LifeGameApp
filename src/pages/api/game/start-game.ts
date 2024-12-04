@@ -10,6 +10,7 @@ export default async function handler(
       return await handleStartGame(req, res);
     }
     return res.status(405).json({ error: '不正なリクエストメソッドです。' });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     // console.error('ハンドラーレベルでのエラー:', error);
     res.status(500).json({ error: `server error : ${error.message}` });

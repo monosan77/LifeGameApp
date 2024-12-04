@@ -1,6 +1,6 @@
 import { createMocks } from 'node-mocks-http';
 import handler from '../../pusher/wait-room-pusher';
-import Pusher from 'pusher';
+// import Pusher from 'pusher';
 jest.mock('pusher');
 
 describe('/pusher/wait-room-pusher APIのテスト', () => {

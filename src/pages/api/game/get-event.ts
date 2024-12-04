@@ -35,8 +35,8 @@ export default async function handler(
         },
       });
 
-      let beforeMoney = [...moneys];
-      let newMoney = [...moneys];
+      const beforeMoney = [...moneys];
+      const newMoney = [...moneys];
       if (eventInfo?.event.event_type === 'plus') {
         newMoney[currentPlayer] += eventInfo.event.value;
       } else if (eventInfo?.event.event_type === 'minus') {
@@ -44,7 +44,7 @@ export default async function handler(
       }
       console.log(eventInfo);
 
-      const response = await fetchJSON(
+      await fetchJSON(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pusher/get-event-pusher?roomId=${roomId}`,
         {
           method: 'POST',
@@ -58,6 +58,7 @@ export default async function handler(
     } else {
       return res.status(405).json({ error: '不正なリクエスト:methodエラー' });
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(error);
     return res.status(500).json({ error: `sever error : ${error.message}` });

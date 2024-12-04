@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { GetServerSidePropsContext, GetServerSideProps } from 'next';
 import WaitingRoom from '@/components/WaitingRoom/waiting-room';
@@ -37,7 +38,6 @@ export const getServerSideProps: GetServerSideProps<
     const roomResponse = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${roomId}`
     );
-    // const eventRes = await fetch(`${process.env.API_BACK_URL}/event_table/0`);
     const firstEvent = await prisma.eventContainer.findUnique({
       where: {
         id: '0',
@@ -77,7 +77,7 @@ export const getServerSideProps: GetServerSideProps<
         firstEvent,
       },
     };
-  } catch (error) {
+  } catch {
     return {
       redirect: {
         destination: '/',
@@ -139,8 +139,7 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
         if (!response.ok) {
           throw new Error('ルーム同期に失敗しました');
         }
-        const data = await response.json();
-      } catch (error) {
+      } catch {
         setErrorMessage(
           'ルーム情報の同期に失敗しました。ページをリロードしてください。'
         );
