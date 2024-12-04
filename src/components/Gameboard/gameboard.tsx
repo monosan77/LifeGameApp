@@ -12,6 +12,7 @@ import RescueEventPopUp from './RescueEventPopUp/RescueEventPopUp';
 import CountUpPop from './CountUpPop/CountUpPop';
 import Result from './Result/result';
 import { Event_Mold } from '@/types/game';
+import Chat from '../Chat/Chat';
 
 interface Prop {
   roomId: string;
@@ -23,6 +24,11 @@ interface EventGetPusher {
   eventInfo: Event_Mold;
   beforeMoney: number[];
   newMoney: number[];
+}
+
+interface MessageProps {
+  name: string;
+  message: string;
 }
 
 export default function Gameboard({
@@ -54,6 +60,10 @@ export default function Gameboard({
 
   //result画面
   const [isResult, setIsResult] = useState(false);
+
+  //chat画面
+  const [isChat, setIsChat] = useState(false);
+  const [chatMessageArray, setChatMessageArray] = useState<MessageProps[]>([]);
 
   // const [playersFinished, setPlayersFinished] = useState([]);
 
@@ -428,83 +438,86 @@ export default function Gameboard({
     handleGETEvent,
   ]);
 
+  //chat
+  const chatHandler = () => {
+    setIsChat(!isChat);
+  };
   return (
-    <main className={styles.all}>
+    <>
       {isResult && <Result member={member} moneys={moneys} />}
-      <TurnDisplay
-        yourInfo={yourInfo}
-        member={member}
-        currentPlayer={currentPlayer}
-      />
+      <main className={styles.all}>
+        <div
+          className={isChat === true ? styles.gameBoard : ''}
+          style={{ height: '100vh' }}
+        >
+          {isChat && (
+            <Chat yourInfo={yourInfo} chatMessageArray={chatMessageArray} />
+          )}
+          <div className={styles.gameField}>
+            <TurnDisplay
+              yourInfo={yourInfo}
+              member={member}
+              currentPlayer={currentPlayer}
+            />
 
-      <Board
-        playerPositions={playerPositions}
-        isErrorAnimation={isErrorAnimation}
-        errorMessage={errorMessage}
-      />
+            <Board
+              playerPositions={playerPositions}
+              isErrorAnimation={isErrorAnimation}
+              errorMessage={errorMessage}
+            />
 
-      <BottomBar
-        yourInfo={yourInfo}
-        member={member}
-        moneys={moneys}
-        currentPlayer={currentPlayer}
-        pushDiceBtn={pushDiceBtn}
-        diceResult={diceResult}
-        isTachDiceBtn={isTachDiceBtn}
-        // eventDetails={eventDetails}
-      />
+            <BottomBar
+              yourInfo={yourInfo}
+              member={member}
+              moneys={moneys}
+              currentPlayer={currentPlayer}
+              pushDiceBtn={pushDiceBtn}
+              diceResult={diceResult}
+              isTachDiceBtn={isTachDiceBtn}
+              chatHandler={chatHandler}
+            />
+          </div>
 
-      <TaunChangeTelop
-        isTaunChangeAnimation={isTaunChangeAnimation}
-        yourInfo={yourInfo}
-        member={member}
-        currentPlayer={currentPlayer}
-      />
+          <EventPopUp
+            isEventPop={isEventPop}
+            eventDetails={eventDetails}
+            member={member}
+            currentPlayer={currentPlayer}
+            yourInfo={yourInfo}
+            eventIgnition={eventIgnition}
+          />
 
-      <Roulette
-        isRouletteAnimation={isRouletteAnimation}
-        rouletteStyle={rouletteStyle}
-      />
+          <TaunChangeTelop
+            isTaunChangeAnimation={isTaunChangeAnimation}
+            yourInfo={yourInfo}
+            member={member}
+            currentPlayer={currentPlayer}
+          />
 
-      <EventPopUp
-        isEventPop={isEventPop}
-        eventDetails={eventDetails}
-        member={member}
-        currentPlayer={currentPlayer}
-        yourInfo={yourInfo}
-        eventIgnition={eventIgnition}
-      />
-      <RescueEventPopUp
-        isRescueEventPop={isRescueEventPop}
-        eventDetails={eventDetails}
-        member={member}
-        currentPlayer={currentPlayer}
-        yourInfo={yourInfo}
-        eventRescueBtn={eventRescueBtn}
-      />
+          <Roulette
+            isRouletteAnimation={isRouletteAnimation}
+            rouletteStyle={rouletteStyle}
+          />
 
-      <CountUpPop
-        isCountUpPop={isCountUpPop}
-        eventDetails={eventDetails}
-        isCountUpAnimation={isCountUpAnimation}
-        beforeMoney={beforeMoney}
-        moneys={moneys}
-        currentPlayer={currentPlayer}
-      />
+          <RescueEventPopUp
+            isRescueEventPop={isRescueEventPop}
+            eventDetails={eventDetails}
+            member={member}
+            currentPlayer={currentPlayer}
+            yourInfo={yourInfo}
+            eventRescueBtn={eventRescueBtn}
+          />
 
-      {/* 一旦保留：ゴールしたプレイヤーを表示 */}
-      {/* {playersFinished.length > 0 && (
-        <section className={styles.results}>
-          <h2>ゴールしたプレイヤー</h2>
-          <ul>
-            {playersFinished.map((player, index) => (
-              <li key={player}>
-                プレイヤー{player + 1} - 順位: {index + 1}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )} */}
-    </main>
+          <CountUpPop
+            isCountUpPop={isCountUpPop}
+            eventDetails={eventDetails}
+            isCountUpAnimation={isCountUpAnimation}
+            beforeMoney={beforeMoney}
+            moneys={moneys}
+            currentPlayer={currentPlayer}
+          />
+        </div>
+      </main>
+    </>
   );
 }

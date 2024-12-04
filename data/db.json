@@ -44,10 +44,16 @@
         "value": 300,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -62,10 +68,16 @@
         "value": 50,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -80,10 +92,16 @@
         "value": 50,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -98,10 +116,16 @@
         "value": 100,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -116,10 +140,16 @@
         "value": 30,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -134,10 +164,19 @@
         "value": 0,
         "special_event": {
           "id": "1",
-          "conditions": ["1-3", "4-6"],
+          "conditions": [
+            "1-3",
+            "4-6"
+          ],
           "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "effect_value": [
+            300,
+            -50
+          ],
+          "base_amount": [
+            0,
+            1
+          ]
         }
       }
     },
@@ -152,10 +191,16 @@
         "value": 100,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -170,10 +215,16 @@
         "value": 100,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -182,16 +233,24 @@
       "event": {
         "id": "008",
         "event_type": "special",
-        "title": "特殊イベント ~検討中~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-000.png",
+        "title": "特殊イベント ~闇金取り立て~",
+        "overview": "闇金に借金してしまった！ダイスを振り 1~3が出れば -600万円の借金、4~6が出れば 闇金の取り立て屋をうまくかわし、ペナルティなし",
+        "src": "event-8.png",
         "value": 0,
         "special_event": {
           "id": "2",
-          "conditions": ["1-3", "4-6"],
+          "conditions": [
+            "1-3",
+            "4-6"
+          ],
           "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "effect_value": [
+            -600,
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -206,10 +265,16 @@
         "value": 200,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -218,16 +283,29 @@
       "event": {
         "id": "010",
         "event_type": "special",
-        "title": "特殊イベント ~検討中~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-000.png",
+        "title": "特殊イベント ~ 高額宝くじを購入！1回300万円~",
+        "overview": "ダイスを1回振り、出た目に応じて報酬が変わる。1: ハズレ（宝くじ代没収）:2～3: 購入金額と同額を回収。4～5: 購入金額の 5倍 を獲得！6: 大当たり！10倍 を獲得！",
+        "src": "event-10.png",
         "value": 0,
         "special_event": {
           "id": "3",
-          "conditions": ["1-3", "4-6"],
-          "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "conditions": [
+            "1-1",
+            "2-3",
+            "4-5",
+            "6-6"
+          ],
+          "effect_type": "*/",
+          "effect_value": [
+            0,
+            1,
+            5,
+            10
+          ],
+          "base_amount": [
+            300,
+            1
+          ]
         }
       }
     },
@@ -242,10 +320,25 @@
         "value": 0,
         "special_event": {
           "id": "4",
-          "conditions": ["1-1", "2-2", "3-4", "5-5", "6-6"],
+          "conditions": [
+            "1-1",
+            "2-2",
+            "3-4",
+            "5-5",
+            "6-6"
+          ],
           "effect_type": "*/",
-          "effect_value": [0, 0.5, 1, 2, 4],
-          "base_amount": [500, 1]
+          "effect_value": [
+            0,
+            0.5,
+            1,
+            2,
+            4
+          ],
+          "base_amount": [
+            500,
+            1
+          ]
         }
       }
     },
@@ -260,10 +353,16 @@
         "value": 300,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -272,16 +371,33 @@
       "event": {
         "id": "013",
         "event_type": "special",
-        "title": "特殊イベント ~検討中~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-000.png",
+        "title": "特殊イベント ~ラッキーマス~",
+        "overview": "幸運のマス！止まるだけでボーナス。ダイスを振り、出た目 × 100万円 を獲得",
+        "src": "event-13.png",
         "value": 0,
         "special_event": {
           "id": "5",
-          "conditions": ["1-3", "4-6"],
-          "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "conditions": [
+            "1-1",
+            "2-2",
+            "3-3",
+            "4-4",
+            "5-5",
+            "6-6"
+          ],
+          "effect_type": "*/",
+          "effect_value": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "base_amount": [
+            100,
+            1
+          ]
         }
       }
     },
@@ -296,10 +412,16 @@
         "value": 500,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -314,10 +436,16 @@
         "value": 300,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -332,10 +460,16 @@
         "value": 500,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -350,10 +484,16 @@
         "value": 300,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -362,16 +502,25 @@
       "event": {
         "id": "018",
         "event_type": "special",
-        "title": "特殊イベント ~検討中~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-000.png",
+        "title": "特殊イベント ~投資詐欺に遭う~",
+        "overview": "怪しい投資話に乗ってしまった。ダイスを振り 1~3が出れば 投資失敗！所持金が半分になる。4~6が出れば 投資成功！所持金が2倍になる。",
+        "src": "event-18.png",
         "value": 0,
         "special_event": {
           "id": "6",
-          "conditions": ["1-3", "4-6"],
-          "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "conditions": [
+            "1-3",
+            "4-6"
+          ],
+          "effect_type": "*/",
+          "effect_value": [
+            0.5,
+            2
+          ],
+          "base_amount": [
+            0,
+            1
+          ]
         }
       }
     },
@@ -386,10 +535,21 @@
         "value": 0,
         "special_event": {
           "id": "7",
-          "conditions": ["1-2", "3-4", "5-6"],
+          "conditions": [
+            "1-2",
+            "3-4",
+            "5-6"
+          ],
           "effect_type": "*/",
-          "effect_value": [0.5, 2, 3],
-          "base_amount": [300, 1]
+          "effect_value": [
+            0.5,
+            2,
+            3
+          ],
+          "base_amount": [
+            300,
+            1
+          ]
         }
       }
     },
@@ -398,16 +558,24 @@
       "event": {
         "id": "020",
         "event_type": "special",
-        "title": "特殊イベント ~検討中~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-000.png",
+        "title": "特殊イベント ~謎のオークション~",
+        "overview": "怪しいオークションに参加する。ダイスを振り 1~3が出れば 偽物を掴む！所持金が-1,000万円。4~6が出れば お宝を手に入れ、大儲け！所持金が+3,000万円",
+        "src": "event-20.png",
         "value": 0,
         "special_event": {
           "id": "8",
-          "conditions": ["1-3", "4-6"],
+          "conditions": [
+            "1-3",
+            "4-6"
+          ],
           "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "effect_value": [
+            -1000,
+            3000
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -422,10 +590,16 @@
         "value": 800,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -440,10 +614,16 @@
         "value": 500,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -458,10 +638,16 @@
         "value": 800,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -476,10 +662,21 @@
         "value": 0,
         "special_event": {
           "id": "9",
-          "conditions": ["1-1", "2-2", "3-6"],
+          "conditions": [
+            "1-1",
+            "2-2",
+            "3-6"
+          ],
           "effect_type": "+-",
-          "effect_value": [10000, 5000, 0],
-          "base_amount": [0, 1]
+          "effect_value": [
+            10000,
+            5000,
+            0
+          ],
+          "base_amount": [
+            0,
+            1
+          ]
         }
       }
     },
@@ -494,10 +691,16 @@
         "value": 1000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -512,10 +715,16 @@
         "value": 1000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -530,10 +739,16 @@
         "value": 3000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -548,10 +763,16 @@
         "value": 1000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -566,10 +787,16 @@
         "value": 2000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -578,16 +805,26 @@
       "event": {
         "id": "030",
         "event_type": "special",
-        "title": "特殊イベント ~検討中~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-000.png",
+        "title": "特殊イベント ~天災マス~",
+        "overview": "災害により被害を受ける。ダイスを振り 1~2が出れば -4,000万円、3~4が出れば 保険でカバーされ変動なし。 5~6が出れば 多くの人が援助活動 +6,000万円",
+        "src": "event-30.png",
         "value": 0,
         "special_event": {
           "id": "11",
-          "conditions": ["1-3", "4-6"],
+          "conditions": [
+            "1-2",
+            "3-4",
+            "5-6"
+          ],
           "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "effect_value": [
+            -4000,
+            0,
+            6000
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -602,10 +839,16 @@
         "value": 2000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -620,10 +863,19 @@
         "value": 0,
         "special_event": {
           "id": "10",
-          "conditions": ["1-2", "3-6"],
+          "conditions": [
+            "1-2",
+            "3-6"
+          ],
           "effect_type": "*/",
-          "effect_value": [0, 0.5],
-          "base_amount": [0, 1]
+          "effect_value": [
+            0,
+            0.5
+          ],
+          "base_amount": [
+            0,
+            1
+          ]
         }
       }
     },
@@ -638,10 +890,16 @@
         "value": 3000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -656,10 +914,16 @@
         "value": 5000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -674,10 +938,23 @@
         "value": 0,
         "special_event": {
           "id": "12",
-          "conditions": ["1-1", "2-2", "3-4", "5-6"],
+          "conditions": [
+            "1-1",
+            "2-2",
+            "3-4",
+            "5-6"
+          ],
           "effect_type": "*/",
-          "effect_value": [20, 5, 1, 0.5],
-          "base_amount": [500, 1]
+          "effect_value": [
+            20,
+            5,
+            1,
+            0.5
+          ],
+          "base_amount": [
+            500,
+            1
+          ]
         }
       }
     },
@@ -692,10 +969,16 @@
         "value": 100000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -710,10 +993,16 @@
         "value": 5000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -728,10 +1017,21 @@
         "value": 0,
         "special_event": {
           "id": "13",
-          "conditions": ["1-2", "3-4", "4-6"],
+          "conditions": [
+            "1-2",
+            "3-4",
+            "4-6"
+          ],
           "effect_type": "*/",
-          "effect_value": [1.5, 2, 3],
-          "base_amount": [30000, 1]
+          "effect_value": [
+            1.5,
+            2,
+            3
+          ],
+          "base_amount": [
+            30000,
+            1
+          ]
         }
       }
     },
@@ -746,10 +1046,16 @@
         "value": 10000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -764,10 +1070,21 @@
         "value": 0,
         "special_event": {
           "id": "14",
-          "conditions": ["1-1", "2-3", "4-6"],
+          "conditions": [
+            "1-1",
+            "2-3",
+            "4-6"
+          ],
           "effect_type": "*/",
-          "effect_value": [0, 0.5, 0.25],
-          "base_amount": [0, 1]
+          "effect_value": [
+            0,
+            0.5,
+            0.25
+          ],
+          "base_amount": [
+            0,
+            1
+          ]
         }
       }
     },
@@ -782,10 +1099,16 @@
         "value": 10000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -800,10 +1123,16 @@
         "value": 10000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -818,10 +1147,16 @@
         "value": 30000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -836,10 +1171,16 @@
         "value": 40000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -854,10 +1195,19 @@
         "value": 0,
         "special_event": {
           "id": "15",
-          "conditions": ["1-3", "4-6"],
+          "conditions": [
+            "1-3",
+            "4-6"
+          ],
           "effect_type": "*/",
-          "effect_value": [0, 2],
-          "base_amount": [0, 1]
+          "effect_value": [
+            0,
+            2
+          ],
+          "base_amount": [
+            0,
+            1
+          ]
         }
       }
     },
@@ -872,10 +1222,16 @@
         "value": 50000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -890,10 +1246,16 @@
         "value": 5000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -908,10 +1270,16 @@
         "value": 50000,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
@@ -926,10 +1294,21 @@
         "value": 0,
         "special_event": {
           "id": "16",
-          "conditions": ["1-1", "2-3", "4-6"],
+          "conditions": [
+            "1-1",
+            "2-3",
+            "4-6"
+          ],
           "effect_type": "*/",
-          "effect_value": [0, 0.5, 0.25],
-          "base_amount": [0, 1]
+          "effect_value": [
+            0,
+            0.5,
+            0.25
+          ],
+          "base_amount": [
+            0,
+            1
+          ]
         }
       }
     },
@@ -944,10 +1323,49 @@
         "value": 0,
         "special_event": {
           "id": "17",
-          "conditions": ["1-1", "2-2", "3-4", "5-5", "6-6"],
+          "conditions": [
+            "1-1",
+            "2-2",
+            "3-4",
+            "5-5",
+            "6-6"
+          ],
           "effect_type": "+-",
-          "effect_value": [500000, 100000, 30000, -100000, -500000],
-          "base_amount": [0, 1]
+          "effect_value": [
+            500000,
+            100000,
+            30000,
+            -100000,
+            -500000
+          ],
+          "base_amount": [
+            0,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "51",
+      "event": {
+        "id": "051",
+        "event_type": "goal",
+        "title": "Goal",
+        "overview": "全くいい人生だった。",
+        "src": "event-51.png",
+        "value": 0,
+        "special_event": {
+          "id": "0",
+          "conditions": [
+            0
+          ],
+          "effect_type": "+-",
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     }
@@ -964,118 +1382,188 @@
         "value": 300,
         "special_event": {
           "id": "0",
-          "conditions": [0],
+          "conditions": [
+            0
+          ],
           "effect_type": "+-",
-          "effect_value": [0],
-          "base_amount": [0]
+          "effect_value": [
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
     {
       "id": "1",
       "event": {
-        "id": "005",
+        "id": "008",
         "event_type": "special",
-        "title": "特殊イベント ~パチンコ~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-5.png",
+        "title": "特殊イベント ~闇金取り立て~",
+        "overview": "闇金に借金してしまった！ダイスを振り 1~3が出れば -600万円の借金、4~6が出れば 闇金の取り立て屋をうまくかわし、ペナルティなし",
+        "src": "event-8.png",
         "value": 0,
         "special_event": {
-          "id": "1",
-          "conditions": ["1-3", "4-6"],
+          "id": "2",
+          "conditions": [
+            "1-3",
+            "4-6"
+          ],
           "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "effect_value": [
+            -600,
+            0
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
     {
       "id": "2",
       "event": {
-        "id": "005",
+        "id": "010",
         "event_type": "special",
-        "title": "特殊イベント ~パチンコ~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-5.png",
+        "title": "特殊イベント ~ 高額宝くじを購入！1回300万円~",
+        "overview": "ダイスを1回振り、出た目に応じて報酬が変わる。1: ハズレ（宝くじ代没収）:2～3: 購入金額と同額を回収。4～5: 購入金額の 5倍 を獲得！6: 大当たり！10倍 を獲得！",
+        "src": "event-10.png",
         "value": 0,
         "special_event": {
-          "id": "1",
-          "conditions": ["1-3", "4-6"],
-          "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "id": "3",
+          "conditions": [
+            "1-1",
+            "2-3",
+            "4-5",
+            "6-6"
+          ],
+          "effect_type": "*/",
+          "effect_value": [
+            0,
+            1,
+            5,
+            10
+          ],
+          "base_amount": [
+            300,
+            1
+          ]
         }
       }
     },
     {
       "id": "3",
       "event": {
-        "id": "005",
+        "id": "013",
         "event_type": "special",
-        "title": "特殊イベント ~パチンコ~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-5.png",
+        "title": "特殊イベント ~ラッキーマス~",
+        "overview": "幸運のマス！止まるだけでボーナス。ダイスを振り、出た目 × 100万円 を獲得",
+        "src": "event-13.png",
         "value": 0,
         "special_event": {
-          "id": "1",
-          "conditions": ["1-3", "4-6"],
+          "id": "5",
+          "conditions": [
+            "1-1",
+            "2-2",
+            "3-3",
+            "4-4",
+            "5-5",
+            "6-6"
+          ],
           "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "effect_value": [
+            100,
+            200,
+            300,
+            400,
+            500,
+            600
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
     {
       "id": "4",
       "event": {
-        "id": "005",
+        "id": "018",
         "event_type": "special",
-        "title": "特殊イベント ~パチンコ~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-5.png",
+        "title": "特殊イベント ~投資詐欺に遭う~",
+        "overview": "怪しい投資話に乗ってしまった。ダイスを振り 1~3が出れば 投資失敗！所持金が半分になる。4~6が出れば 投資成功！所持金が2倍になる。",
+        "src": "event-18.png",
         "value": 0,
         "special_event": {
-          "id": "1",
-          "conditions": ["1-3", "4-6"],
-          "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "id": "6",
+          "conditions": [
+            "1-3",
+            "4-6"
+          ],
+          "effect_type": "*/",
+          "effect_value": [
+            0.5,
+            2
+          ],
+          "base_amount": [
+            0,
+            1
+          ]
         }
       }
     },
     {
       "id": "5",
       "event": {
-        "id": "005",
+        "id": "020",
         "event_type": "special",
-        "title": "特殊イベント ~パチンコ~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-5.png",
+        "title": "特殊イベント ~謎のオークション~",
+        "overview": "怪しいオークションに参加する。ダイスを振り 1~3が出れば 偽物を掴む！所持金が-1,000万円。4~6が出れば お宝を手に入れ、大儲け！所持金が+3,000万円",
+        "src": "event-20.png",
         "value": 0,
         "special_event": {
-          "id": "1",
-          "conditions": ["1-3", "4-6"],
+          "id": "8",
+          "conditions": [
+            "1-3",
+            "4-6"
+          ],
           "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "effect_value": [
+            -1000,
+            3000
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     },
     {
       "id": "6",
       "event": {
-        "id": "005",
+        "id": "030",
         "event_type": "special",
-        "title": "特殊イベント ~パチンコ~",
-        "overview": "カイジの沼のようなパチンコ台を見つける。ダイスを振り 1~3が出れば +300万円、4~6が出れば -50万円",
-        "src": "event-5.png",
+        "title": "特殊イベント ~天災マス~",
+        "overview": "災害により被害を受ける。ダイスを振り 1~2が出れば -4,000万円、3~4が出れば 保険でカバーされ変動なし。 5~6が出れば 多くの人が援助活動 +6,000万円",
+        "src": "event-30.png",
         "value": 0,
         "special_event": {
-          "id": "1",
-          "conditions": ["1-3", "4-6"],
+          "id": "11",
+          "conditions": [
+            "1-2",
+            "3-4",
+            "5-6"
+          ],
           "effect_type": "+-",
-          "effect_value": [300, -50],
-          "base_amount": [0, 1]
+          "effect_value": [
+            -4000,
+            0,
+            6000
+          ],
+          "base_amount": [
+            0
+          ]
         }
       }
     }

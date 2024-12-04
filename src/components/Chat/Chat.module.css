@@ -11,42 +11,35 @@
   bottom: 0;
   left: 0;
   filter: drop-shadow(5px 5px 5px #00000071);
-  z-index: 10;
+  margin-right: 50px;
+  z-index: 10000;
 }
-/* チャットの開閉ボタン的なもの（仮） */
-/* .chat_container::after {
-  content: 'チャット';
-  font-size: 0.85rem;
-  color: #ffffff;
-  width: 25px;
-  height: 100px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #000000a3;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translate(100%, -50%);
-  z-index: 30;
-} */
 
-.chat_box {
-  padding: 20px;
+.chat_box:hover{
   overflow-y: auto;
+}
+.chat_box {
+  width: 100%;
+  padding: 20px;
   height: 90%;
+  overflow: hidden;
 }
 
 .message {
+  width: 100%;
   margin: 10px 0;
 }
 
 .message .message-bubble {
+  width: 100%;
   background-color: #ccc;
   color: #000;
   margin-left: auto;
+  width: 240px;
+  padding: 0 10px;
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
 }
 
 .user_name {
@@ -56,11 +49,14 @@
 }
 
 .message_bubble {
-  max-width: 100%;
+  width: 100%;
   background-color: #ffffff;
   color: #000000;
   padding: 10px;
   border-radius: 10px;
+  min-height: 44px;
+  word-break: break-word; 
+  overflow-wrap: break-word;
 }
 
 .input_box {
@@ -90,4 +86,23 @@
 
 .input_box button:hover {
   background-color: #555;
+}
+
+
+@media screen and (max-width:1600px)  {
+  .chat_container{
+    width: 260px;
+  }
+}
+
+@media screen and (max-width:1500px)  {
+  .chat_container{
+    width: 240px;
+  }
+}
+
+@media screen and (max-width:1400px)  {
+  .chat_container{
+    width: 220px;
+  }
 }

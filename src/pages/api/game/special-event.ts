@@ -33,14 +33,18 @@ export default async function handler(
         if (Number(diceResult) >= min && Number(diceResult) <= max) {
           if (specialEvent.effect_type === '+-') {
             newMoney[currentPlayer] += specialEvent.effect_value[index];
+            
           } else if (specialEvent.effect_type === '*/') {
+
             if (specialEvent.base_amount[0] === 0) {
               const baseAmount =
                 newMoney[currentPlayer] * specialEvent.base_amount[1];
+
               newMoney[currentPlayer] +=
                 baseAmount * specialEvent.effect_value[index] - baseAmount;
             } else if (specialEvent.base_amount[0] !== 0) {
               const baseAmount = specialEvent.base_amount[0];
+
               newMoney[currentPlayer] +=
                 baseAmount * specialEvent.effect_value[index] - baseAmount;
             }
