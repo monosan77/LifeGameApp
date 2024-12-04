@@ -1,6 +1,9 @@
 import { RoomInfo } from '@/types/session';
 import { fetchJSON } from '@/utils/fetch-functions';
+import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
+
+const prisma = new PrismaClient();
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,12 +21,25 @@ export default async function handler(
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   const { roomId } = req.query;
+  const uniqueId = Array.isArray(roomId) ? roomId[0] : roomId;
+
   if (!roomId) {
     return res.status(400).json({ message: '不正なリクエストです' });
   }
-  const roomInfo: RoomInfo = await fetchJSON(
-    `${process.env.API_BACK_URL}/room/${roomId}`
-  );
+  // const roomInfo: RoomInfo = await fetchJSON(
+  //   `${process.env.API_BACK_URL}/room/${roomId}`
+  // );
+  const roomInfo = await prisma.gameRoom.findUnique({
+    where: {
+      id: uniqueId,
+    },
+    include: {
+      member: true,
+    },
+  });
+  if (!roomInfo) {
+    throw new Error('ルーム情報を取得できませんでした。');
+  }
 
   res.status(200).json(roomInfo);
 }

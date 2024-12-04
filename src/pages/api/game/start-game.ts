@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fetchJSON } from '@/utils/fetch-functions';
 import { NextApiRequest, NextApiResponse } from 'next';
 

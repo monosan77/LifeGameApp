@@ -26,7 +26,7 @@ export default async function handler(
       const specialEvent = eventDetails.event.special_event;
       let beforeMoney = [...moneys];
       let newMoney = [...moneys];
-      console.log(moneys);
+
       specialEvent?.conditions.forEach((condition, index) => {
         const [min, max] = condition.split('-').map(Number); // "1-3" -> [1, 3]
         if (Number(diceResult) >= min && Number(diceResult) <= max) {

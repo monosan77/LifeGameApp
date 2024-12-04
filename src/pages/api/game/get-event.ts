@@ -1,5 +1,8 @@
 import { fetchJSON } from '@/utils/fetch-functions';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,17 +22,30 @@ export default async function handler(
           .status(400)
           .json({ error: 'リクエストエラー:queryまたはbodyエラー' });
       }
-      const eventInfo: Event_Mold = await fetchJSON(
-        `${process.env.API_BACK_URL}/event_table/${eventId}`
-      );
+      // const eventInfo: Event_Mold = await fetchJSON(
+      //   `${process.env.API_BACK_URL}/event_table/${eventId}`
+      // );
+      const eventInfo = await prisma.eventContainer.findUnique({
+        where: {
+          id: eventId.toString(),
+        },
+        include: {
+          event: {
+            include: {
+              special_event: true,
+            },
+          },
+        },
+      });
 
       let beforeMoney = [...moneys];
       let newMoney = [...moneys];
-      if (eventInfo.event.event_type === 'plus') {
+      if (eventInfo?.event.event_type === 'plus') {
         newMoney[currentPlayer] += eventInfo.event.value;
-      } else if (eventInfo.event.event_type === 'minus') {
+      } else if (eventInfo?.event.event_type === 'minus') {
         newMoney[currentPlayer] -= eventInfo.event.value;
       }
+      console.log(eventInfo);
 
       const response = await fetchJSON(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pusher/get-event-pusher?roomId=${roomId}`,

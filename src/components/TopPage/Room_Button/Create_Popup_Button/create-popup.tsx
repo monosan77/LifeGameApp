@@ -35,6 +35,9 @@ export default function CreatePopup({
       const data = await response.json();
       const { roomId, yourId } = data;
 
+      console.log(roomId);
+      console.log(yourId);
+
       // セッションストレージに保存
       const userInfo = {
         userId: yourId,
