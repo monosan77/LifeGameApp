@@ -948,6 +948,25 @@
           "effect_type": "+-",
           "effect_value": [500000, 100000, 30000, -100000, -500000],
           "base_amount": [0, 1]
+
+        }
+      }
+    },
+    {
+      "id": "51",
+      "event": {
+        "id": "051",
+        "event_type": "goal",
+        "title": "Goal",
+        "overview": "全くいい人生だった。",
+        "src": "event-51.png",
+        "value": 0,
+        "special_event": {
+          "id": "0",
+          "conditions": [0],
+          "effect_type": "+-",
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     }

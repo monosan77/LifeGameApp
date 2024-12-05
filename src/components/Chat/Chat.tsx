@@ -1,23 +1,62 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import styles from './Chat.module.css';
-const Chat = () => {
-  const [message, setMessage] = useState<string>();
-  console.log(message);
-  // function handleChange(e: ChangeEvent<HTMLInputElement>) {
-  //   setMessage(e.target.value);
-  // }
+import { Members } from '@/types/session';
+
+interface MessageProps {
+  name: string;
+  message: string;
+}
+
+interface ChatProps {
+  yourInfo: Members;
+  chatMessageArray: MessageProps[];
+}
+
+const Chat = ({ yourInfo, chatMessageArray }: ChatProps) => {
+  const [message, setMessage] = useState<string>('');
+
+  const sendingHandler = async () => {
+    if (message.trim() === '') {
+      return;
+    }
+
+    const MessageArray: MessageProps = {
+      name: yourInfo.name,
+      message: message,
+    };
+
+    try {
+      const response = await fetch('/api/pusher/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(MessageArray),
+      });
+
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error(`エラーが発生しました: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('メッセージ送信に失敗しました:', error);
+    }
+    setMessage('');
+  };
+
   return (
     <div className={styles.chat_container}>
       <div className={styles.chat_box}>
-        <div className={styles.message}>
-          <p className={styles.user_name}>ユーザ1</p>
-          <p className={styles.message_bubble}>メッセージ内容</p>
-        </div>
+        {chatMessageArray.map((messages) => (
+          <div className={styles.message}>
+            {messages.name === yourInfo.name ? (
+              <p className={styles.user_name}>あなた</p>
+            ) : (
+              <p className={styles.user_name}>{messages.name}</p>
+            )}
 
-        <div className={styles.message}>
-          <p className={styles.user_name}>自分</p>
-          <p className={styles.message_bubble}>メッセージ内容</p>
-        </div>
+            <p className={styles.message_bubble}>{messages.message}</p>
+          </div>
+        ))}
       </div>
       <div className={styles.input_box}>
         <input
@@ -29,7 +68,9 @@ const Chat = () => {
             setMessage(e.target.value)
           }
         />
-        <button type="submit">送信</button>
+        <button type="submit" onClick={sendingHandler}>
+          送信
+        </button>
       </div>
     </div>
   );

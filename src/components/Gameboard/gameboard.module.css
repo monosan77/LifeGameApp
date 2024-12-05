@@ -1,7 +1,8 @@
 .all {
-  background-image: url('/background_casino.jpg');
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  background-image: url('/background_casino.jpg');
+  background-size: cover;
 }
 .popUp,
 .noPopUp {
@@ -102,8 +103,73 @@
   box-shadow: inset 0px 0px 10px 5px #000000cc;
 }
 .countUpPop h1 {
-  /* color: #fff; */
   font-size: 3rem;
   width: 100%;
   text-align: center;
+}
+
+.all .popUp {
+  width: 100%;
+  height: 100vh;
+  background-color: #00000080;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  transition: 0.1s ease-in;
+  transition-duration: 0.5s;
+}
+
+.gameField {
+  height: 100vh;
+}
+
+.gameBoard {
+  width: 1200px;
+  margin: 0 auto;
+  margin-right: 100px;
+}
+
+@media screen and (max-width: 1600px) {
+  .gameBoard {
+    width: 1100px;
+    margin: 0 auto;
+    margin-right: 100px;
+  }
+
+  .all .chat_container {
+    width: 240px;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .gameBoard {
+    width: 1000px;
+    margin: 0 auto;
+    margin-right: 100px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .gameBoard {
+    width: 900px;
+    margin: 0 auto;
+    margin-right: 100px;
+  }
+
+  .all .chat_container {
+    width: 160px;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .gameBoard {
+    width: 800px;
+    margin: 0 auto;
+    margin-right: 100px;
+  }
+
+  .all .chat_container {
+    width: 120px;
+  }
 }
