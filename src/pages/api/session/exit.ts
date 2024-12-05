@@ -1,6 +1,15 @@
 import { Members } from '@/types/session';
 import { fetchJSON } from '@/utils/fetch-functions';
 import { NextApiRequest, NextApiResponse } from 'next';
+import Pusher from 'pusher';
+
+const pusher = new Pusher({
+  appId: process.env.NEXT_PUBLIC_PUSHER_APP_ID!,
+  key: process.env.NEXT_PUBLIC_PUSHER_KEY!,
+  secret: process.env.NEXT_PUBLIC_PUSHER_SECRET!,
+  cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+  useTLS: true,
+});
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,51 +19,57 @@ export default async function handler(
     if (req.method === 'DELETE') {
       return await handleDeleteRequest(req, res);
     }
-    return res
-      .status(400)
-      .json({ message: 'リクエストが不正です。不正なメソッド。' });
+    return res.status(405).json({ message: 'リクエストメソッドが不正です。' });
   } catch (error: any) {
-    res.status(500).json({ message: `Server Error:${error.message}` });
+    return res.status(500).json({ message: `Server Error : ${error.message}` });
   }
 }
 
 async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
   const { roomId } = req.query;
   const { playerInfo } = req.body;
+
   if (!roomId || !playerInfo) {
-    return res
-      .status(400)
-      .json({ message: '不正なリクエストです。不正なbody' });
+    return res.status(400).json({ message: '不正なリクエストです。' });
   }
 
   if (playerInfo.host) {
+    // ホストが退出した場合、ルームを削除
     const response = await fetch(`${process.env.API_BACK_URL}/room/${roomId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
-      throw new Error(`HTTP Error! status:${response.status}`);
+      throw new Error('ルーム削除できませんでした。');
     }
+    // Pusherで「ルーム削除」の通知
+    await pusher.trigger(`${roomId}`, 'room-deleted', {
+      message: 'ルームが削除されました。トップ画面に戻ります。',
+    });
+
     return res.status(200).json({ message: 'ルームを削除しました。' });
   }
 
+  // ゲストが退出する場合の処理
   const roomInfo = await fetchJSON(
     `${process.env.API_BACK_URL}/room/${roomId}`
   );
-  const newMember = roomInfo.member.filter(
+  const newMembers = roomInfo.member.filter(
     (player: Members) => player.id !== playerInfo.id
   );
-  const deletMember = await fetch(
+
+  const response = await fetch(
     `${process.env.API_BACK_URL}/room/${roomInfo.id}`,
     {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ member: newMember }), // 部分的に更新
+      body: JSON.stringify({ member: newMembers }),
     }
   );
-  if (!deletMember.ok) {
-    throw new Error(`HTTP Error! status: ${deletMember.status}`);
+  if (!response.ok) {
+    throw new Error('退出できませんでした。');
   }
-  return res.status(200).json({ message: '退室しました' });
+
+  return res.status(200).json({ message: '退室しました。' });
 }

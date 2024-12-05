@@ -1,47 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import styles from './waiting-room.module.css';
 import { Members } from '@/types/session';
-import { useRouter } from 'next/router';
 
 interface WaitingRoomPageProps {
   players: Members[];
   roomId: string;
   yourInfo: Members;
+  onExit: () => void;
+  startGame: () => void;
+  errorMessage: string | null;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export default function WaitingRoom({
   players,
   roomId,
   yourInfo,
+  onExit,
+  startGame,
+  errorMessage,
+  setErrorMessage,
 }: WaitingRoomPageProps) {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const router = useRouter();
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
-    if (!players || players.length === 0) {
-      setErrorMessage(
-        'ルーム情報が取得できませんでした。トップページに戻ります。'
-      );
-      setTimeout(() => {
-        router.push('/');
-      }, 500);
-    }
-  }, [players, router]);
+    if (errorMessage) {
+      setShowError(true);
+      const timer = setTimeout(() => {
+        setShowError(false);
+      }, 3000);
 
-  const startGame = async () => {
-    try {
-      if (yourInfo.host) {
-        const response = await fetch(`/api/game/start-game?roomId=${roomId}`);
-        if (!response.ok) {
-          throw new Error('ゲーム開始に失敗しました');
-        }
-      } else {
-        setErrorMessage('ホストのみがゲームを開始できます');
-      }
-    } catch (error) {
-      setErrorMessage('ゲーム開始エラー:サーバーに問題が発生しました');
+      return () => clearTimeout(timer);
     }
-  };
+  }, [errorMessage]);
 
   return (
     <div className={styles.all}>
@@ -49,7 +40,7 @@ export default function WaitingRoom({
         <h1 className={styles.title}>待機中....</h1>
 
         {/* エラーメッセージの表示 */}
-        {errorMessage && (
+        {showError && errorMessage && (
           <div className={styles.errorBox}>
             <p>{errorMessage}</p>
           </div>
@@ -81,7 +72,9 @@ export default function WaitingRoom({
           <button onClick={startGame} className={styles.startButton}>
             大富豪を目指していざ出陣！
           </button>
-          <button className={styles.exitButton}>退出</button>
+          <button className={styles.exitButton} onClick={onExit}>
+            退出
+          </button>
         </div>
       </div>
     </div>
