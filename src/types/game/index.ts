@@ -1,7 +1,6 @@
 export interface Event_Mold {
   id: string;
   event: Event_Overview;
-  // eventId: string;
 }
 
 interface Event_Overview {
@@ -12,7 +11,6 @@ interface Event_Overview {
   value: number;
   src: string;
   special_event: Event_Special;
-  // specialEventId: string | null;
 }
 interface Event_Special {
   id: string;

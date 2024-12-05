@@ -192,29 +192,6 @@ export default function Gameboard({
     [eventDetails, moneys, currentPlayer] // 必要な依存関係を指定
   );
 
-  // async function getSpecialEvent(diceResult: number) {
-  //   try {
-  //     const res = await fetch(
-  //       `/api/game/special-event?diceResult=${diceResult}`,
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-type': 'application/json',
-  //         },
-  //         body: JSON.stringify({
-  //           eventDetails,
-  //           moneys,
-  //           currentPlayer,
-  //         }),
-  //       }
-  //     );
-  //     const data = await res.json();
-  //     return data;
-  //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //   } catch (error: any) {
-  //     console.error(error.message);
-  //   }
-  // }
   const handleGETEvent = useCallback(
     async (eventId: number, currentPlayer: number, moneys: number[]) => {
       try {
@@ -231,7 +208,6 @@ export default function Gameboard({
         }
 
         const data = await res.json();
-        console.log('Event data:', data);
         return data; // 必要に応じて戻り値を使う
       } catch (error) {
         console.error(
@@ -242,20 +218,7 @@ export default function Gameboard({
     },
     [roomId] // 必要な依存関係を指定
   );
-  // async function handleGETEvent(
-  //   eventId: number,
-  //   currentPlayer: number,
-  //   moneys: number[]
-  // ) {
-  //   const res = await fetch(`/api/game/get-event?roomId=${roomId}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ eventId, currentPlayer, moneys }),
-  //   });
-  //   const data = await res.json();
-  // }
+
   const getNextPlayer = useCallback(
     async (newPosition: number[], newMoney: number[]) => {
       try {
