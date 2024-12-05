@@ -1,5 +1,9 @@
 import { fetchJSON } from '@/utils/fetch-functions';
 import { NextApiRequest, NextApiResponse } from 'next';
+// import { PrismaClient } from '@prisma/client';
+import { EVENTS } from '../../../../data/event';
+
+// const prisma = new PrismaClient();
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,19 +23,19 @@ export default async function handler(
           .status(400)
           .json({ error: 'リクエストエラー:queryまたはbodyエラー' });
       }
-      const eventInfo: Event_Mold = await fetchJSON(
-        `${process.env.API_BACK_URL}/event_table/${eventId}`
-      );
 
-      let beforeMoney = [...moneys];
-      let newMoney = [...moneys];
-      if (eventInfo.event.event_type === 'plus') {
+      const eventInfo = EVENTS[eventId];
+
+      const beforeMoney = [...moneys];
+      const newMoney = [...moneys];
+      if (eventInfo?.event.event_type === 'plus') {
         newMoney[currentPlayer] += eventInfo.event.value;
-      } else if (eventInfo.event.event_type === 'minus') {
+      } else if (eventInfo?.event.event_type === 'minus') {
         newMoney[currentPlayer] -= eventInfo.event.value;
       }
+      console.log(eventInfo);
 
-      const response = await fetchJSON(
+      await fetchJSON(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pusher/get-event-pusher?roomId=${roomId}`,
         {
           method: 'POST',
@@ -42,13 +46,12 @@ export default async function handler(
         }
       );
       return res.status(200).json({ message: '正常に同期できました。' });
-      // console.log(eventInfo);
     } else {
       return res.status(405).json({ error: '不正なリクエスト:methodエラー' });
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(error);
     return res.status(500).json({ error: `sever error : ${error.message}` });
   }
-  // res.status(200).json({ message: 'ok' });
 }

@@ -10,9 +10,11 @@
     "test": "jest",
     "lint:fix": "next lint --fix",
     "format": "prettier --write --ignore-path .gitignore './**/*.{ts,tsx,json}'",
-    "json": "json-server --watch data/db.json --port 8000"
+    "json": "json-server --watch data/db.json --port 8000",
+    "postinstall": "prisma migrate deploy && prisma generate"
   },
   "dependencies": {
+    "@prisma/client": "^6.0.1",
     "next": "14.2.14",
     "node-mocks-http": "^1.16.1",
     "pusher": "^5.2.0",
@@ -21,6 +23,7 @@
     "react-confetti": "^6.1.0",
     "react-countup": "^6.5.3",
     "react-dom": "^18",
+    "react-spinners": "^0.14.1",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
@@ -40,9 +43,14 @@
     "jest-environment-jsdom": "^29.7.0",
     "json-server": "^1.0.0-beta.3",
     "prettier": "3.3.3",
+    "prisma": "^6.0.1",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5"
+  },
+  "type": "module",
+  "prisma": {
+    "seed": "node --loader ts-node/esm prisma/seed.ts"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

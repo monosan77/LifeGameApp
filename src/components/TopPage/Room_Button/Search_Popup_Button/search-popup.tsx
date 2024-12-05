@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './search-popup.module.css';
 import { Members } from '@/types/session';
 import { useRouter } from 'next/router';
+import Loading from '@/components/Loading/Loading';
 
 interface Props {
   closeChanger: () => void;
@@ -24,6 +25,7 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
   const [isSearchingResult, setIsSearchingResult] = useState(false);
   const [roomData, setRoomData] = useState<RoomData | null>(null);
   const [alertMessage, setAlertMessage] = useState('');
+
   const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,8 +84,13 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
     }
   }
 
+  const [loading, setLoading] = useState(false);
   async function determinationHandler() {
+    if (loading) {
+      return;
+    }
     try {
+      setLoading(true);
       const roomInfo = { id: roomData?.id, member: roomData?.players };
       const playerName = player;
 
@@ -105,11 +112,17 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
 
       sessionStorage.setItem(
         'userInfo',
-        JSON.stringify({ id: data.playerId, name: player, host: false })
+        JSON.stringify({
+          id: data.playerId,
+          name: player,
+          host: false,
+        })
       );
+      setLoading(false);
 
       router.push(`/game?roomId=${roomData?.id}&userId=${data.playerId}`);
     } catch (error) {
+      setLoading(false);
       console.error(error);
       setAlertMessage('※すでに満室です。');
     }
@@ -162,7 +175,8 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
           </div>
         </div>
       </div>
-      ;
+
+      {loading && <Loading loadingText="ルームを作成中・・・" />}
     </>
   );
 }

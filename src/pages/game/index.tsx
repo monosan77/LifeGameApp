@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { GetServerSidePropsContext, GetServerSideProps } from 'next';
 import WaitingRoom from '@/components/WaitingRoom/waiting-room';
@@ -6,10 +7,13 @@ import Pusher from 'pusher-js';
 import Gameboard from '@/components/Gameboard/gameboard';
 import styles from './index.module.css';
 import { useRouter } from 'next/router';
+import { EVENTS } from '../../../data/event';
+import { Event_Mold } from '@/types/game';
 
 interface WaitingRoomPageProps {
   players: Members[];
   roomId: string;
+  roomData: RoomInfo;
   yourInfo: Members;
   firstEvent: Event_Mold;
 }
@@ -32,14 +36,14 @@ export const getServerSideProps: GetServerSideProps<
     const roomResponse = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/get-room-info?roomId=${roomId}`
     );
-    const eventRes = await fetch(`${process.env.API_BACK_URL}/event_table/0`);
 
-    if (!roomResponse.ok || !eventRes.ok) {
+    const firstEvent: Event_Mold = EVENTS[0];
+
+    if (!roomResponse.ok || !firstEvent) {
       throw new Error('ルーム情報の取得に失敗しました。');
     }
 
     const roomData: RoomInfo = await roomResponse.json();
-    const firstEvent: Event_Mold = await eventRes.json();
 
     const isUserInRoom = roomData.member.some((member) => member.id === userId);
 
@@ -56,11 +60,12 @@ export const getServerSideProps: GetServerSideProps<
       props: {
         players: roomData.member,
         roomId: roomData.id,
+        roomData,
         yourInfo: roomData.member.find((player) => player.id === userId)!,
         firstEvent,
       },
     };
-  } catch (error) {
+  } catch {
     return {
       redirect: {
         destination: '/',
@@ -73,6 +78,7 @@ export const getServerSideProps: GetServerSideProps<
 const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   players,
   roomId,
+  roomData,
   yourInfo,
   firstEvent,
 }) => {
@@ -105,41 +111,23 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
     }
   };
 
-  // 退出処理
-  const handleExit = async () => {
-    try {
-      const response = await fetch(`/api/session/exit?roomId=${roomId}`, {
-        method: 'DELETE',
-        body: JSON.stringify({ playerInfo: yourInfo }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('退出に失敗しました');
-      }
-
-      const res = await fetch(`/api/pusher/wait-room-pusher?roomId=${roomId}`);
-      const data = await res.json();
-
-      router.push('/');
-    } catch (error) {
-      setErrorMessage('退出処理に失敗しました');
-    }
-  };
-
   useEffect(() => {
     const syncRoomInfo = async () => {
       try {
         const response = await fetch(
           `/api/pusher/wait-room-pusher?roomId=${roomId}`
         );
+        if (response.status === 404) {
+          setErrorMessage('ルームが存在しないためトップページへ戻ります。');
+
+          setTimeout(() => {
+            router.push('/');
+          }, 2000);
+        }
         if (!response.ok) {
           throw new Error('ルーム同期に失敗しました');
         }
-        const data = await response.json();
-      } catch (error) {
+      } catch {
         setErrorMessage(
           'ルーム情報の同期に失敗しました。ページをリロードしてください。'
         );
@@ -200,8 +188,8 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
       <WaitingRoom
         players={currentPlayers}
         roomId={roomId}
+        roomInfo={roomData}
         yourInfo={yourInfo}
-        onExit={handleExit}
         startGame={startGame}
         errorMessage={errorMessage}
         setErrorMessage={setErrorMessage}

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styles from './waiting-room.module.css';
-import { Members } from '@/types/session';
+import { Members, RoomInfo } from '@/types/session';
+import { useRouter } from 'next/router';
 
 interface WaitingRoomPageProps {
   players: Members[];
   roomId: string;
   yourInfo: Members;
-  onExit: () => void;
+  roomInfo: RoomInfo;
   startGame: () => void;
   errorMessage: string | null;
   setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
@@ -16,12 +17,13 @@ export default function WaitingRoom({
   players,
   roomId,
   yourInfo,
-  onExit,
+  roomInfo,
   startGame,
   errorMessage,
   setErrorMessage,
 }: WaitingRoomPageProps) {
   const [showError, setShowError] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (errorMessage) {
@@ -33,6 +35,29 @@ export default function WaitingRoom({
       return () => clearTimeout(timer);
     }
   }, [errorMessage]);
+
+  // 退出処理
+  const handleExit = async () => {
+    try {
+      const response = await fetch(`/api/session/exit?roomId=${roomId}`, {
+        method: 'DELETE',
+        body: JSON.stringify({ playerInfo: yourInfo, roomInfo }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('退出に失敗しました');
+      }
+
+      await fetch(`/api/pusher/wait-room-pusher?roomId=${roomId}`);
+
+      router.push('/');
+    } catch {
+      setErrorMessage('退出処理に失敗しました');
+    }
+  };
 
   return (
     <div className={styles.all}>
@@ -72,7 +97,7 @@ export default function WaitingRoom({
           <button onClick={startGame} className={styles.startButton}>
             大富豪を目指していざ出陣！
           </button>
-          <button className={styles.exitButton} onClick={onExit}>
+          <button className={styles.exitButton} onClick={handleExit}>
             退出
           </button>
         </div>

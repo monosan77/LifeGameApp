@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import styles from './create-popup.module.css';
 import ShowError from './showError';
 import { useState } from 'react';
+import Loading from '@/components/Loading/Loading';
 
 interface Props {
   closeChanger: () => void;
@@ -15,12 +16,17 @@ export default function CreatePopup({
   playerName,
 }: Props) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handlePlayerSelect = async (count: number) => {
+    if (loading) {
+      return;
+    }
     try {
+      setLoading(true);
       const response = await fetch(
-        process.env.NEXT_PUBLIC_SERVER_URL + '/api/session/create',
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/create`,
         {
           method: 'POST',
           headers: {
@@ -44,11 +50,12 @@ export default function CreatePopup({
 
       sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
 
-      console.log(response)
+      setLoading(false);
       // 画面遷移
       router.push(`/game?roomId=${roomId}&userId=${yourId}`);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      setLoading(false);
       setErrorMessage(error.message);
     }
   };
@@ -81,6 +88,7 @@ export default function CreatePopup({
             />
           )}
         </div>
+        {loading && <Loading loadingText="ルームを作成中・・・" />}
       </div>
     </div>
   );

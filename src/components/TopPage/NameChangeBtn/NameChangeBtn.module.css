@@ -1,0 +1,30 @@
+.linkContent {
+  font-weight: bold;
+  padding: 10px 80px;
+  background-color: rgba(105, 105, 105, 0.9);
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.linkContent p {
+  font-size: 1.3rem;
+}
+
+.linkContent:hover {
+  background-color: #e6b422;
+}
+
+.createRoom {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: ease 0.5s;
+}
+.noCreateRoom {
+  margin-top: 60px;
+  opacity: 0;
+  transition: ease 0.5s;
+}

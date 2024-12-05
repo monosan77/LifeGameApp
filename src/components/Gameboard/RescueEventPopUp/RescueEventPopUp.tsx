@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import styles from './RescueEventPopUp.module.css';
 import { Members } from '@/types/session';
+import { Event_Mold } from '@/types/game';
 
 interface Props {
   isRescueEventPop: boolean;
@@ -29,7 +30,7 @@ const RescueEventPopUp = ({
 
         <div className={styles.image}>
           <Image
-            src={`/game/event/event-rescue.png`}
+            src={'/game/event/event-rescue.png'}
             alt="イベント画像"
             fill
             sizes="(max-width: 768px) 100%, 300px"

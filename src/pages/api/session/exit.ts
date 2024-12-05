@@ -1,7 +1,9 @@
 import { Members } from '@/types/session';
-import { fetchJSON } from '@/utils/fetch-functions';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Pusher from 'pusher';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 const pusher = new Pusher({
   appId: process.env.NEXT_PUBLIC_PUSHER_APP_ID!,
@@ -20,14 +22,18 @@ export default async function handler(
       return await handleDeleteRequest(req, res);
     }
     return res.status(405).json({ message: 'リクエストメソッドが不正です。' });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
+    console.log(error);
     return res.status(500).json({ message: `Server Error : ${error.message}` });
   }
 }
 
 async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
   const { roomId } = req.query;
-  const { playerInfo } = req.body;
+  const { playerInfo, roomInfo } = req.body;
+
+  const uniqueId = Array.isArray(roomId) ? roomId[0] : roomId;
 
   if (!roomId || !playerInfo) {
     return res.status(400).json({ message: '不正なリクエストです。' });
@@ -35,12 +41,14 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
 
   if (playerInfo.host) {
     // ホストが退出した場合、ルームを削除
-    const response = await fetch(`${process.env.API_BACK_URL}/room/${roomId}`, {
-      method: 'DELETE',
+    await prisma.gameRoom.delete({
+      where: {
+        id: uniqueId,
+      },
+      include: {
+        member: true,
+      },
     });
-    if (!response.ok) {
-      throw new Error('ルーム削除できませんでした。');
-    }
     // Pusherで「ルーム削除」の通知
     await pusher.trigger(`${roomId}`, 'room-deleted', {
       message: 'ルームが削除されました。トップ画面に戻ります。',
@@ -50,26 +58,24 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
   }
 
   // ゲストが退出する場合の処理
-  const roomInfo = await fetchJSON(
-    `${process.env.API_BACK_URL}/room/${roomId}`
-  );
-  const newMembers = roomInfo.member.filter(
+  const newMembers: Members[] = roomInfo.member.filter(
     (player: Members) => player.id !== playerInfo.id
   );
 
-  const response = await fetch(
-    `${process.env.API_BACK_URL}/room/${roomInfo.id}`,
-    {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ member: newMembers }),
-    }
-  );
-  if (!response.ok) {
-    throw new Error('退出できませんでした。');
-  }
+  await prisma.member.deleteMany({
+    where: {
+      gameRoomId: uniqueId,
+    },
+  });
+
+  await prisma.member.createMany({
+    data: newMembers.map((member) => ({
+      id: member.id,
+      name: member.name,
+      host: member.host,
+      gameRoomId: roomInfo.id,
+    })),
+  });
 
   return res.status(200).json({ message: '退室しました。' });
 }

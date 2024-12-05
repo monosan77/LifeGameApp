@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model GameRoom {
+  id          String    @id  // ゲームルームのID
+  limitPlayer Int       // 参加可能な最大プレイヤー数
+  member     Member[]  // 複数のメンバーを関連付け
+}
+
+model Member {
+  id        String   @id // メンバーのID
+  name      String   // メンバーの名前
+  host      Boolean  // ホストかどうか
+  gameRoom  GameRoom  @relation(fields: [gameRoomId], references: [id], onDelete: Cascade) // ゲームルームとの関連付け
+  gameRoomId String  // 外部キー
+}
+
+enum EventType {
+  plus
+  minus
+  special
+  goal
+}
+
+model EventContainer {
+  id    String @id // コンテナID
+  event Event  @relation(fields: [eventId], references: [id]) // Eventへのリレーション
+  eventId String // 外部キー
+}
+
+model Event {
+  id          String       @id // イベントID
+  event_type  EventType    // イベントタイプ (固定値)
+  title       String       // イベントのタイトル
+  overview    String       // イベントの概要
+  src         String       // イベント画像ソース
+  value       Int          // イベントの値（初期値）
+  special_event SpecialEvent? @relation(fields: [specialEventId], references: [id]) // 特殊イベントへのリレーション
+  specialEventId String? // 外部キー (特殊イベントのID、オプション)
+
+  EventContainer EventContainer[]
+}
+
+model SpecialEvent {
+  id          String   @id // 特殊イベントID
+  conditions  String[] // 条件 (例: ["1-3", "4-6"])
+  effect_type String    // 効果タイプ (例: "+-")
+  effect_value Int[]    // 効果の値 (例: [300, -50])
+  base_amount  Int[]    // 基本値 (例: [0, 1])
+
+  Event Event[]
+}

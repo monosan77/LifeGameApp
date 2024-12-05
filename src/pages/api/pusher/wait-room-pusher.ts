@@ -1,7 +1,9 @@
 import { RoomInfo } from '@/types/session';
-import { fetchJSON } from '@/utils/fetch-functions';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Pusher from 'pusher';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 const pusher = new Pusher({
   appId: process.env.NEXT_PUBLIC_PUSHER_APP_ID!,
@@ -23,15 +25,24 @@ export default async function handler(
   }
 
   const { roomId } = req.query;
-
+  const uniqueId = Array.isArray(roomId) ? roomId[0] : roomId;
   if (!roomId) {
     return res.status(400).json({ message: 'roomIdが正しくありません。' });
   }
 
   try {
-    const roomInfo: RoomInfo = await fetchJSON(
-      `${process.env.API_BACK_URL}/room/${roomId}`
-    );
+    const roomInfo: RoomInfo | null = await prisma.gameRoom.findUnique({
+      where: {
+        id: uniqueId,
+      },
+      include: {
+        member: true,
+      },
+    });
+
+    if (!roomInfo) {
+      return res.status(404).json({ message: 'ルームが存在しません。' });
+    }
 
     // Pusherでの通知
     const pusherResponse = await pusher.trigger(
