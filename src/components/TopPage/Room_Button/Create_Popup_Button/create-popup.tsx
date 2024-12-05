@@ -44,6 +44,7 @@ export default function CreatePopup({
 
       sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
 
+      console.log(response)
       // 画面遷移
       router.push(`/game?roomId=${roomId}&userId=${yourId}`);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
