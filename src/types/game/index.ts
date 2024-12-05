@@ -1,18 +1,18 @@
 export interface Event_Mold {
   id: string;
   event: Event_Overview;
-  eventId: string;
+  // eventId: string;
 }
 
 interface Event_Overview {
   id: string;
-  event_type: 'plus' | 'minus' | 'special' | 'goal';
+  event_type: string;
   title: string;
   overview: string;
   value: number;
   src: string;
-  special_event: Event_Special | null;
-  specialEventId: string | null;
+  special_event: Event_Special;
+  // specialEventId: string | null;
 }
 interface Event_Special {
   id: string;
