@@ -7,6 +7,8 @@ const props = {
   setPlayerName: jest.fn(),
   setShowLinks: jest.fn(),
   setConformName: jest.fn(),
+  namePopUp: true,
+  setIsNamePopUp: jest.fn(),
 };
 
 describe('name-popupコンポーネントのテスト', () => {
@@ -45,6 +47,7 @@ describe('name-popupコンポーネントのテスト', () => {
     const setPlayerName = jest.fn();
     const setShowLinks = jest.fn();
     const setConformName = jest.fn();
+    const setIsNamePopUp = jest.fn();
 
     render(
       <NamePopup
@@ -52,6 +55,8 @@ describe('name-popupコンポーネントのテスト', () => {
         setPlayerName={setPlayerName}
         setShowLinks={setShowLinks}
         setConformName={setConformName}
+        namePopUp={true}
+        setIsNamePopUp={setIsNamePopUp}
       />
     );
     fireEvent.click(screen.getByText('OK'));
@@ -64,6 +69,7 @@ describe('name-popupコンポーネントのテスト', () => {
     const setPlayerName = jest.fn();
     const setShowLinks = jest.fn();
     const setConformName = jest.fn();
+    const setIsNamePopUp = jest.fn();
 
     render(
       <NamePopup
@@ -71,6 +77,8 @@ describe('name-popupコンポーネントのテスト', () => {
         setPlayerName={setPlayerName}
         setShowLinks={setShowLinks}
         setConformName={setConformName}
+        namePopUp={false}
+        setIsNamePopUp={setIsNamePopUp}
       />
     );
 
@@ -80,15 +88,14 @@ describe('name-popupコンポーネントのテスト', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /確定/i }));
 
-    expect(
-      screen.queryByRole('button', { name: /OK/i })
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /OK/i })).toBeInTheDocument();
   });
 
   test('戻るボタンを押すと、renameがtrueに戻る', async () => {
     const setPlayerName = jest.fn();
     const setShowLinks = jest.fn();
     const setConformName = jest.fn();
+    const setIsNamePopUp = jest.fn();
 
     render(
       <NamePopup
@@ -96,6 +103,8 @@ describe('name-popupコンポーネントのテスト', () => {
         setPlayerName={setPlayerName}
         setShowLinks={setShowLinks}
         setConformName={setConformName}
+        namePopUp={false}
+        setIsNamePopUp={setIsNamePopUp}
       />
     );
 

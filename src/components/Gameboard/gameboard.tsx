@@ -339,7 +339,6 @@ export default function Gameboard({
       }, 5000);
     }
   }
-  console.log(currentPlayer);
 
   // pusher受信
   useEffect(() => {

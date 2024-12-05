@@ -1,6 +1,6 @@
 .userNamePage {
   visibility: visible;
-  opacity: 0;
+  opacity: 1;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -8,10 +8,11 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 2;
-  animation: fadeIn 1s ease 2s forwards;
+  transition: ease 0.3s;
+  /* animation: fadeIn 1s ease 2s forwards; */
 }
 
-@keyframes fadeIn {
+/* @keyframes fadeIn {
   0% {
     opacity: 0;
     visibility: hidden;
@@ -22,11 +23,12 @@
   100% {
     opacity: 1;
   }
-}
+} */
 
 .notUserNamePage {
   visibility: hidden;
   opacity: 0;
+  transition: ease 0.3s;
 }
 
 .userNames p {

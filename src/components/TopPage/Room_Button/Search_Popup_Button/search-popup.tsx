@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styles from './search-popup.module.css';
 import { Members } from '@/types/session';
 import { useRouter } from 'next/router';
-import ShowError from '../Create_Popup_Button/showError';
 import Loading from '@/components/Loading/Loading';
 
 interface Props {
@@ -26,7 +25,6 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
   const [isSearchingResult, setIsSearchingResult] = useState(false);
   const [roomData, setRoomData] = useState<RoomData | null>(null);
   const [alertMessage, setAlertMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -114,7 +112,11 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
 
       sessionStorage.setItem(
         'userInfo',
-        JSON.stringify({ id: data.playerId, name: player, host: false })
+        JSON.stringify({
+          id: data.playerId,
+          name: player,
+          host: false,
+        })
       );
       setLoading(false);
 

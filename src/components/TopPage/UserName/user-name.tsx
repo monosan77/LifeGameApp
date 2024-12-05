@@ -5,5 +5,5 @@ interface UserNameProps {
 }
 
 export default function UserName({ playerName }: UserNameProps) {
-  return <p className={styles.userName}>{`${playerName}さん、ようこそ！`}</p>;
+  return <p className={styles.userName}>{`${playerName} さん、ようこそ！`}</p>;
 }

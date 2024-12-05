@@ -1,5 +1,3 @@
-// src/components/TopPage/PageLinks.tsx
-
 import CreateButton from './create-button';
 import SearchButton from './search-button';
 
