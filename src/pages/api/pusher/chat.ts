@@ -24,6 +24,7 @@ export default async function handler(
         throw new Error('Pusher APIで同期に失敗しました。');
       }
       res.status(200).json({ message: '正常に送信されました' });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       res.status(500).json({ error: `サーバーエラー：${error.message}` });
     }

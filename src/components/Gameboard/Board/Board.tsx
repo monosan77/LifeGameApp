@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Board.module.css';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import Square from './Square/Square';
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Board = ({ playerPositions, isErrorAnimation, errorMessage }: Props) => {
-  const isReserve = false;
+  // const isReserve = false;
   return (
     <section className={styles.board}>
       {/* 1行目 */}
