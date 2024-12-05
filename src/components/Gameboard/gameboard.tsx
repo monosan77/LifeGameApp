@@ -259,23 +259,6 @@ export default function Gameboard({
     },
     [roomId, currentPlayer] // 必要な依存関係を指定
   );
-  // async function getNextPlayer(newPosition: number[], newMoney: number[]) {
-  //   try {
-  //     const res = await fetch(
-  //       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/game/taun-change?roomId=${roomId}`,
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({ currentPlayer, newPosition, newMoney }),
-  //       }
-  //     );
-  //     const data = await res.json();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
   // ダイスボタンを押したとき実行される
   function pushDiceBtn() {
@@ -437,6 +420,22 @@ export default function Gameboard({
     getNextPlayer,
     handleGETEvent,
   ]);
+
+  useEffect(() => {
+    //pusherクライアントの初期化
+    //特定のPusherアプリケーションを識別するためのユニークなID
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY as string, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER as string,
+    });
+    const channel = pusher.subscribe('chat-channel');
+    channel.bind('new-message', (data: MessageProps) => {
+      setChatMessageArray((prev) => [...prev, data]);
+    });
+    return () => {
+      channel.unbind_all();
+      channel.unsubscribe();
+    };
+  }, []);
 
   //chat
   const chatHandler = () => {

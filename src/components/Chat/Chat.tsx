@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styles from './Chat.module.css';
 import { Members } from '@/types/session';
 
@@ -46,8 +46,8 @@ const Chat = ({ yourInfo, chatMessageArray }: ChatProps) => {
   return (
     <div className={styles.chat_container}>
       <div className={styles.chat_box}>
-        {chatMessageArray.map((messages) => (
-          <div className={styles.message}>
+        {chatMessageArray.map((messages, index) => (
+          <div key={index} className={styles.message}>
             {messages.name === yourInfo.name ? (
               <p className={styles.user_name}>あなた</p>
             ) : (
