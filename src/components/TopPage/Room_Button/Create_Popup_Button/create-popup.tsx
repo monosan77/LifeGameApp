@@ -15,12 +15,18 @@ export default function CreatePopup({
   playerName,
 }: Props) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handlePlayerSelect = async (count: number) => {
+    if (loading) {
+      return;
+    }
     try {
+      setLoading(true);
+      setErrorMessage('ルームを作成しています');
       const response = await fetch(
-        process.env.NEXT_PUBLIC_SERVER_URL + '/api/session/create',
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/create`,
         {
           method: 'POST',
           headers: {
@@ -35,9 +41,6 @@ export default function CreatePopup({
       const data = await response.json();
       const { roomId, yourId } = data;
 
-      console.log(roomId);
-      console.log(yourId);
-
       // セッションストレージに保存
       const userInfo = {
         userId: yourId,
@@ -47,6 +50,7 @@ export default function CreatePopup({
 
       sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
 
+      setLoading(true);
       // 画面遷移
       router.push(`/game?roomId=${roomId}&userId=${yourId}`);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
