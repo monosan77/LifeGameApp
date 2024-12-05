@@ -1,8 +1,9 @@
 import { fetchJSON } from '@/utils/fetch-functions';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client';
+import { EVENTS } from '../../../../data/event';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,18 +23,8 @@ export default async function handler(
           .status(400)
           .json({ error: 'リクエストエラー:queryまたはbodyエラー' });
       }
-      const eventInfo = await prisma.eventContainer.findUnique({
-        where: {
-          id: eventId.toString(),
-        },
-        include: {
-          event: {
-            include: {
-              special_event: true,
-            },
-          },
-        },
-      });
+
+      const eventInfo = EVENTS[eventId];
 
       const beforeMoney = [...moneys];
       const newMoney = [...moneys];
