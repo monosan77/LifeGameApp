@@ -13,8 +13,9 @@ const PLAYER_ICON = [
 interface Props {
   playerPositions: number[];
   squareNumber: number;
+  isReserved: boolean;
 }
-const Square = ({ playerPositions, squareNumber }: Props) => {
+const Square = ({ playerPositions, squareNumber, isReserved }: Props) => {
   return (
     <>
       {playerPositions.map(
@@ -22,6 +23,11 @@ const Square = ({ playerPositions, squareNumber }: Props) => {
           position === squareNumber && (
             <div key={index} className={styles.carIcon}>
               <Image
+                className={
+                  isReserved === true
+                    ? styles.reservedCarImage
+                    : styles.carImage
+                }
                 src={PLAYER_ICON[index]}
                 width={80}
                 height={80}
