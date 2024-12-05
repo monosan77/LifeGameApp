@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import styles from './create-popup.module.css';
 import ShowError from './showError';
 import { useState } from 'react';
+import Loading from '@/components/Loading/Loading';
 
 interface Props {
   closeChanger: () => void;
@@ -24,7 +25,6 @@ export default function CreatePopup({
     }
     try {
       setLoading(true);
-      setErrorMessage('ルームを作成しています');
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/create`,
         {
@@ -87,6 +87,7 @@ export default function CreatePopup({
             />
           )}
         </div>
+        {loading && <Loading loadingText="ルームを作成中・・・" />}
       </div>
     </div>
   );

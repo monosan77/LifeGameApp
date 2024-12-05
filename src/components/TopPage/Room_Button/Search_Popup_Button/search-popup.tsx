@@ -3,6 +3,7 @@ import styles from './search-popup.module.css';
 import { Members } from '@/types/session';
 import { useRouter } from 'next/router';
 import ShowError from '../Create_Popup_Button/showError';
+import Loading from '@/components/Loading/Loading';
 
 interface Props {
   closeChanger: () => void;
@@ -92,7 +93,6 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
     }
     try {
       setLoading(true);
-      setErrorMessage('ルームに入室しています。');
       const roomInfo = { id: roomData?.id, member: roomData?.players };
       const playerName = player;
 
@@ -173,12 +173,8 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
           </div>
         </div>
       </div>
-      {errorMessage && (
-        <ShowError
-          message={errorMessage}
-          onClose={() => setErrorMessage(null)}
-        />
-      )}
+
+      {loading && <Loading loadingText="ルームを作成中・・・" />}
     </>
   );
 }
