@@ -6,6 +6,8 @@ interface NamePopups {
   setPlayerName: (value: string) => void;
   setShowLinks: (boolean: boolean) => void;
   setConformName: (boolean: boolean) => void;
+  setIsNamePopUp: (boolean: boolean) => void;
+  namePopUp: boolean;
 }
 
 export default function NamePopup({
@@ -13,9 +15,11 @@ export default function NamePopup({
   setPlayerName,
   setShowLinks,
   setConformName,
+  namePopUp,
+  setIsNamePopUp,
 }: NamePopups) {
   const [rename, setRename] = useState(true);
-  const [createName, setCreateName] = useState(true);
+  // const [createName, setCreateName] = useState(true);
   const [alertMessage, setAlertMessage] = useState('');
 
   const clickHandler = () => {
@@ -29,15 +33,16 @@ export default function NamePopup({
   };
 
   const reloadHandler = () => {
-    setCreateName(false);
+    // setCreateName(false);
+    setIsNamePopUp(false);
     setShowLinks(true);
     setConformName(true);
-    console.log('name-popup.tsx - 確定したプレイヤー名:', playerName);
+    setRename(true);
   };
 
   return (
     <div
-      className={createName ? styles.userNamePage : styles.notUserNamePage}
+      className={namePopUp ? styles.userNamePage : styles.notUserNamePage}
       id="NamePopupPage"
     >
       <div className={styles.userNames}>

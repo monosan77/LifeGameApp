@@ -62,5 +62,6 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   if (!postRoomId) {
     throw new Error('HTTP Error! ルーム作成に失敗しました。');
   }
+
   return res.status(200).json({ roomId, yourId, getRoomId });
 }
