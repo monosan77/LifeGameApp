@@ -57,7 +57,7 @@ describe('Homeコンポーネントのテスト', () => {
     fireEvent.click(screen.getByText('OK'));
 
     await waitFor(() => {
-      const userNameElement = screen.getByText('あああさん、ようこそ！');
+      const userNameElement = screen.getByText('あああ さん、ようこそ！');
       expect(userNameElement).toBeInTheDocument();
     });
   });

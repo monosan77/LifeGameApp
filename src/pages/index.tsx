@@ -19,7 +19,7 @@ export default function Home() {
       setPlayerName(JSON.parse(userInfo).name);
       setShowLinks(true);
       setConformName(true);
-      console.log(JSON.parse(userInfo));
+      // console.log(JSON.parse(userInfo));
     } else {
       setTimeout(() => {
         setIsNamePopUp(true);

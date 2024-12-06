@@ -88,6 +88,26 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
+  // ブラウザの戻るボタンを押したときにホストの場合はルームを削除する関数
+  useEffect(() => {
+    async function deleteRoomData() {
+      await fetch(`/api/session/deleteRoom?roomId=${roomId}`, {
+        method: 'DELETE',
+      });
+    }
+    const handlePopState = () => {
+      deleteRoomData();
+      alert('ホストがページから離れたため、ルームが削除されます。');
+    };
+    if (yourInfo.host) {
+      return window.addEventListener('popstate', handlePopState);
+    }
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [roomId, yourInfo.host]);
+
   const startGame = async () => {
     if (!yourInfo.host) {
       setErrorMessage('ホストのみゲームを開始できます');
