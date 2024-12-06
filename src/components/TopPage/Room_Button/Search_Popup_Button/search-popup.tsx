@@ -118,7 +118,7 @@ export default function SearchPopup({ closeChanger, findPop, player }: Props) {
           host: false,
         })
       );
-      setLoading(false);
+      // setLoading(false);
 
       router.push(`/game?roomId=${roomData?.id}&userId=${data.playerId}`);
     } catch (error) {
