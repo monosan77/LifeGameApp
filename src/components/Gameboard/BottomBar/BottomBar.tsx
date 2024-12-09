@@ -12,7 +12,6 @@ interface Props {
   moneys: number[];
   isTachDiceBtn: boolean;
   // isChat: boolean;
-  chatHandler: () => void;
   // setIsChat: Dispatch<SetStateAction<boolean>>;
   // eventDetails: Event_Mold | null;
 }
@@ -25,15 +24,11 @@ const BottomBar = ({
   moneys,
   // isChat,
   // setIsChat,
-  chatHandler,
   isTachDiceBtn,
   // eventDetails,
 }: Props) => {
   return (
     <section className={styles.bottomBar}>
-      <button className={styles.chat} onClick={chatHandler}>
-        chat
-      </button>
       <div className={styles.usersTable}>
         {member.map((player, index) => (
           <div key={player.id} className={styles.userBox}>

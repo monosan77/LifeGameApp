@@ -44,16 +44,10 @@
         "value": 300,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -68,16 +62,10 @@
         "value": 50,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -92,16 +80,10 @@
         "value": 50,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -116,16 +98,10 @@
         "value": 100,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -140,16 +116,10 @@
         "value": 30,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -164,19 +134,10 @@
         "value": 0,
         "special_event": {
           "id": "1",
-          "conditions": [
-            "1-3",
-            "4-6"
-          ],
+          "conditions": ["1-3", "4-6"],
           "effect_type": "+-",
-          "effect_value": [
-            300,
-            -50
-          ],
-          "base_amount": [
-            0,
-            1
-          ]
+          "effect_value": [300, -50],
+          "base_amount": [0, 1]
         }
       }
     },
@@ -191,16 +152,10 @@
         "value": 100,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -215,16 +170,10 @@
         "value": 100,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -239,18 +188,10 @@
         "value": 0,
         "special_event": {
           "id": "2",
-          "conditions": [
-            "1-3",
-            "4-6"
-          ],
+          "conditions": ["1-3", "4-6"],
           "effect_type": "+-",
-          "effect_value": [
-            -600,
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [-600, 0],
+          "base_amount": [0]
         }
       }
     },
@@ -265,16 +206,10 @@
         "value": 200,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -289,23 +224,10 @@
         "value": 0,
         "special_event": {
           "id": "3",
-          "conditions": [
-            "1-1",
-            "2-3",
-            "4-5",
-            "6-6"
-          ],
+          "conditions": ["1-1", "2-3", "4-5", "6-6"],
           "effect_type": "*/",
-          "effect_value": [
-            0,
-            1,
-            5,
-            10
-          ],
-          "base_amount": [
-            300,
-            1
-          ]
+          "effect_value": [0, 1, 5, 10],
+          "base_amount": [300, 1]
         }
       }
     },
@@ -320,25 +242,10 @@
         "value": 0,
         "special_event": {
           "id": "4",
-          "conditions": [
-            "1-1",
-            "2-2",
-            "3-4",
-            "5-5",
-            "6-6"
-          ],
+          "conditions": ["1-1", "2-2", "3-4", "5-5", "6-6"],
           "effect_type": "*/",
-          "effect_value": [
-            0,
-            0.5,
-            1,
-            2,
-            4
-          ],
-          "base_amount": [
-            500,
-            1
-          ]
+          "effect_value": [0, 0.5, 1, 2, 4],
+          "base_amount": [500, 1]
         }
       }
     },
@@ -353,16 +260,10 @@
         "value": 300,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -377,27 +278,10 @@
         "value": 0,
         "special_event": {
           "id": "5",
-          "conditions": [
-            "1-1",
-            "2-2",
-            "3-3",
-            "4-4",
-            "5-5",
-            "6-6"
-          ],
+          "conditions": ["1-1", "2-2", "3-3", "4-4", "5-5", "6-6"],
           "effect_type": "*/",
-          "effect_value": [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6
-          ],
-          "base_amount": [
-            100,
-            1
-          ]
+          "effect_value": [1, 2, 3, 4, 5, 6],
+          "base_amount": [100, 1]
         }
       }
     },
@@ -412,16 +296,10 @@
         "value": 500,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -436,16 +314,10 @@
         "value": 300,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -460,16 +332,10 @@
         "value": 500,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -484,16 +350,10 @@
         "value": 300,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -508,19 +368,10 @@
         "value": 0,
         "special_event": {
           "id": "6",
-          "conditions": [
-            "1-3",
-            "4-6"
-          ],
+          "conditions": ["1-3", "4-6"],
           "effect_type": "*/",
-          "effect_value": [
-            0.5,
-            2
-          ],
-          "base_amount": [
-            0,
-            1
-          ]
+          "effect_value": [0.5, 2],
+          "base_amount": [0, 1]
         }
       }
     },
@@ -535,21 +386,10 @@
         "value": 0,
         "special_event": {
           "id": "7",
-          "conditions": [
-            "1-2",
-            "3-4",
-            "5-6"
-          ],
+          "conditions": ["1-2", "3-4", "5-6"],
           "effect_type": "*/",
-          "effect_value": [
-            0.5,
-            2,
-            3
-          ],
-          "base_amount": [
-            300,
-            1
-          ]
+          "effect_value": [0.5, 2, 3],
+          "base_amount": [300, 1]
         }
       }
     },
@@ -564,18 +404,10 @@
         "value": 0,
         "special_event": {
           "id": "8",
-          "conditions": [
-            "1-3",
-            "4-6"
-          ],
+          "conditions": ["1-3", "4-6"],
           "effect_type": "+-",
-          "effect_value": [
-            -1000,
-            3000
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [-1000, 3000],
+          "base_amount": [0]
         }
       }
     },
@@ -590,16 +422,10 @@
         "value": 800,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -614,16 +440,10 @@
         "value": 500,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -638,16 +458,10 @@
         "value": 800,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -662,21 +476,10 @@
         "value": 0,
         "special_event": {
           "id": "9",
-          "conditions": [
-            "1-1",
-            "2-2",
-            "3-6"
-          ],
+          "conditions": ["1-1", "2-2", "3-6"],
           "effect_type": "+-",
-          "effect_value": [
-            10000,
-            5000,
-            0
-          ],
-          "base_amount": [
-            0,
-            1
-          ]
+          "effect_value": [10000, 5000, 0],
+          "base_amount": [0, 1]
         }
       }
     },
@@ -691,16 +494,10 @@
         "value": 1000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -715,16 +512,10 @@
         "value": 1000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -739,16 +530,10 @@
         "value": 3000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -763,16 +548,10 @@
         "value": 1000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -787,16 +566,10 @@
         "value": 2000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -811,20 +584,10 @@
         "value": 0,
         "special_event": {
           "id": "11",
-          "conditions": [
-            "1-2",
-            "3-4",
-            "5-6"
-          ],
+          "conditions": ["1-2", "3-4", "5-6"],
           "effect_type": "+-",
-          "effect_value": [
-            -4000,
-            0,
-            6000
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [-4000, 0, 6000],
+          "base_amount": [0]
         }
       }
     },
@@ -839,16 +602,10 @@
         "value": 2000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -863,19 +620,10 @@
         "value": 0,
         "special_event": {
           "id": "10",
-          "conditions": [
-            "1-2",
-            "3-6"
-          ],
+          "conditions": ["1-2", "3-6"],
           "effect_type": "*/",
-          "effect_value": [
-            0,
-            0.5
-          ],
-          "base_amount": [
-            0,
-            1
-          ]
+          "effect_value": [0, 0.5],
+          "base_amount": [0, 1]
         }
       }
     },
@@ -890,16 +638,10 @@
         "value": 3000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -914,16 +656,10 @@
         "value": 5000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -938,23 +674,10 @@
         "value": 0,
         "special_event": {
           "id": "12",
-          "conditions": [
-            "1-1",
-            "2-2",
-            "3-4",
-            "5-6"
-          ],
+          "conditions": ["1-1", "2-2", "3-4", "5-6"],
           "effect_type": "*/",
-          "effect_value": [
-            20,
-            5,
-            1,
-            0.5
-          ],
-          "base_amount": [
-            500,
-            1
-          ]
+          "effect_value": [20, 5, 1, 0.5],
+          "base_amount": [500, 1]
         }
       }
     },
@@ -969,16 +692,10 @@
         "value": 100000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -993,16 +710,10 @@
         "value": 5000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -1017,21 +728,10 @@
         "value": 0,
         "special_event": {
           "id": "13",
-          "conditions": [
-            "1-2",
-            "3-4",
-            "4-6"
-          ],
+          "conditions": ["1-2", "3-4", "4-6"],
           "effect_type": "*/",
-          "effect_value": [
-            1.5,
-            2,
-            3
-          ],
-          "base_amount": [
-            30000,
-            1
-          ]
+          "effect_value": [1.5, 2, 3],
+          "base_amount": [30000, 1]
         }
       }
     },
@@ -1046,16 +746,10 @@
         "value": 10000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -1070,21 +764,10 @@
         "value": 0,
         "special_event": {
           "id": "14",
-          "conditions": [
-            "1-1",
-            "2-3",
-            "4-6"
-          ],
+          "conditions": ["1-1", "2-3", "4-6"],
           "effect_type": "*/",
-          "effect_value": [
-            0,
-            0.5,
-            0.25
-          ],
-          "base_amount": [
-            0,
-            1
-          ]
+          "effect_value": [0, 0.5, 0.25],
+          "base_amount": [0, 1]
         }
       }
     },
@@ -1099,16 +782,10 @@
         "value": 10000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -1123,16 +800,10 @@
         "value": 10000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -1147,16 +818,10 @@
         "value": 30000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -1171,16 +836,10 @@
         "value": 40000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -1195,19 +854,10 @@
         "value": 0,
         "special_event": {
           "id": "15",
-          "conditions": [
-            "1-3",
-            "4-6"
-          ],
+          "conditions": ["1-3", "4-6"],
           "effect_type": "*/",
-          "effect_value": [
-            0,
-            2
-          ],
-          "base_amount": [
-            0,
-            1
-          ]
+          "effect_value": [0, 2],
+          "base_amount": [0, 1]
         }
       }
     },
@@ -1222,16 +872,10 @@
         "value": 50000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -1246,16 +890,10 @@
         "value": 5000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -1270,16 +908,10 @@
         "value": 50000,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -1294,21 +926,10 @@
         "value": 0,
         "special_event": {
           "id": "16",
-          "conditions": [
-            "1-1",
-            "2-3",
-            "4-6"
-          ],
+          "conditions": ["1-1", "2-3", "4-6"],
           "effect_type": "*/",
-          "effect_value": [
-            0,
-            0.5,
-            0.25
-          ],
-          "base_amount": [
-            0,
-            1
-          ]
+          "effect_value": [0, 0.5, 0.25],
+          "base_amount": [0, 1]
         }
       }
     },
@@ -1323,25 +944,10 @@
         "value": 0,
         "special_event": {
           "id": "17",
-          "conditions": [
-            "1-1",
-            "2-2",
-            "3-4",
-            "5-5",
-            "6-6"
-          ],
+          "conditions": ["1-1", "2-2", "3-4", "5-5", "6-6"],
           "effect_type": "+-",
-          "effect_value": [
-            500000,
-            100000,
-            30000,
-            -100000,
-            -500000
-          ],
-          "base_amount": [
-            0,
-            1
-          ]
+          "effect_value": [500000, 100000, 30000, -100000, -500000],
+          "base_amount": [0, 1]
         }
       }
     },
@@ -1356,16 +962,10 @@
         "value": 0,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     }
@@ -1382,16 +982,10 @@
         "value": 300,
         "special_event": {
           "id": "0",
-          "conditions": [
-            0
-          ],
+          "conditions": [0],
           "effect_type": "+-",
-          "effect_value": [
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [0],
+          "base_amount": [0]
         }
       }
     },
@@ -1406,18 +1000,10 @@
         "value": 0,
         "special_event": {
           "id": "2",
-          "conditions": [
-            "1-3",
-            "4-6"
-          ],
+          "conditions": ["1-3", "4-6"],
           "effect_type": "+-",
-          "effect_value": [
-            -600,
-            0
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [-600, 0],
+          "base_amount": [0]
         }
       }
     },
@@ -1432,23 +1018,10 @@
         "value": 0,
         "special_event": {
           "id": "3",
-          "conditions": [
-            "1-1",
-            "2-3",
-            "4-5",
-            "6-6"
-          ],
+          "conditions": ["1-1", "2-3", "4-5", "6-6"],
           "effect_type": "*/",
-          "effect_value": [
-            0,
-            1,
-            5,
-            10
-          ],
-          "base_amount": [
-            300,
-            1
-          ]
+          "effect_value": [0, 1, 5, 10],
+          "base_amount": [300, 1]
         }
       }
     },
@@ -1463,26 +1036,10 @@
         "value": 0,
         "special_event": {
           "id": "5",
-          "conditions": [
-            "1-1",
-            "2-2",
-            "3-3",
-            "4-4",
-            "5-5",
-            "6-6"
-          ],
+          "conditions": ["1-1", "2-2", "3-3", "4-4", "5-5", "6-6"],
           "effect_type": "+-",
-          "effect_value": [
-            100,
-            200,
-            300,
-            400,
-            500,
-            600
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [100, 200, 300, 400, 500, 600],
+          "base_amount": [0]
         }
       }
     },
@@ -1497,19 +1054,10 @@
         "value": 0,
         "special_event": {
           "id": "6",
-          "conditions": [
-            "1-3",
-            "4-6"
-          ],
+          "conditions": ["1-3", "4-6"],
           "effect_type": "*/",
-          "effect_value": [
-            0.5,
-            2
-          ],
-          "base_amount": [
-            0,
-            1
-          ]
+          "effect_value": [0.5, 2],
+          "base_amount": [0, 1]
         }
       }
     },
@@ -1524,18 +1072,10 @@
         "value": 0,
         "special_event": {
           "id": "8",
-          "conditions": [
-            "1-3",
-            "4-6"
-          ],
+          "conditions": ["1-3", "4-6"],
           "effect_type": "+-",
-          "effect_value": [
-            -1000,
-            3000
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [-1000, 3000],
+          "base_amount": [0]
         }
       }
     },
@@ -1550,20 +1090,10 @@
         "value": 0,
         "special_event": {
           "id": "11",
-          "conditions": [
-            "1-2",
-            "3-4",
-            "5-6"
-          ],
+          "conditions": ["1-2", "3-4", "5-6"],
           "effect_type": "+-",
-          "effect_value": [
-            -4000,
-            0,
-            6000
-          ],
-          "base_amount": [
-            0
-          ]
+          "effect_value": [-4000, 0, 6000],
+          "base_amount": [0]
         }
       }
     }
