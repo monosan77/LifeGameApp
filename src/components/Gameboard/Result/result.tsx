@@ -6,6 +6,7 @@ import Link from 'next/link';
 interface resultProps {
   moneys: number[];
   member: Members[];
+  roomId: string;
 }
 
 interface resultArrayProps {
@@ -14,7 +15,7 @@ interface resultArrayProps {
   rank?: number;
 }
 
-const Result = ({ moneys, member }: resultProps) => {
+const Result = ({ moneys, member, roomId }: resultProps) => {
   const resultData: resultArrayProps[] = member.map((player, index) => ({
     user: player.name,
     sum: moneys[index],
@@ -31,6 +32,24 @@ const Result = ({ moneys, member }: resultProps) => {
     }
     rank++;
   });
+
+  const finishHandler = async () => {
+    try {
+      const res = await fetch('/api/game/finish', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ roomId }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+      } else {
+        console.error('roomの削除に失敗しました。', await res.json());
+      }
+    } catch (error) {
+      console.error('roomの削除時にエラーが発生しました。', error);
+    }
+  };
 
   return (
     <div className={styles.resultPage}>
@@ -65,7 +84,7 @@ const Result = ({ moneys, member }: resultProps) => {
         ))}
       </div>
       <Link href="../" className={styles.returnTop}>
-        <button>TOP</button>
+        <button onClick={finishHandler}>TOP</button>
       </Link>
     </div>
   );

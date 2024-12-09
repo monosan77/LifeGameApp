@@ -38,7 +38,7 @@ export default function Gameboard({
   firstEventData,
 }: Prop) {
   const [playerPositions, setPlayerPositions] = useState<number[]>(
-    Array(member.length).fill(0)
+    Array(member.length).fill(50)
   ); // 3人のプレイヤーの位置を管理（初期値は全員0）
   const [currentPlayer, setCurrentPlayer] = useState(0); // 現在のプレイヤーを追跡
   const [diceResult, setDiceResult] = useState<number>(0); // ダイスの結果を管理
@@ -62,8 +62,8 @@ export default function Gameboard({
   const [isResult, setIsResult] = useState(false);
 
   //chat画面
-  const [isChat, setIsChat] = useState(false);
   const [chatMessageArray, setChatMessageArray] = useState<MessageProps[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // const [playersFinished, setPlayersFinished] = useState([]);
 
@@ -439,83 +439,82 @@ export default function Gameboard({
 
   //chat
   const chatHandler = () => {
-    setIsChat(!isChat);
+    setIsOpen(!isOpen);
   };
   return (
     <>
-      {isResult && <Result member={member} moneys={moneys} />}
+      {isResult && <Result member={member} moneys={moneys} roomId={roomId} />}
       <main className={styles.all}>
+        <Chat
+          yourInfo={yourInfo}
+          chatMessageArray={chatMessageArray}
+          chatHandler={chatHandler}
+          isOpen={isOpen}
+        />
         <div
-          className={isChat === true ? styles.gameBoard : ''}
-          style={{ height: '100vh' }}
+          className={isOpen ? `${styles.transField} open` : styles.gameField}
         >
-          {isChat && (
-            <Chat yourInfo={yourInfo} chatMessageArray={chatMessageArray} />
-          )}
-          <div className={styles.gameField}>
-            <TurnDisplay
-              yourInfo={yourInfo}
-              member={member}
-              currentPlayer={currentPlayer}
-            />
-
-            <Board
-              playerPositions={playerPositions}
-              isErrorAnimation={isErrorAnimation}
-              errorMessage={errorMessage}
-            />
-
-            <BottomBar
-              yourInfo={yourInfo}
-              member={member}
-              moneys={moneys}
-              currentPlayer={currentPlayer}
-              pushDiceBtn={pushDiceBtn}
-              diceResult={diceResult}
-              isTachDiceBtn={isTachDiceBtn}
-              chatHandler={chatHandler}
-            />
-          </div>
-
-          <EventPopUp
-            isEventPop={isEventPop}
-            eventDetails={eventDetails}
-            member={member}
-            currentPlayer={currentPlayer}
-            yourInfo={yourInfo}
-            eventIgnition={eventIgnition}
-          />
-
-          <TaunChangeTelop
-            isTaunChangeAnimation={isTaunChangeAnimation}
+          <TurnDisplay
             yourInfo={yourInfo}
             member={member}
             currentPlayer={currentPlayer}
           />
 
-          <Roulette
-            isRouletteAnimation={isRouletteAnimation}
-            rouletteStyle={rouletteStyle}
+          <Board
+            playerPositions={playerPositions}
+            isErrorAnimation={isErrorAnimation}
+            errorMessage={errorMessage}
           />
 
-          <RescueEventPopUp
-            isRescueEventPop={isRescueEventPop}
-            eventDetails={eventDetails}
-            member={member}
-            currentPlayer={currentPlayer}
+          <BottomBar
             yourInfo={yourInfo}
-            eventRescueBtn={eventRescueBtn}
-          />
-
-          <CountUpPop
-            isCountUpPop={isCountUpPop}
-            eventDetails={eventDetails}
-            isCountUpAnimation={isCountUpAnimation}
-            beforeMoney={beforeMoney}
+            member={member}
             moneys={moneys}
             currentPlayer={currentPlayer}
+            pushDiceBtn={pushDiceBtn}
+            diceResult={diceResult}
+            isTachDiceBtn={isTachDiceBtn}
           />
         </div>
+
+        <EventPopUp
+          isEventPop={isEventPop}
+          eventDetails={eventDetails}
+          member={member}
+          currentPlayer={currentPlayer}
+          yourInfo={yourInfo}
+          eventIgnition={eventIgnition}
+        />
+
+        <TaunChangeTelop
+          isTaunChangeAnimation={isTaunChangeAnimation}
+          yourInfo={yourInfo}
+          member={member}
+          currentPlayer={currentPlayer}
+        />
+
+        <Roulette
+          isRouletteAnimation={isRouletteAnimation}
+          rouletteStyle={rouletteStyle}
+        />
+
+        <RescueEventPopUp
+          isRescueEventPop={isRescueEventPop}
+          eventDetails={eventDetails}
+          member={member}
+          currentPlayer={currentPlayer}
+          yourInfo={yourInfo}
+          eventRescueBtn={eventRescueBtn}
+        />
+
+        <CountUpPop
+          isCountUpPop={isCountUpPop}
+          eventDetails={eventDetails}
+          isCountUpAnimation={isCountUpAnimation}
+          beforeMoney={beforeMoney}
+          moneys={moneys}
+          currentPlayer={currentPlayer}
+        />
       </main>
     </>
   );

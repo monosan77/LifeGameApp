@@ -24,6 +24,7 @@
     "react-countup": "^6.5.3",
     "react-dom": "^18",
     "react-spinners": "^0.14.1",
+    "spinners": "^1.2.2",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

@@ -10,9 +10,16 @@ interface MessageProps {
 interface ChatProps {
   yourInfo: Members;
   chatMessageArray: MessageProps[];
+  chatHandler: () => void;
+  isOpen: boolean;
 }
 
-const Chat = ({ yourInfo, chatMessageArray }: ChatProps) => {
+const Chat = ({
+  yourInfo,
+  chatMessageArray,
+  chatHandler,
+  isOpen,
+}: ChatProps) => {
   const [message, setMessage] = useState<string>('');
 
   const sendingHandler = async () => {
@@ -32,8 +39,6 @@ const Chat = ({ yourInfo, chatMessageArray }: ChatProps) => {
         body: JSON.stringify(MessageArray),
       });
 
-      console.log(response);
-
       if (!response.ok) {
         throw new Error(`エラーが発生しました: ${response.statusText}`);
       }
@@ -44,7 +49,10 @@ const Chat = ({ yourInfo, chatMessageArray }: ChatProps) => {
   };
 
   return (
-    <div className={styles.chat_container}>
+    <div className={`${styles.chat_container} ${isOpen ? styles.open : ''}`}>
+      <button className={styles.toggle_button} onClick={chatHandler}>
+        チャット
+      </button>
       <div className={styles.chat_box}>
         {chatMessageArray.map((messages, index) => (
           <div key={index} className={styles.message}>
@@ -53,7 +61,6 @@ const Chat = ({ yourInfo, chatMessageArray }: ChatProps) => {
             ) : (
               <p className={styles.user_name}>{messages.name}</p>
             )}
-
             <p className={styles.message_bubble}>{messages.message}</p>
           </div>
         ))}
@@ -63,7 +70,6 @@ const Chat = ({ yourInfo, chatMessageArray }: ChatProps) => {
           type="text"
           value={message}
           placeholder="メッセージを入力"
-          // onChange={handleChange}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setMessage(e.target.value)
           }

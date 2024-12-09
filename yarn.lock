@@ -4713,6 +4713,11 @@ source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.1:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
+spinners@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/spinners/-/spinners-1.2.2.tgz#0af88cb6b3de9a6884ab1e2e9220a612d72c73c3"
+  integrity sha512-gAErk8zdlRzdfDJ0OszajKDbTnEhDfljtMfxwl62l8FeG2PaKEyIKKrDi+4jaKP5STe5pfFL0+OVTTAHiGe2eg==
+
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
