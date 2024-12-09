@@ -38,7 +38,7 @@ export default function Gameboard({
   firstEventData,
 }: Prop) {
   const [playerPositions, setPlayerPositions] = useState<number[]>(
-    Array(member.length).fill(50)
+    Array(member.length).fill(0)
   ); // 3人のプレイヤーの位置を管理（初期値は全員0）
   const [currentPlayer, setCurrentPlayer] = useState(0); // 現在のプレイヤーを追跡
   const [diceResult, setDiceResult] = useState<number>(0); // ダイスの結果を管理

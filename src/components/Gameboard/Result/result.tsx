@@ -41,9 +41,7 @@ const Result = ({ moneys, member, roomId }: resultProps) => {
         body: JSON.stringify({ roomId }),
       });
 
-      if (res.ok) {
-        const data = await res.json();
-      } else {
+      if (!res.ok) {
         console.error('roomの削除に失敗しました。', await res.json());
       }
     } catch (error) {
