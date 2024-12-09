@@ -95,16 +95,19 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
         method: 'DELETE',
       });
     }
-    const handlePopState = () => {
-      deleteRoomData();
-      alert('ホストがページから離れたため、ルームが削除されます。');
+    const handlePopState = async () => {
+      // alert('ホストがページから離れたため、ルームが削除されます。');
+      await deleteRoomData();
+      return true;
     };
     if (yourInfo.host) {
-      return window.addEventListener('popstate', handlePopState);
+      window.addEventListener('popstate', handlePopState);
     }
 
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      if (yourInfo.host) {
+        window.removeEventListener('popstate', handlePopState);
+      }
     };
   }, [roomId, yourInfo.host]);
 
