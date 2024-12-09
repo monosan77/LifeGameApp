@@ -1,6 +1,6 @@
 .bottomBar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin: 0 auto;
   width: 100%; /* 幅を全体に揃える */
@@ -9,7 +9,6 @@
   top: 20px;
 }
 
-.chat,
 .dice {
   width: 15%;
   height: 20vh;
@@ -24,10 +23,6 @@
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-.chat{
-  z-index: 50000;
-}
-
 .chat:hover,
 .dice:hover {
   background-color: rgba(249, 221, 187, 100%); /* ホバー時に背景色を変更 */
@@ -37,7 +32,7 @@
 
 .usersTable {
   display: flex; /* 横並びに配置 */
-  width: 70%;
+  width: 85%;
   height: 20vh;
   background-color: rgba(249, 221, 187, 80%);
   border: none;
