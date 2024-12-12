@@ -95,14 +95,26 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
         method: 'DELETE',
       });
     }
+    async function deleteMember() {
+      await fetch(`/api/session/deleteMember?roomId=${roomId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ yourInfo, roomData }),
+      });
+    }
     const handlePopState = async () => {
       // alert('ホストがページから離れたため、ルームが削除されます。');
-      await deleteRoomData();
-      return true;
+      if (yourInfo.host) {
+        await deleteRoomData();
+      } else if (!yourInfo.host) {
+        await deleteMember();
+        await syncRoomInfo();
+      }
     };
-    if (yourInfo.host) {
-      window.addEventListener('popstate', handlePopState);
-    }
+
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
       if (yourInfo.host) {
@@ -135,28 +147,6 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   };
 
   useEffect(() => {
-    const syncRoomInfo = async () => {
-      try {
-        const response = await fetch(
-          `/api/pusher/wait-room-pusher?roomId=${roomId}`
-        );
-        if (response.status === 404) {
-          setErrorMessage('ルームが存在しないためトップページへ戻ります。');
-
-          setTimeout(() => {
-            router.push('/');
-          }, 2000);
-        }
-        if (!response.ok) {
-          throw new Error('ルーム同期に失敗しました');
-        }
-      } catch {
-        setErrorMessage(
-          'ルーム情報の同期に失敗しました。ページをリロードしてください。'
-        );
-      }
-    };
-
     syncRoomInfo();
 
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
@@ -203,6 +193,29 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
       </div>
     );
   }
+
+  const syncRoomInfo = async () => {
+    try {
+      const response = await fetch(
+        `/api/pusher/wait-room-pusher?roomId=${roomId}`
+      );
+      const data = await response.json();
+      if (data.message === 'ルームが存在しません。') {
+        setErrorMessage('ルームが存在しないためトップページへ戻ります。');
+
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
+      }
+      if (!response.ok) {
+        throw new Error('ルーム同期に失敗しました');
+      }
+    } catch {
+      setErrorMessage(
+        'ルーム情報の同期に失敗しました。ページをリロードしてください。'
+      );
+    }
+  };
 
   return (
     <div
