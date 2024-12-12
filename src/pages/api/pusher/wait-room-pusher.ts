@@ -41,7 +41,7 @@ export default async function handler(
     });
 
     if (!roomInfo) {
-      return res.status(404).json({ message: 'ルームが存在しません。' });
+      return res.status(200).json({ message: 'ルームが存在しません。' });
     }
 
     // Pusherでの通知

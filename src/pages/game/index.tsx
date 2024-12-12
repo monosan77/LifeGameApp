@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { GetServerSidePropsContext, GetServerSideProps } from 'next';
 import WaitingRoom from '@/components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
@@ -88,25 +88,64 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
+  const syncRoomInfo = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `/api/pusher/wait-room-pusher?roomId=${roomId}`
+      );
+      const data = await response.json();
+      if (data.message === 'ルームが存在しません。') {
+        setErrorMessage('ルームが存在しないためトップページへ戻ります。');
+
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
+      }
+      if (!response.ok) {
+        throw new Error('ルーム同期に失敗しました');
+      }
+    } catch {
+      setErrorMessage(
+        'ルーム情報の同期に失敗しました。ページをリロードしてください。'
+      );
+    }
+  }, [roomId, router]);
+
   // ブラウザの戻るボタンを押したときにホストの場合はルームを削除する関数
+
   useEffect(() => {
     async function deleteRoomData() {
       await fetch(`/api/session/deleteRoom?roomId=${roomId}`, {
         method: 'DELETE',
       });
     }
-    const handlePopState = () => {
-      deleteRoomData();
-      alert('ホストがページから離れたため、ルームが削除されます。');
-    };
-    if (yourInfo.host) {
-      return window.addEventListener('popstate', handlePopState);
+    async function deleteMember() {
+      await fetch(`/api/session/deleteMember?roomId=${roomId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ yourInfo, roomData }),
+      });
     }
+    const handlePopState = async () => {
+      // alert('ホストがページから離れたため、ルームが削除されます。');
+      if (yourInfo.host) {
+        await deleteRoomData();
+      } else if (!yourInfo.host) {
+        await deleteMember();
+        await syncRoomInfo();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      if (yourInfo.host) {
+        window.removeEventListener('popstate', handlePopState);
+      }
     };
-  }, [roomId, yourInfo.host]);
+  }, [roomData, roomId, syncRoomInfo, yourInfo, yourInfo.host]);
 
   const startGame = async () => {
     if (!yourInfo.host) {
@@ -132,28 +171,6 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   };
 
   useEffect(() => {
-    const syncRoomInfo = async () => {
-      try {
-        const response = await fetch(
-          `/api/pusher/wait-room-pusher?roomId=${roomId}`
-        );
-        if (response.status === 404) {
-          setErrorMessage('ルームが存在しないためトップページへ戻ります。');
-
-          setTimeout(() => {
-            router.push('/');
-          }, 2000);
-        }
-        if (!response.ok) {
-          throw new Error('ルーム同期に失敗しました');
-        }
-      } catch {
-        setErrorMessage(
-          'ルーム情報の同期に失敗しました。ページをリロードしてください。'
-        );
-      }
-    };
-
     syncRoomInfo();
 
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
@@ -186,7 +203,7 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
       // pusher.unsubscribe(roomId);
       pusher.disconnect();
     };
-  }, [roomId, router]);
+  }, [roomId, router, syncRoomInfo]);
 
   if (gameStarted) {
     return (

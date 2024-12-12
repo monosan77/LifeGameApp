@@ -18,7 +18,7 @@ export default async function handler(
     const uniqueId = Array.isArray(roomId) ? roomId[0] : roomId;
     await prisma.gameRoom.delete({
       where: {
-        id: uniqueId + '1',
+        id: uniqueId,
       },
       include: {
         member: true,

@@ -7,4 +7,5 @@ export interface Members {
   id: string;
   name: string;
   host: boolean;
+  gameRoomId: string;
 }
