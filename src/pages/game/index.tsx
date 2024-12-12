@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { GetServerSidePropsContext, GetServerSideProps } from 'next';
 import WaitingRoom from '@/components/WaitingRoom/waiting-room';
 import { Members, RoomInfo } from '@/types/session';
@@ -88,7 +88,31 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
+  const syncRoomInfo = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `/api/pusher/wait-room-pusher?roomId=${roomId}`
+      );
+      const data = await response.json();
+      if (data.message === 'ルームが存在しません。') {
+        setErrorMessage('ルームが存在しないためトップページへ戻ります。');
+
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
+      }
+      if (!response.ok) {
+        throw new Error('ルーム同期に失敗しました');
+      }
+    } catch {
+      setErrorMessage(
+        'ルーム情報の同期に失敗しました。ページをリロードしてください。'
+      );
+    }
+  }, [roomId, router]);
+
   // ブラウザの戻るボタンを押したときにホストの場合はルームを削除する関数
+
   useEffect(() => {
     async function deleteRoomData() {
       await fetch(`/api/session/deleteRoom?roomId=${roomId}`, {
@@ -121,7 +145,7 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
         window.removeEventListener('popstate', handlePopState);
       }
     };
-  }, [roomId, yourInfo.host]);
+  }, [roomData, roomId, syncRoomInfo, yourInfo, yourInfo.host]);
 
   const startGame = async () => {
     if (!yourInfo.host) {
@@ -179,7 +203,7 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
       // pusher.unsubscribe(roomId);
       pusher.disconnect();
     };
-  }, [roomId, router]);
+  }, [roomId, router, syncRoomInfo]);
 
   if (gameStarted) {
     return (
@@ -193,29 +217,6 @@ const WaitingRoomPage: React.FC<WaitingRoomPageProps> = ({
       </div>
     );
   }
-
-  const syncRoomInfo = async () => {
-    try {
-      const response = await fetch(
-        `/api/pusher/wait-room-pusher?roomId=${roomId}`
-      );
-      const data = await response.json();
-      if (data.message === 'ルームが存在しません。') {
-        setErrorMessage('ルームが存在しないためトップページへ戻ります。');
-
-        setTimeout(() => {
-          router.push('/');
-        }, 2000);
-      }
-      if (!response.ok) {
-        throw new Error('ルーム同期に失敗しました');
-      }
-    } catch {
-      setErrorMessage(
-        'ルーム情報の同期に失敗しました。ページをリロードしてください。'
-      );
-    }
-  };
 
   return (
     <div
